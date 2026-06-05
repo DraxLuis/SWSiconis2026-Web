@@ -1,0 +1,32 @@
+{
+  "file": "clasificador.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "CLASIFIC",
+      "type": "C",
+      "length": 15,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 250,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [],
+  "total_records": 257,
+  "version": 48
+}

@@ -1,0 +1,266 @@
+{
+  "file": "expedientes_gastos_plantilla.dbf",
+  "fields": [
+    {
+      "name": "ANO_PROC",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "MES_EJE",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "EXPEDIENTE",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_OP",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "MOD_COMPRA",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_PROC",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "AREA",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "CICLO",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "FASE",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_REG",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "CORR",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "RB",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_FINAN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "COD_DOC",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "NUM_DOC",
+      "type": "C",
+      "length": 35,
+      "decimal": 0
+    },
+    {
+      "name": "FECHA_DOC",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "TP",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "TR",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "TC",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "ANO_BANCO",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "BANCO",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "CTA_CTE",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "PROVEEDOR",
+      "type": "C",
+      "length": 11,
+      "decimal": 0
+    },
+    {
+      "name": "PROY",
+      "type": "C",
+      "length": 7,
+      "decimal": 0
+    },
+    {
+      "name": "CLASIFICAD",
+      "type": "C",
+      "length": 15,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_FUNC",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_GIR",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "COD_DOC_B",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "NUM_DOC_B",
+      "type": "C",
+      "length": 15,
+      "decimal": 0
+    },
+    {
+      "name": "FEC_DOC_B",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "MONEDA",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "TIPOCAMBIO",
+      "type": "N",
+      "length": 10,
+      "decimal": 2
+    },
+    {
+      "name": "MONTO_ORIG",
+      "type": "N",
+      "length": 19,
+      "decimal": 2
+    },
+    {
+      "name": "MONTO",
+      "type": "N",
+      "length": 19,
+      "decimal": 2
+    },
+    {
+      "name": "FEC_APROB",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "FEC_PROC",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EST",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "EST_REG",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "CERTIF",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "CERTIF_SEC",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 5,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [],
+  "total_records": 0,
+  "version": 48
+}

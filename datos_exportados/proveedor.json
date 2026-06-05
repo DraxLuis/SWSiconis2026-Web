@@ -1,0 +1,93 @@
+{
+  "file": "proveedor.dbf",
+  "fields": [
+    {
+      "name": "RUC",
+      "type": "C",
+      "length": 11,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "DIRECCION",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "RUC": "0",
+      "NOMBRE": "CARRASCO MARTINEZ MARIA HERLINDA",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10002508058",
+      "NOMBRE": "QUEVEDO BARCO RICARDO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10026589253",
+      "NOMBRE": "BACA TAVARA WALTER ALFREDO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10027797399",
+      "NOMBRE": "SANTA CRUZ PALACIOS JULIO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10028569420",
+      "NOMBRE": "PALACIOS MIÑAN CHRISTIAN RONALD",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10028735532",
+      "NOMBRE": "CORREA GARCIA CARLOS AUGUSTO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10028999904",
+      "NOMBRE": "RIVERA ALVARADO RODIN OMAR",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10031271369",
+      "NOMBRE": "CALLE RENTERIA VICTOR AUGUSTO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10032000148",
+      "NOMBRE": "GOMEZ ADRIANZEN NESTOR RODOLFO",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "RUC": "10032000521",
+      "NOMBRE": "GARCIA DE OCAÑA LEYVY MARLENY",
+      "DIRECCION": "",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 392,
+  "version": 48
+}

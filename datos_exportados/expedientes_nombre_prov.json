@@ -1,0 +1,62 @@
+{
+  "file": "expedientes_nombre_prov.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "EXPEDIENTE",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "CICLO",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "FASE",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_REG",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "RUC",
+      "type": "C",
+      "length": 11,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [],
+  "total_records": 0,
+  "version": 48
+}

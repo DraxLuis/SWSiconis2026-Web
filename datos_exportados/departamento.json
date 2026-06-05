@@ -1,0 +1,77 @@
+{
+  "file": "departamento.dbf",
+  "fields": [
+    {
+      "name": "DEPARTAMEN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "DEPARTAMEN": "01",
+      "NOMBRE": "AMAZONAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "02",
+      "NOMBRE": "ANCASH",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "03",
+      "NOMBRE": "APURIMAC",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "04",
+      "NOMBRE": "AREQUIPA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "05",
+      "NOMBRE": "AYACUCHO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "06",
+      "NOMBRE": "CAJAMARCA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "07",
+      "NOMBRE": "PROVINCIA CONSTITUCIONAL DEL CALLAO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "08",
+      "NOMBRE": "CUSCO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "09",
+      "NOMBRE": "HUANCAVELICA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "10",
+      "NOMBRE": "HUANUCO",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 30,
+  "version": 48
+}

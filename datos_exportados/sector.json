@@ -1,0 +1,93 @@
+{
+  "file": "sector.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SECTOR",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "00",
+      "NOMBRE": "FICTICIO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "01",
+      "NOMBRE": "PRESIDENCIA CONSEJO MINISTROS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "03",
+      "NOMBRE": "CULTURA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "04",
+      "NOMBRE": "PODER JUDICIAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "05",
+      "NOMBRE": "AMBIENTAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "06",
+      "NOMBRE": "JUSTICIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "07",
+      "NOMBRE": "INTERIOR",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "08",
+      "NOMBRE": "RELACIONES EXTERIORES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "09",
+      "NOMBRE": "ECONOMIA Y FINANZAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "10",
+      "NOMBRE": "EDUCACION",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 35,
+  "version": 48
+}

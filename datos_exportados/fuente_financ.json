@@ -1,0 +1,57 @@
+{
+  "file": "fuente_financ.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "RUBRO",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "FUENTE_FIN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 250,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2025",
+      "RUBRO": "5",
+      "FUENTE_FIN": "07",
+      "NOMBRE": "FONDO DE COMPENSACION MUNICIPAL"
+    },
+    {
+      "ANO_EJE": "2025",
+      "RUBRO": "5",
+      "FUENTE_FIN": "08",
+      "NOMBRE": "IMPUESTOS MUNICIPALES"
+    },
+    {
+      "ANO_EJE": "2025",
+      "RUBRO": "2",
+      "FUENTE_FIN": "09",
+      "NOMBRE": "RECURSOS DIRECTAMENTE RECAUDADOS"
+    },
+    {
+      "ANO_EJE": "2025",
+      "RUBRO": "4",
+      "FUENTE_FIN": "13",
+      "NOMBRE": "DONACIONES Y TRANSFERENCIAS"
+    }
+  ],
+  "total_records": 20,
+  "version": 48
+}

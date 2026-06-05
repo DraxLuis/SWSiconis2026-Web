@@ -1,0 +1,109 @@
+{
+  "file": "distrito.dbf",
+  "fields": [
+    {
+      "name": "DEPARTAMEN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "PROVINCIA",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "DISTRITO",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "CHACHAPOYAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "02",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "HUARAZ",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "03",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "ABANCAY",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "04",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "AREQUIPA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "05",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "AYACUCHO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "06",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "CAJAMARCA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "07",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "CALLAO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "08",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "CUSCO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "09",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "HUANCAVELICA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "10",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "NOMBRE": "HUANUCO",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 2277,
+  "version": 48
+}

@@ -1,0 +1,109 @@
+{
+  "file": "activ_obra_accinv.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "ACTOBRACIN",
+      "type": "C",
+      "length": 7,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "M",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000053",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000075",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000079",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000129",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000140",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000141",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000153",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000166",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000172",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000179",
+      "NOMBRE": "(memo)",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 69,
+  "version": 48
+}

@@ -1,0 +1,93 @@
+{
+  "file": "provincia.dbf",
+  "fields": [
+    {
+      "name": "DEPARTAMEN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "PROVINCIA",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "01",
+      "NOMBRE": "CHACHAPOYAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "02",
+      "NOMBRE": "BAGUA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "03",
+      "NOMBRE": "BONGARA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "04",
+      "NOMBRE": "CONDORCANQUI",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "05",
+      "NOMBRE": "LUYA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "06",
+      "NOMBRE": "RODRIGUEZ DE MENDOZA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "01",
+      "PROVINCIA": "07",
+      "NOMBRE": "UCTUBAMBA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "02",
+      "PROVINCIA": "01",
+      "NOMBRE": "HUARAZ",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "02",
+      "PROVINCIA": "02",
+      "NOMBRE": "AIJA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "DEPARTAMEN": "02",
+      "PROVINCIA": "03",
+      "NOMBRE": "ANTONIO RAIMONDI",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 225,
+  "version": 48
+}

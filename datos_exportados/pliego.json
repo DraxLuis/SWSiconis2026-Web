@@ -1,0 +1,46 @@
+{
+  "file": "pliego.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SECTOR",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "PLIEGO",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SECTOR": "00",
+      "PLIEGO": "01",
+      "NOMBRE": "HUANCABAMBA",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 1,
+  "version": 48
+}

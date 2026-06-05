@@ -1,0 +1,109 @@
+{
+  "file": "documentos_giros.DBF",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "COD_DOC",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "NUM_DOC",
+      "type": "C",
+      "length": 20,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 100,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "10.26.81.2600328",
+      "NOMBRE": "GARCIA ZURITA ELMER"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.65.2600442",
+      "NOMBRE": "CMAC PIURA S.A.C"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.65.2600443",
+      "NOMBRE": "BANCO PICHINCHA"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.81.2600393",
+      "NOMBRE": "SUNAT/BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.81.2600438",
+      "NOMBRE": "SUNAT/BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.81.2600440",
+      "NOMBRE": "SUNAT/BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.84.2600394",
+      "NOMBRE": "BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.84.2600439",
+      "NOMBRE": "BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.88.2600497",
+      "NOMBRE": "AFP/BANCO DE LA NACION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "COD_DOC": "243",
+      "NUM_DOC": "100.26.88.2600498",
+      "NOMBRE": "AFP/BANCO DE LA NACION"
+    }
+  ],
+  "total_records": 1873,
+  "version": 48
+}

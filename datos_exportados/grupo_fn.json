@@ -1,0 +1,77 @@
+{
+  "file": "grupo_fn.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "GRUPO_FN",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 250,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0005",
+      "NOMBRE": "PLANEAMIENTO INSTITUCIONAL"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0007",
+      "NOMBRE": "DIRECCION Y SUPERVISION SUPERIOR"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0008",
+      "NOMBRE": "ASESORAMIENTO Y APOYO"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0010",
+      "NOMBRE": "INFRAESTRUCTURA Y EQUIPAMIENTO"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0012",
+      "NOMBRE": "CONTROL INTERNO"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0017",
+      "NOMBRE": "INNOVACION TECNOLOGICA"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0019",
+      "NOMBRE": "TRANSFERENCIAS DE CARACTER GENERAL"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0021",
+      "NOMBRE": "REGISTROS CIVILES E IDENTIDAD"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0031",
+      "NOMBRE": "SEGURIDAD VECINAL Y COMUNAL"
+    },
+    {
+      "ANO_EJE": "2026",
+      "GRUPO_FN": "0035",
+      "NOMBRE": "PREVENCION DE DESASTRES"
+    }
+  ],
+  "total_records": 37,
+  "version": 48
+}

@@ -1,0 +1,81 @@
+{
+  "file": "generica.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_TRANS",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "GENERICA",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 250,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "1",
+      "NOMBRE": "PERSONAL Y OBLIGACIONES SOCIALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "2",
+      "NOMBRE": "PENSIONES Y OTRAS PRESTACIONES SOCIALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "3",
+      "NOMBRE": "BIENES Y SERVICIOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "4",
+      "NOMBRE": "DONACIONES Y TRANSFERENCIAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "5",
+      "NOMBRE": "OTROS GASTOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "TIPO_TRANS": "2",
+      "GENERICA": "6",
+      "NOMBRE": "ADQUISICION DE ACTIVOS NO FINANCIEROS",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 6,
+  "version": 48
+}

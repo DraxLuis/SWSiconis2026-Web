@@ -1,0 +1,93 @@
+{
+  "file": "producto_proyecto.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "ACT_PROY",
+      "type": "C",
+      "length": 7,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "M",
+      "length": 4,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2001621",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2401152",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2444417",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2450036",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2490394",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2493077",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2493580",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2526828",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2526863",
+      "NOMBRE": "(memo)"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACT_PROY": "2529158",
+      "NOMBRE": "(memo)"
+    }
+  ],
+  "total_records": 57,
+  "version": 48
+}

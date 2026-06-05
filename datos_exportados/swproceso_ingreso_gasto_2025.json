@@ -1,0 +1,87 @@
+{
+  "file": "swproceso_ingreso_gasto_2025.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "CICLO",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "FASE",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "MES_EJE",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "ARCHIVO",
+      "type": "C",
+      "length": 100,
+      "decimal": 0
+    },
+    {
+      "name": "FEC_CREA",
+      "type": "D",
+      "length": 8,
+      "decimal": 0
+    },
+    {
+      "name": "FEC_CARGA",
+      "type": "D",
+      "length": 8,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "CICLO": "G",
+      "FASE": "T",
+      "MES_EJE": "01",
+      "ARCHIVO": "REPORTEA_GASTOS_01.XLSX",
+      "FEC_CREA": "20260417",
+      "FEC_CARGA": "20260527"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "CICLO": "G",
+      "FASE": "T",
+      "MES_EJE": "02",
+      "ARCHIVO": "REPORTEA_GASTOS_02.XLSX",
+      "FEC_CREA": "20260417",
+      "FEC_CARGA": "20260527"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "CICLO": "G",
+      "FASE": "T",
+      "MES_EJE": "03",
+      "ARCHIVO": "REPORTEA_GASTOS_03.XLSX",
+      "FEC_CREA": "20260417",
+      "FEC_CARGA": "20260527"
+    }
+  ],
+  "total_records": 3,
+  "version": 48
+}

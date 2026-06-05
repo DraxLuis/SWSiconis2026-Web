@@ -1,0 +1,333 @@
+{
+  "file": "ejecutora.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C",
+      "length": 6,
+      "decimal": 0
+    },
+    {
+      "name": "SECTOR",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "PLIEGO",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "GESTORA",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "EJECUTORA",
+      "type": "C",
+      "length": 3,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "LOCALIDAD",
+      "type": "C",
+      "length": 100,
+      "decimal": 0
+    },
+    {
+      "name": "LUGAR",
+      "type": "C",
+      "length": 50,
+      "decimal": 0
+    },
+    {
+      "name": "LUGAR_NUM",
+      "type": "C",
+      "length": 5,
+      "decimal": 0
+    },
+    {
+      "name": "LUGAR_MZA",
+      "type": "C",
+      "length": 20,
+      "decimal": 0
+    },
+    {
+      "name": "LUGAR_LOT",
+      "type": "C",
+      "length": 20,
+      "decimal": 0
+    },
+    {
+      "name": "FAX",
+      "type": "C",
+      "length": 20,
+      "decimal": 0
+    },
+    {
+      "name": "E_MAIL",
+      "type": "C",
+      "length": 100,
+      "decimal": 0
+    },
+    {
+      "name": "RUC_EJEC",
+      "type": "C",
+      "length": 11,
+      "decimal": 0
+    },
+    {
+      "name": "DEPARTAMEN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "PROVINCIA",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "DISTRITO",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 2,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000003",
+      "SECTOR": "01",
+      "PLIEGO": "001",
+      "GESTORA": "01",
+      "EJECUTORA": "003",
+      "NOMBRE": "SECRETARIA GENERAL - PCM",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "JR. CARABAYA- CUADRA 1 - PALACIO DE GOBIERNO",
+      "LUGAR_NUM": "S/N",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4469674",
+      "E_MAIL": "ktapia@pcm.gob.pe",
+      "RUC_EJEC": "20168999926",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000005",
+      "SECTOR": "01",
+      "PLIEGO": "002",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "INSTITUTO NACIONAL DE ESTADISTICA E INFORMATICA- INEI",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Av. Gral. Garzón",
+      "LUGAR_NUM": "658",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4338405",
+      "E_MAIL": "",
+      "RUC_EJEC": "20131369981",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "13",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000009",
+      "SECTOR": "26",
+      "PLIEGO": "006",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "INDECI - INSTITUTO NACIONAL DE DEFENSA CIVIL",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Esq. Calle 1 y 21 - Urb. Corpac",
+      "LUGAR_NUM": "S/N",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "2243349",
+      "E_MAIL": "dnl@indeci.gob.pe",
+      "RUC_EJEC": "20135890031",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "31",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000011",
+      "SECTOR": "35",
+      "PLIEGO": "008",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "COMISION DE PROMOCION DEL PERU PARA LA EXPORTACION Y EL TURISMO - PROMPERU",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Repùblica de Panamá",
+      "LUGAR_NUM": "3647",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "2215533",
+      "E_MAIL": "sae@prompex. gob. pe",
+      "RUC_EJEC": "20307167442",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "31",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000012",
+      "SECTOR": "04",
+      "PLIEGO": "004",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "GERENCIA GENERAL DEL PODER JUDICIAL",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Av. Colmena (Nicolás de Piérola)",
+      "LUGAR_NUM": "745",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4262982",
+      "E_MAIL": "",
+      "RUC_EJEC": "20159981216",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000014",
+      "SECTOR": "04",
+      "PLIEGO": "040",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "ACADEMIA DE LA MAGISTRATURA",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Ju. Camaná",
+      "LUGAR_NUM": "669",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "",
+      "E_MAIL": "postmaster@amag.edu.pe",
+      "RUC_EJEC": "20290898685",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000015",
+      "SECTOR": "06",
+      "PLIEGO": "006",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "MINISTERIO DE JUSTICIA-OFICINA GENERAL DE ADMINISTRACION",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Jr. Scipión Llona",
+      "LUGAR_NUM": "350",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "0",
+      "E_MAIL": "web_master@www.minjus.gob.pe",
+      "RUC_EJEC": "20131371617",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "22",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000016",
+      "SECTOR": "03",
+      "PLIEGO": "060",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "OFICINA TECNICA ADMINISTRATIVA-ARCHIVO GENERAL DE LA NACION",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Jr. Manuel Cuadros",
+      "LUGAR_NUM": "S/N",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4277221",
+      "E_MAIL": "",
+      "RUC_EJEC": "20131370726",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000017",
+      "SECTOR": "06",
+      "PLIEGO": "061",
+      "GESTORA": "01",
+      "EJECUTORA": "001",
+      "NOMBRE": "INSTITUTO NACIONAL PENITENCIARIO-SEDE CENTRAL- ADMINISTRACION LIMA",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Jr. Carabaya",
+      "LUGAR_NUM": "456",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4272492",
+      "E_MAIL": "",
+      "RUC_EJEC": "20131370050",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "000018",
+      "SECTOR": "06",
+      "PLIEGO": "061",
+      "GESTORA": "01",
+      "EJECUTORA": "002",
+      "NOMBRE": "INPE-OFICINA REGIONAL LIMA",
+      "LOCALIDAD": "LIMA",
+      "LUGAR": "Av. Abancay - exedificio MEF",
+      "LUGAR_NUM": "S/N C",
+      "LUGAR_MZA": "",
+      "LUGAR_LOT": "",
+      "FAX": "4265651",
+      "E_MAIL": "",
+      "RUC_EJEC": "20381132596",
+      "DEPARTAMEN": "15",
+      "PROVINCIA": "01",
+      "DISTRITO": "01",
+      "_NullFlags": "\u0000\u0000"
+    }
+  ],
+  "total_records": 7892,
+  "version": 48
+}

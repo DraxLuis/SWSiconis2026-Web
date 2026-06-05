@@ -1,0 +1,77 @@
+{
+  "file": "finalidad.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "FINALIDAD",
+      "type": "C",
+      "length": 7,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 200,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000145",
+      "NOMBRE": "APOYO A LA ACCION COMUNAL"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000434",
+      "NOMBRE": "CONSTRUCCION DE CANAL DE RIEGO"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000473",
+      "NOMBRE": "CONSTRUCCION DE PUENTES"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000490",
+      "NOMBRE": "CONSTRUCCION DE VEREDAS"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000537",
+      "NOMBRE": "CONTROL Y AUDITORIA"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000571",
+      "NOMBRE": "DEFENSA JUDICIAL DEL ESTADO"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000576",
+      "NOMBRE": "DESARROLLAR EL PLANEAMIENTO DE LA GESTION"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000720",
+      "NOMBRE": "ELABORACION DE EXPEDIENTES TECNICOS"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0000886",
+      "NOMBRE": "GERENCIAR RECURSOS MATERIALES, HUMANOS Y FINANCIEROS"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FINALIDAD": "0001018",
+      "NOMBRE": "MANTENIMIENTO DE INFRAESTRUCTURA CONSTRUIDA"
+    }
+  ],
+  "total_records": 98,
+  "version": 48
+}

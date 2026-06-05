@@ -1,0 +1,93 @@
+{
+  "file": "programa_pptal.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "PROGPPTO",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 250,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0016",
+      "NOMBRE": "TBC-VIH/SIDA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0030",
+      "NOMBRE": "REDUCCION DE DELITOS Y FALTAS QUE AFECTAN LA SEGURIDAD CIUDADANA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0036",
+      "NOMBRE": "GESTION INTEGRAL DE RESIDUOS SOLIDOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0039",
+      "NOMBRE": "MEJORA DE LA SANIDAD ANIMAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0040",
+      "NOMBRE": "MEJORA Y MANTENIMIENTO DE LA SANIDAD VEGETAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0042",
+      "NOMBRE": "APROVECHAMIENTO DE LOS RECURSOS HIDRICOS PARA USO AGRARIO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0068",
+      "NOMBRE": "REDUCCION DE VULNERABILIDAD Y ATENCION DE EMERGENCIAS POR DESASTRES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0083",
+      "NOMBRE": "PROGRAMA NACIONAL DE SANEAMIENTO RURAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0087",
+      "NOMBRE": "INCREMENTO DE LA COMPETIVIDAD DEL SECTOR ARTESANIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "PROGPPTO": "0090",
+      "NOMBRE": "LOGROS DE APRENDIZAJE DE ESTUDIANTES DE LA EDUCACION BASICA REGULAR",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 21,
+  "version": 48
+}

@@ -1,0 +1,6201 @@
+[
+  {
+    "file": "activ_obra_accinv.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "ACTOBRACIN",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "M",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000053",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000075",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000079",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000129",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000140",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000141",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000153",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000166",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000172",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACTOBRACIN": "4000179",
+        "NOMBRE": "(memo)",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 69,
+    "version": 48
+  },
+  {
+    "file": "certificado.dbf",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "CERTIF",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "SECUENCIA",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CORRELAT",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 25,
+        "decimal": 0
+      },
+      {
+        "name": "FECHA_DOC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "PROVEEDOR",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIF",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_FUNC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "MONEDA",
+        "type": "C",
+        "length": 5,
+        "decimal": 0
+      },
+      {
+        "name": "TIPOCAMBIO",
+        "type": "N",
+        "length": 12,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO_ORIG",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "FEC_PROC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "ETAPA",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_REG",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "EST_ENV",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "EST_REG",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 3,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000001",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "3758-2025-MPH-GA",
+        "FECHA_DOC": "06/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.3.1.3.1.3",
+        "SEC_FUNC": "0046",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "85000.00",
+        "MONTO": "85000.00",
+        "FEC_PROC": "06/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000001",
+        "SECUENCIA": "0002",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "060",
+        "NUM_DOC": "160-2025-mph-gm",
+        "FECHA_DOC": "06/01/2026",
+        "PROVEEDOR": "10428014419",
+        "CLASIF": "2.3.1.3.1.3",
+        "SEC_FUNC": "0046",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "85000.00",
+        "MONTO": "85000.00",
+        "FEC_PROC": "06/01/2026",
+        "ETAPA": "COMPROMISO ANUA",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "109-2026-MPH-OGA",
+        "FECHA_DOC": "07/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.4.1.1.1",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "9100.00",
+        "MONTO": "9100.00",
+        "FEC_PROC": "07/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "109-2026-MPH-OGA",
+        "FECHA_DOC": "07/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.4.1.1.6",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "9100.00",
+        "MONTO": "9100.00",
+        "FEC_PROC": "07/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "109-2026-MPH-OGA",
+        "FECHA_DOC": "07/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.1.9.1.1",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "18200.00",
+        "MONTO": "18200.00",
+        "FEC_PROC": "07/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "109-2026-MPH-OGA",
+        "FECHA_DOC": "07/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.1.1.1.1",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "109200.00",
+        "MONTO": "109200.00",
+        "FEC_PROC": "07/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0001",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "086",
+        "NUM_DOC": "109-2026-MPH-OGA",
+        "FECHA_DOC": "07/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.3.1.1.13",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "10647.00",
+        "MONTO": "10647.00",
+        "FEC_PROC": "07/01/2026",
+        "ETAPA": "CERTIFICACIÓN",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0002",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "230",
+        "NUM_DOC": "002",
+        "FECHA_DOC": "27/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.3.1.1.13",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "819.00",
+        "MONTO": "819.00",
+        "FEC_PROC": "27/01/2026",
+        "ETAPA": "COMPROMISO ANUA",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0002",
+        "CORRELAT": "0001",
+        "RUBRO": "07",
+        "COD_DOC": "230",
+        "NUM_DOC": "002",
+        "FECHA_DOC": "27/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.1.9.1.1",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "9100.00",
+        "MONTO": "9100.00",
+        "FEC_PROC": "27/01/2026",
+        "ETAPA": "COMPROMISO ANUA",
+        "TIPO_REG": "OP.INICIAL",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CERTIF": "0000000010",
+        "SECUENCIA": "0002",
+        "CORRELAT": "0002",
+        "RUBRO": "07",
+        "COD_DOC": "230",
+        "NUM_DOC": "002",
+        "FECHA_DOC": "27/01/2026",
+        "PROVEEDOR": "",
+        "CLASIF": "2.1.1.9.1.1",
+        "SEC_FUNC": "0044",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "0.00",
+        "MONTO_ORIG": "-9100.00",
+        "MONTO": "-9100.00",
+        "FEC_PROC": "27/01/2026",
+        "ETAPA": "COMPROMISO ANUA",
+        "TIPO_REG": "ANULACION",
+        "EST_ENV": "A",
+        "EST_REG": "APROBADO",
+        "_NullFlags": "\u0000\u0002\u0000"
+      }
+    ],
+    "total_records": 1408,
+    "version": 48
+  },
+  {
+    "file": "clasificador.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFIC",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [],
+    "total_records": 257,
+    "version": 48
+  },
+  {
+    "file": "departamento.dbf",
+    "fields": [
+      {
+        "name": "DEPARTAMEN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "DEPARTAMEN": "01",
+        "NOMBRE": "AMAZONAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "02",
+        "NOMBRE": "ANCASH",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "03",
+        "NOMBRE": "APURIMAC",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "04",
+        "NOMBRE": "AREQUIPA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "05",
+        "NOMBRE": "AYACUCHO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "06",
+        "NOMBRE": "CAJAMARCA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "07",
+        "NOMBRE": "PROVINCIA CONSTITUCIONAL DEL CALLAO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "08",
+        "NOMBRE": "CUSCO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "09",
+        "NOMBRE": "HUANCAVELICA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "10",
+        "NOMBRE": "HUANUCO",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 30,
+    "version": 48
+  },
+  {
+    "file": "distrito.dbf",
+    "fields": [
+      {
+        "name": "DEPARTAMEN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PROVINCIA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "DISTRITO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "CHACHAPOYAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "02",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "HUARAZ",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "03",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "ABANCAY",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "04",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "AREQUIPA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "05",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "AYACUCHO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "06",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "CAJAMARCA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "07",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "CALLAO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "08",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "CUSCO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "09",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "HUANCAVELICA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "10",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "NOMBRE": "HUANUCO",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 2277,
+    "version": 48
+  },
+  {
+    "file": "division_fn.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "DIVISIONFN",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "004",
+        "NOMBRE": "PLANEAMIENTO GUBERNAMENTAL"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "006",
+        "NOMBRE": "GESTION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "009",
+        "NOMBRE": "CIENCIA Y TECNOLOGIA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "011",
+        "NOMBRE": "TRANSFERENCIAS E INTERMEDIACION FINANCIERA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "012",
+        "NOMBRE": "IDENTIDAD Y CIUDADANIA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "014",
+        "NOMBRE": "ORDEN INTERNO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "016",
+        "NOMBRE": "GESTION DE RIESGOS Y EMERGENCIAS"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "018",
+        "NOMBRE": "SEGURIDAD JURIDICA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "020",
+        "NOMBRE": "TRABAJO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "DIVISIONFN": "021",
+        "NOMBRE": "COMERCIO"
+      }
+    ],
+    "total_records": 27,
+    "version": 48
+  },
+  {
+    "file": "documentos_giros.DBF",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "10.26.81.2600328",
+        "NOMBRE": "GARCIA ZURITA ELMER"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.65.2600442",
+        "NOMBRE": "CMAC PIURA S.A.C"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.65.2600443",
+        "NOMBRE": "BANCO PICHINCHA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.81.2600393",
+        "NOMBRE": "SUNAT/BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.81.2600438",
+        "NOMBRE": "SUNAT/BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.81.2600440",
+        "NOMBRE": "SUNAT/BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.84.2600394",
+        "NOMBRE": "BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.84.2600439",
+        "NOMBRE": "BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.88.2600497",
+        "NOMBRE": "AFP/BANCO DE LA NACION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "COD_DOC": "243",
+        "NUM_DOC": "100.26.88.2600498",
+        "NOMBRE": "AFP/BANCO DE LA NACION"
+      }
+    ],
+    "total_records": 1873,
+    "version": 48
+  },
+  {
+    "file": "ejecutora.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "SECTOR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PLIEGO",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "GESTORA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "EJECUTORA",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "LOCALIDAD",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      },
+      {
+        "name": "LUGAR",
+        "type": "C",
+        "length": 50,
+        "decimal": 0
+      },
+      {
+        "name": "LUGAR_NUM",
+        "type": "C",
+        "length": 5,
+        "decimal": 0
+      },
+      {
+        "name": "LUGAR_MZA",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "LUGAR_LOT",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "FAX",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "E_MAIL",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      },
+      {
+        "name": "RUC_EJEC",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "DEPARTAMEN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PROVINCIA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "DISTRITO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 2,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000003",
+        "SECTOR": "01",
+        "PLIEGO": "001",
+        "GESTORA": "01",
+        "EJECUTORA": "003",
+        "NOMBRE": "SECRETARIA GENERAL - PCM",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "JR. CARABAYA- CUADRA 1 - PALACIO DE GOBIERNO",
+        "LUGAR_NUM": "S/N",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4469674",
+        "E_MAIL": "ktapia@pcm.gob.pe",
+        "RUC_EJEC": "20168999926",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000005",
+        "SECTOR": "01",
+        "PLIEGO": "002",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "INSTITUTO NACIONAL DE ESTADISTICA E INFORMATICA- INEI",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Av. Gral. Garzón",
+        "LUGAR_NUM": "658",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4338405",
+        "E_MAIL": "",
+        "RUC_EJEC": "20131369981",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "13",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000009",
+        "SECTOR": "26",
+        "PLIEGO": "006",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "INDECI - INSTITUTO NACIONAL DE DEFENSA CIVIL",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Esq. Calle 1 y 21 - Urb. Corpac",
+        "LUGAR_NUM": "S/N",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "2243349",
+        "E_MAIL": "dnl@indeci.gob.pe",
+        "RUC_EJEC": "20135890031",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "31",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000011",
+        "SECTOR": "35",
+        "PLIEGO": "008",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "COMISION DE PROMOCION DEL PERU PARA LA EXPORTACION Y EL TURISMO - PROMPERU",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Repùblica de Panamá",
+        "LUGAR_NUM": "3647",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "2215533",
+        "E_MAIL": "sae@prompex. gob. pe",
+        "RUC_EJEC": "20307167442",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "31",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000012",
+        "SECTOR": "04",
+        "PLIEGO": "004",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "GERENCIA GENERAL DEL PODER JUDICIAL",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Av. Colmena (Nicolás de Piérola)",
+        "LUGAR_NUM": "745",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4262982",
+        "E_MAIL": "",
+        "RUC_EJEC": "20159981216",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000014",
+        "SECTOR": "04",
+        "PLIEGO": "040",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "ACADEMIA DE LA MAGISTRATURA",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Ju. Camaná",
+        "LUGAR_NUM": "669",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "",
+        "E_MAIL": "postmaster@amag.edu.pe",
+        "RUC_EJEC": "20290898685",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000015",
+        "SECTOR": "06",
+        "PLIEGO": "006",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "MINISTERIO DE JUSTICIA-OFICINA GENERAL DE ADMINISTRACION",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Jr. Scipión Llona",
+        "LUGAR_NUM": "350",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "0",
+        "E_MAIL": "web_master@www.minjus.gob.pe",
+        "RUC_EJEC": "20131371617",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "22",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000016",
+        "SECTOR": "03",
+        "PLIEGO": "060",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "OFICINA TECNICA ADMINISTRATIVA-ARCHIVO GENERAL DE LA NACION",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Jr. Manuel Cuadros",
+        "LUGAR_NUM": "S/N",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4277221",
+        "E_MAIL": "",
+        "RUC_EJEC": "20131370726",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000017",
+        "SECTOR": "06",
+        "PLIEGO": "061",
+        "GESTORA": "01",
+        "EJECUTORA": "001",
+        "NOMBRE": "INSTITUTO NACIONAL PENITENCIARIO-SEDE CENTRAL- ADMINISTRACION LIMA",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Jr. Carabaya",
+        "LUGAR_NUM": "456",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4272492",
+        "E_MAIL": "",
+        "RUC_EJEC": "20131370050",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "000018",
+        "SECTOR": "06",
+        "PLIEGO": "061",
+        "GESTORA": "01",
+        "EJECUTORA": "002",
+        "NOMBRE": "INPE-OFICINA REGIONAL LIMA",
+        "LOCALIDAD": "LIMA",
+        "LUGAR": "Av. Abancay - exedificio MEF",
+        "LUGAR_NUM": "S/N C",
+        "LUGAR_MZA": "",
+        "LUGAR_LOT": "",
+        "FAX": "4265651",
+        "E_MAIL": "",
+        "RUC_EJEC": "20381132596",
+        "DEPARTAMEN": "15",
+        "PROVINCIA": "01",
+        "DISTRITO": "01",
+        "_NullFlags": "\u0000\u0000"
+      }
+    ],
+    "total_records": 7892,
+    "version": 48
+  },
+  {
+    "file": "expedientes_gastos_2026.dbf",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_OP",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "MOD_COMPRA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_PROC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "AREA",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_REG",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CORR",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "RB",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_FINAN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 35,
+        "decimal": 0
+      },
+      {
+        "name": "FECHA_DOC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TP",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "TR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_BANCO",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "BANCO",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "CTA_CTE",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "PROVEEDOR",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFICAD",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_FUNC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_GIR",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC_B",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC_B",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_DOC_B",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "MONEDA",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "TIPOCAMBIO",
+        "type": "N",
+        "length": 10,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO_ORIG",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "FEC_APROB",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_PROC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EST",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "EST_REG",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "CERTIF",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CERTIF_SEC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 5,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000250",
+        "TIPO_OP": "ON",
+        "MOD_COMPRA": "NA",
+        "TIPO_PROC": "",
+        "AREA": "",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0015",
+        "CORR": "0002",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "121",
+        "NUM_DOC": "2500740",
+        "FECHA_DOC": "26/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "0",
+        "PROY": "000",
+        "CLASIFICAD": "2.3.2.7.5.9",
+        "SEC_FUNC": "0042",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "",
+        "NUM_DOC_B": "",
+        "FEC_DOC_B": "",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "-90.00",
+        "MONTO": "-90.00",
+        "FEC_APROB": "26/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "A",
+        "EST_REG": "A",
+        "CERTIF": "0000000129",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000250",
+        "TIPO_OP": "ON",
+        "MOD_COMPRA": "NA",
+        "TIPO_PROC": "",
+        "AREA": "",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0017",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "243",
+        "NUM_DOC": "250.25.95.2600355",
+        "FECHA_DOC": "27/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "0",
+        "PROY": "000",
+        "CLASIFICAD": "2.3.2.7.5.9",
+        "SEC_FUNC": "0042",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "095",
+        "NUM_DOC_B": "26000179",
+        "FEC_DOC_B": "27/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "90.00",
+        "MONTO": "90.00",
+        "FEC_APROB": "27/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000129",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000250",
+        "TIPO_OP": "ON",
+        "MOD_COMPRA": "NA",
+        "TIPO_PROC": "",
+        "AREA": "",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0017",
+        "CORR": "0002",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "121",
+        "NUM_DOC": "2600355",
+        "FECHA_DOC": "27/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "0",
+        "PROY": "000",
+        "CLASIFICAD": "2.3.2.7.5.9",
+        "SEC_FUNC": "0042",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "",
+        "NUM_DOC_B": "",
+        "FEC_DOC_B": "",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "-90.00",
+        "MONTO": "-90.00",
+        "FEC_APROB": "27/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "A",
+        "EST_REG": "A",
+        "CERTIF": "0000000129",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000250",
+        "TIPO_OP": "ON",
+        "MOD_COMPRA": "NA",
+        "TIPO_PROC": "",
+        "AREA": "",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0018",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "243",
+        "NUM_DOC": "250.25.95.2600474",
+        "FECHA_DOC": "30/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "0",
+        "PROY": "000",
+        "CLASIFICAD": "2.3.2.7.5.9",
+        "SEC_FUNC": "0042",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "095",
+        "NUM_DOC_B": "26000226",
+        "FEC_DOC_B": "30/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "90.00",
+        "MONTO": "90.00",
+        "FEC_APROB": "30/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000129",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000314",
+        "TIPO_OP": "ON",
+        "MOD_COMPRA": "NA",
+        "TIPO_PROC": "",
+        "AREA": "",
+        "CICLO": "G",
+        "FASE": "P",
+        "SEC_REG": "0008",
+        "CORR": "0001",
+        "RB": "18",
+        "TIPO_FINAN": "",
+        "COD_DOC": "069",
+        "NUM_DOC": "314.25.95.2510436",
+        "FECHA_DOC": "03/01/2026",
+        "TP": "E",
+        "TR": "K",
+        "TC": "11",
+        "ANO_BANCO": "",
+        "BANCO": "",
+        "CTA_CTE": "000",
+        "PROVEEDOR": "0",
+        "PROY": "",
+        "CLASIFICAD": "2.6.2.2.6.3",
+        "SEC_FUNC": "0080",
+        "TIPO_GIR": "",
+        "COD_DOC_B": "095",
+        "NUM_DOC_B": "25004448",
+        "FEC_DOC_B": "03/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "140.00",
+        "MONTO": "140.00",
+        "FEC_APROB": "03/01/2026",
+        "FEC_PROC": "03/01/2026",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000324",
+        "CERTIF_SEC": "0003",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000501",
+        "TIPO_OP": "N",
+        "MOD_COMPRA": "CA",
+        "TIPO_PROC": "18",
+        "AREA": "0000",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0024",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "243",
+        "NUM_DOC": "501.25.81.2600212",
+        "FECHA_DOC": "19/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "10032369109",
+        "PROY": "0",
+        "CLASIFICAD": "2.3.2.5.1.1",
+        "SEC_FUNC": "0047",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "081",
+        "NUM_DOC_B": "26000056",
+        "FEC_DOC_B": "19/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "1800.00",
+        "MONTO": "1800.00",
+        "FEC_APROB": "19/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000420",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000501",
+        "TIPO_OP": "N",
+        "MOD_COMPRA": "CA",
+        "TIPO_PROC": "18",
+        "AREA": "0000",
+        "CICLO": "G",
+        "FASE": "P",
+        "SEC_REG": "0024",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "069",
+        "NUM_DOC": "501.25.81.2600212",
+        "FECHA_DOC": "21/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "",
+        "BANCO": "",
+        "CTA_CTE": "000",
+        "PROVEEDOR": "10032369109",
+        "PROY": "",
+        "CLASIFICAD": "2.3.2.5.1.1",
+        "SEC_FUNC": "0047",
+        "TIPO_GIR": "",
+        "COD_DOC_B": "081",
+        "NUM_DOC_B": "26000056",
+        "FEC_DOC_B": "21/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "1800.00",
+        "MONTO": "1800.00",
+        "FEC_APROB": "21/01/2026",
+        "FEC_PROC": "21/01/2026",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000420",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000501",
+        "TIPO_OP": "N",
+        "MOD_COMPRA": "CA",
+        "TIPO_PROC": "18",
+        "AREA": "0000",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0025",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "243",
+        "NUM_DOC": "501.25.81.2600210",
+        "FECHA_DOC": "19/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "2010",
+        "BANCO": "001",
+        "CTA_CTE": "050",
+        "PROVEEDOR": "10032369109",
+        "PROY": "0",
+        "CLASIFICAD": "2.3.2.5.1.1",
+        "SEC_FUNC": "0047",
+        "TIPO_GIR": "N",
+        "COD_DOC_B": "081",
+        "NUM_DOC_B": "26000058",
+        "FEC_DOC_B": "19/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "1800.00",
+        "MONTO": "1800.00",
+        "FEC_APROB": "19/01/2026",
+        "FEC_PROC": "",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000420",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000501",
+        "TIPO_OP": "N",
+        "MOD_COMPRA": "CA",
+        "TIPO_PROC": "18",
+        "AREA": "0000",
+        "CICLO": "G",
+        "FASE": "P",
+        "SEC_REG": "0025",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "069",
+        "NUM_DOC": "501.25.81.2600210",
+        "FECHA_DOC": "21/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "",
+        "BANCO": "",
+        "CTA_CTE": "000",
+        "PROVEEDOR": "10032369109",
+        "PROY": "",
+        "CLASIFICAD": "2.3.2.5.1.1",
+        "SEC_FUNC": "0047",
+        "TIPO_GIR": "",
+        "COD_DOC_B": "081",
+        "NUM_DOC_B": "26000058",
+        "FEC_DOC_B": "21/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "1800.00",
+        "MONTO": "1800.00",
+        "FEC_APROB": "21/01/2026",
+        "FEC_PROC": "21/01/2026",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000420",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2025",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "EXPEDIENTE": "0000000548",
+        "TIPO_OP": "N",
+        "MOD_COMPRA": "CA",
+        "TIPO_PROC": "18",
+        "AREA": "0000",
+        "CICLO": "G",
+        "FASE": "P",
+        "SEC_REG": "0037",
+        "CORR": "0001",
+        "RB": "07",
+        "TIPO_FINAN": "",
+        "COD_DOC": "069",
+        "NUM_DOC": "548.25.81.2510525",
+        "FECHA_DOC": "02/01/2026",
+        "TP": "E",
+        "TR": "A",
+        "TC": "11",
+        "ANO_BANCO": "",
+        "BANCO": "",
+        "CTA_CTE": "000",
+        "PROVEEDOR": "20606901373",
+        "PROY": "",
+        "CLASIFICAD": "2.3.2.2.2.3",
+        "SEC_FUNC": "0047",
+        "TIPO_GIR": "",
+        "COD_DOC_B": "081",
+        "NUM_DOC_B": "25005670",
+        "FEC_DOC_B": "02/01/2026",
+        "MONEDA": "S/.",
+        "TIPOCAMBIO": "1.00",
+        "MONTO_ORIG": "120.00",
+        "MONTO": "120.00",
+        "FEC_APROB": "02/01/2026",
+        "FEC_PROC": "02/01/2026",
+        "SEC_EST": "N",
+        "EST_REG": "A",
+        "CERTIF": "0000000385",
+        "CERTIF_SEC": "0002",
+        "_NullFlags": "\u0000\u0000\u0000\u0000\u0000"
+      }
+    ],
+    "total_records": 6241,
+    "version": 48
+  },
+  {
+    "file": "expedientes_gastos_plantilla.dbf",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_OP",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "MOD_COMPRA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_PROC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "AREA",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_REG",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CORR",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "RB",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_FINAN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 35,
+        "decimal": 0
+      },
+      {
+        "name": "FECHA_DOC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TP",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "TR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_BANCO",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "BANCO",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "CTA_CTE",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "PROVEEDOR",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFICAD",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_FUNC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_GIR",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC_B",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC_B",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_DOC_B",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "MONEDA",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "TIPOCAMBIO",
+        "type": "N",
+        "length": 10,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO_ORIG",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "FEC_APROB",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_PROC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EST",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "EST_REG",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "CERTIF",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CERTIF_SEC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 5,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [],
+    "total_records": 0,
+    "version": 48
+  },
+  {
+    "file": "expedientes_glosa.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_REG",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "GLOSA",
+        "type": "M",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0005",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0006",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0007",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000003",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000004",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000005",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000006",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000007",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000008",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000009",
+        "CICLO": "G",
+        "FASE": "G",
+        "SEC_REG": "0003",
+        "GLOSA": "(memo)",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 1875,
+    "version": 48
+  },
+  {
+    "file": "expedientes_ingresos_plantilla.dbf",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_OP",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFICAD",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "RB",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_FINAN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 35,
+        "decimal": 0
+      },
+      {
+        "name": "FECHA_DOC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "TP",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "TR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_BANCO",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "BANCO",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "CTA_CTE",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "MONEDA",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "TIPOCAMBIO",
+        "type": "N",
+        "length": 10,
+        "decimal": 2
+      },
+      {
+        "name": "PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "PROVEEDOR",
+        "type": "C",
+        "length": 13,
+        "decimal": 0
+      },
+      {
+        "name": "MONTO_ORIG",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "MONTO",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "COD_DOC_B",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC_B",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_DOC_B",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "MONT_DOC_B",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "FEC_PROC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EST",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "EST_REG",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 4,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [],
+    "total_records": 0,
+    "version": 48
+  },
+  {
+    "file": "expedientes_nombre_prov.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_REG",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "RUC",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [],
+    "total_records": 0,
+    "version": 48
+  },
+  {
+    "file": "fichaproy_filtro.dbf",
+    "fields": [
+      {
+        "name": "IDREG",
+        "type": "I",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "CODIGO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIF",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "CLASE",
+        "type": "C",
+        "length": 80,
+        "decimal": 0
+      },
+      {
+        "name": "ESTADO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "IDREG": "\u0001\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 1",
+        "NOMBRE": "EDIFICIOS ADMINISTRATIVOS",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0002\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 2",
+        "NOMBRE": "INSTALACIONES EDUCATIVAS",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0003\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 3",
+        "NOMBRE": "INSTALACIONES MEDICAS",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0004\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 4",
+        "NOMBRE": "INSTALACIONES SOCIALES Y CULTURALES",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0005\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 5",
+        "NOMBRE": "CENTROS DE RECLUSION",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0006\u0000\u0000\u0000",
+        "CODIGO": "01",
+        "CLASIF": "26 2 2 6",
+        "NOMBRE": "OTROS EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0007\u0000\u0000\u0000",
+        "CODIGO": "02",
+        "CLASIF": "26 2 3 1",
+        "NOMBRE": "PUERTOS Y AEROPUERTOS",
+        "CLASE": "OTRAS ESTRUCTURAS",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\b\u0000\u0000\u0000",
+        "CODIGO": "02",
+        "CLASIF": "26 2 3 2",
+        "NOMBRE": "INFRAESTRUCTURA VIAL",
+        "CLASE": "OTRAS ESTRUCTURAS",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0000\u0000\u0000",
+        "CODIGO": "02",
+        "CLASIF": "26 2 3 3",
+        "NOMBRE": "INFRAESTRUCTURA ELECTRICA",
+        "CLASE": "OTRAS ESTRUCTURAS",
+        "ESTADO": "A"
+      },
+      {
+        "IDREG": "\u0000\u0000\u0000",
+        "CODIGO": "02",
+        "CLASIF": "26 2 3 4",
+        "NOMBRE": "INFRAESTRUCTURA AGRICOLA",
+        "CLASE": "OTRAS ESTRUCTURAS",
+        "ESTADO": "A"
+      }
+    ],
+    "total_records": 27,
+    "version": 48
+  },
+  {
+    "file": "finalidad.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "FINALIDAD",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 200,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000145",
+        "NOMBRE": "APOYO A LA ACCION COMUNAL"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000434",
+        "NOMBRE": "CONSTRUCCION DE CANAL DE RIEGO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000473",
+        "NOMBRE": "CONSTRUCCION DE PUENTES"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000490",
+        "NOMBRE": "CONSTRUCCION DE VEREDAS"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000537",
+        "NOMBRE": "CONTROL Y AUDITORIA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000571",
+        "NOMBRE": "DEFENSA JUDICIAL DEL ESTADO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000576",
+        "NOMBRE": "DESARROLLAR EL PLANEAMIENTO DE LA GESTION"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000720",
+        "NOMBRE": "ELABORACION DE EXPEDIENTES TECNICOS"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0000886",
+        "NOMBRE": "GERENCIAR RECURSOS MATERIALES, HUMANOS Y FINANCIEROS"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FINALIDAD": "0001018",
+        "NOMBRE": "MANTENIMIENTO DE INFRAESTRUCTURA CONSTRUIDA"
+      }
+    ],
+    "total_records": 98,
+    "version": 48
+  },
+  {
+    "file": "fuente_financ.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FUENTE_FIN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2025",
+        "RUBRO": "5",
+        "FUENTE_FIN": "07",
+        "NOMBRE": "FONDO DE COMPENSACION MUNICIPAL"
+      },
+      {
+        "ANO_EJE": "2025",
+        "RUBRO": "5",
+        "FUENTE_FIN": "08",
+        "NOMBRE": "IMPUESTOS MUNICIPALES"
+      },
+      {
+        "ANO_EJE": "2025",
+        "RUBRO": "2",
+        "FUENTE_FIN": "09",
+        "NOMBRE": "RECURSOS DIRECTAMENTE RECAUDADOS"
+      },
+      {
+        "ANO_EJE": "2025",
+        "RUBRO": "4",
+        "FUENTE_FIN": "13",
+        "NOMBRE": "DONACIONES Y TRANSFERENCIAS"
+      }
+    ],
+    "total_records": 20,
+    "version": 48
+  },
+  {
+    "file": "funcion.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "FUNCION",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "03",
+        "NOMBRE": "PLANEAMIENTO, GESTION Y RESERVA DE CONTINGENCIA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "05",
+        "NOMBRE": "ORDEN PUBLICO Y SEGURIDAD",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "07",
+        "NOMBRE": "TRABAJO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "08",
+        "NOMBRE": "COMERCIO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "09",
+        "NOMBRE": "TURISMO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "10",
+        "NOMBRE": "AGROPECUARIA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "15",
+        "NOMBRE": "TRANSPORTE",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "17",
+        "NOMBRE": "AMBIENTE",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "18",
+        "NOMBRE": "SANEAMIENTO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUNCION": "19",
+        "NOMBRE": "VIVIENDA Y DESARROLLO URBANO",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 15,
+    "version": 48
+  },
+  {
+    "file": "generica.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_TRANS",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "GENERICA",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "1",
+        "NOMBRE": "PERSONAL Y OBLIGACIONES SOCIALES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "2",
+        "NOMBRE": "PENSIONES Y OTRAS PRESTACIONES SOCIALES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "3",
+        "NOMBRE": "BIENES Y SERVICIOS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "4",
+        "NOMBRE": "DONACIONES Y TRANSFERENCIAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "5",
+        "NOMBRE": "OTROS GASTOS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "TIPO_TRANS": "2",
+        "GENERICA": "6",
+        "NOMBRE": "ADQUISICION DE ACTIVOS NO FINANCIEROS",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 6,
+    "version": 48
+  },
+  {
+    "file": "grupo_fn.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "GRUPO_FN",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0005",
+        "NOMBRE": "PLANEAMIENTO INSTITUCIONAL"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0007",
+        "NOMBRE": "DIRECCION Y SUPERVISION SUPERIOR"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0008",
+        "NOMBRE": "ASESORAMIENTO Y APOYO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0010",
+        "NOMBRE": "INFRAESTRUCTURA Y EQUIPAMIENTO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0012",
+        "NOMBRE": "CONTROL INTERNO"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0017",
+        "NOMBRE": "INNOVACION TECNOLOGICA"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0019",
+        "NOMBRE": "TRANSFERENCIAS DE CARACTER GENERAL"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0021",
+        "NOMBRE": "REGISTROS CIVILES E IDENTIDAD"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0031",
+        "NOMBRE": "SEGURIDAD VECINAL Y COMUNAL"
+      },
+      {
+        "ANO_EJE": "2026",
+        "GRUPO_FN": "0035",
+        "NOMBRE": "PREVENCION DE DESASTRES"
+      }
+    ],
+    "total_records": 37,
+    "version": 48
+  },
+  {
+    "file": "maestro_ejecucion.dbf",
+    "fields": [
+      {
+        "name": "AEJEC",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "VALIDACION",
+        "type": "C",
+        "length": 200,
+        "decimal": 0
+      },
+      {
+        "name": "AUT",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "AEJEC": "6XF45X16F5X1D95X26B5X2DA5X3555X3D55X45E5X4CC5X54C5X5D75X63D5X6BD5X7415X7C85X8375X8C55X92E5X9A8",
+        "VALIDACION": "6XF35X1745X1DE5X2695X2DB5X3575X3D95X45B5X4CB5X5485X5D45X63C5X6BF5X7425X7CE5X839",
+        "AUT": "5X1035X1825X1FB5X27F5X2FD5X374"
+      },
+      {
+        "AEJEC": "6XF45X16F5X1D95X26C5X2DA5X3555X3D55X45E5X4CC5X54C5X5D75X63D5X6BD5X7445X7C85X8395X8C6X9325X9B0",
+        "VALIDACION": "6XF35X1745X1DE5X26A5X2D95X3555X3D65X45B5X4CB5X5485X5D45X63C5X6BF5X7425X7CE5X839",
+        "AUT": "5X1035X1825X1FB5X27F5X2FD5X374"
+      }
+    ],
+    "total_records": 2,
+    "version": 48
+  },
+  {
+    "file": "mes.dbf",
+    "fields": [
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 50,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "MES_EJE": "01",
+        "NOMBRE": "Enero"
+      },
+      {
+        "MES_EJE": "02",
+        "NOMBRE": "Febrero"
+      },
+      {
+        "MES_EJE": "03",
+        "NOMBRE": "Marzo"
+      },
+      {
+        "MES_EJE": "04",
+        "NOMBRE": "Abril"
+      },
+      {
+        "MES_EJE": "05",
+        "NOMBRE": "Mayo"
+      },
+      {
+        "MES_EJE": "06",
+        "NOMBRE": "Junio"
+      },
+      {
+        "MES_EJE": "07",
+        "NOMBRE": "Julio"
+      },
+      {
+        "MES_EJE": "08",
+        "NOMBRE": "Agosto"
+      },
+      {
+        "MES_EJE": "09",
+        "NOMBRE": "Setiembre"
+      },
+      {
+        "MES_EJE": "10",
+        "NOMBRE": "Octubre"
+      }
+    ],
+    "total_records": 12,
+    "version": 48
+  },
+  {
+    "file": "meta.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_FUNC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "PPTO",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ACT_PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "COMPONENTE",
+        "type": "C",
+        "length": 8,
+        "decimal": 0
+      },
+      {
+        "name": "FUNCION",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PROGRAMA",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "SUBPROGRAM",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "META",
+        "type": "C",
+        "length": 5,
+        "decimal": 0
+      },
+      {
+        "name": "FINALIDAD",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      },
+      {
+        "name": "UNIDMED",
+        "type": "C",
+        "length": 20,
+        "decimal": 0
+      },
+      {
+        "name": "CANTIDAD",
+        "type": "N",
+        "length": 19,
+        "decimal": 2
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0001",
+        "PPTO": "0016",
+        "ACT_PROY": "3000669",
+        "COMPONENTE": "5005159",
+        "FUNCION": "23",
+        "PROGRAMA": "051",
+        "SUBPROGRAM": "0115",
+        "META": "0001",
+        "FINALIDAD": "0136043",
+        "NOMBRE": "BRINDAR APOYO NUTRICIONAL A LAS PERSONAS AFECTADAS POR TUBERCULOSIS",
+        "UNIDMED": "PERSONA",
+        "CANTIDAD": "50.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "PPTO": "0030",
+        "ACT_PROY": "3000355",
+        "COMPONENTE": "5004156",
+        "FUNCION": "05",
+        "PROGRAMA": "014",
+        "SUBPROGRAM": "0031",
+        "META": "0001",
+        "FINALIDAD": "0106645",
+        "NOMBRE": "PATRULLAJE MUNICIPAL POR SECTOR - SERENAZGO",
+        "UNIDMED": "SECTOR",
+        "CANTIDAD": "8.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0003",
+        "PPTO": "0030",
+        "ACT_PROY": "3000356",
+        "COMPONENTE": "5004167",
+        "FUNCION": "05",
+        "PROGRAMA": "014",
+        "SUBPROGRAM": "0031",
+        "META": "0001",
+        "FINALIDAD": "0106656",
+        "NOMBRE": "COMUNIDAD RECIBE ACCIONES DE PREVENCION EN EL MARCO DEL PLAN DE SEGURIDAD CIUDADANA",
+        "UNIDMED": "PROGRAMA",
+        "CANTIDAD": "12.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0004",
+        "PPTO": "0036",
+        "ACT_PROY": "3000848",
+        "COMPONENTE": "5006157",
+        "FUNCION": "17",
+        "PROGRAMA": "055",
+        "SUBPROGRAM": "0124",
+        "META": "0001",
+        "FINALIDAD": "0236232",
+        "NOMBRE": "EDUCACION Y SENSIBILIZACION A LA POBLACION EN MATERIA DE RESIDUOS SOLIDOS",
+        "UNIDMED": "PERSONA",
+        "CANTIDAD": "500.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0005",
+        "PPTO": "0036",
+        "ACT_PROY": "3000848",
+        "COMPONENTE": "5006158",
+        "FUNCION": "17",
+        "PROGRAMA": "055",
+        "SUBPROGRAM": "0124",
+        "META": "0001",
+        "FINALIDAD": "0236233",
+        "NOMBRE": "ALMACENAMIENTO, BARRIDO DE CALLES Y LIMPIEZA DE ESPACIOS PUBLICOS",
+        "UNIDMED": "KILOMETRO",
+        "CANTIDAD": "24.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0006",
+        "PPTO": "0036",
+        "ACT_PROY": "3000848",
+        "COMPONENTE": "5006159",
+        "FUNCION": "17",
+        "PROGRAMA": "055",
+        "SUBPROGRAM": "0124",
+        "META": "0001",
+        "FINALIDAD": "0236234",
+        "NOMBRE": "RECOLECCION Y TRANSPORTE DE RESIDUOS SOLIDOS MUNICIPALES",
+        "UNIDMED": "TONELADA",
+        "CANTIDAD": "6.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0007",
+        "PPTO": "0036",
+        "ACT_PROY": "3000848",
+        "COMPONENTE": "5006160",
+        "FUNCION": "17",
+        "PROGRAMA": "055",
+        "SUBPROGRAM": "0124",
+        "META": "0001",
+        "FINALIDAD": "0236235",
+        "NOMBRE": "VALORIZACION DE RESIDUOS SOLIDOS MUNICIPALES",
+        "UNIDMED": "TONELADA",
+        "CANTIDAD": "102.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0008",
+        "PPTO": "0036",
+        "ACT_PROY": "3000850",
+        "COMPONENTE": "5006164",
+        "FUNCION": "17",
+        "PROGRAMA": "055",
+        "SUBPROGRAM": "0124",
+        "META": "0001",
+        "FINALIDAD": "0236239",
+        "NOMBRE": "FISCALIZACION DE LA GESTION DE LOS RESIDUOS SOLIDOS DEL AMBITO MUNICIPAL",
+        "UNIDMED": "DOCUMENTO TECNICO",
+        "CANTIDAD": "5.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0009",
+        "PPTO": "0039",
+        "ACT_PROY": "3000523",
+        "COMPONENTE": "5004169",
+        "FUNCION": "10",
+        "PROGRAMA": "024",
+        "SUBPROGRAM": "0048",
+        "META": "0001",
+        "FINALIDAD": "0106658",
+        "NOMBRE": "PREVENCION, CONTROL Y ERRADICACION DE ENFERMEDADES EN LOS ANIMALES",
+        "UNIDMED": "ANIMAL ATENDIDO",
+        "CANTIDAD": "5000.00",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0010",
+        "PPTO": "0040",
+        "ACT_PROY": "2610091",
+        "COMPONENTE": "6000026",
+        "FUNCION": "10",
+        "PROGRAMA": "023",
+        "SUBPROGRAM": "0046",
+        "META": "0001",
+        "FINALIDAD": "0404272",
+        "NOMBRE": "MEJORAMIENTO DE LOS SERVICIOS DE APOYO AL DESARROLLO PRODUCTIVO EN LA CADENA PRODUCTIVA DE LA PAPA EN 15 CASERIOS DEL DISTRITO DE HUANCABAMBA, HUANCABAMBA, PIURA",
+        "UNIDMED": "OBRA",
+        "CANTIDAD": "1.00",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 114,
+    "version": 48
+  },
+  {
+    "file": "nota_pago_2026.dbf",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "EXPEDIENTE",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "SECUENCIA",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "NUM_DOC",
+        "type": "C",
+        "length": 35,
+        "decimal": 0
+      },
+      {
+        "name": "RUC",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "BENEFICI",
+        "type": "C",
+        "length": 120,
+        "decimal": 0
+      },
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "GLOSA",
+        "type": "M",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "FECHA_DOC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "COD_DOC_B",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NOM_DOC_B",
+        "type": "C",
+        "length": 35,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_DOC_B",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CONST_PAGO",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "CONFOR_DOC",
+        "type": "C",
+        "length": 50,
+        "decimal": 0
+      },
+      {
+        "name": "CONFOR_DES",
+        "type": "C",
+        "length": 50,
+        "decimal": 0
+      },
+      {
+        "name": "CONFOR_FEC",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "MONTO",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "ESTADO",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "SECUENCIA": "0005",
+        "NUM_DOC": "2.26.81.2600021",
+        "RUC": "10428014419",
+        "BENEFICI": "SANTOS CHINCHAY WALTER",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "08/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "08/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1154-2025-MPH",
+        "CONFOR_FEC": "22/12/2025",
+        "MONTO": "22591.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "SECUENCIA": "0006",
+        "NUM_DOC": "2.26.81.2600020",
+        "RUC": "10428014419",
+        "BENEFICI": "SANTOS CHINCHAY WALTER",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "08/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "08/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1154-2025-MPH",
+        "CONFOR_FEC": "22/12/2025",
+        "MONTO": "30458.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000002",
+        "SECUENCIA": "0007",
+        "NUM_DOC": "2.26.81.2600019",
+        "RUC": "10428014419",
+        "BENEFICI": "SANTOS CHINCHAY WALTER",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "08/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "08/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1154-2025-MPH",
+        "CONFOR_FEC": "22/12/2025",
+        "MONTO": "31951.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000003",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "3.26.81.2600321",
+        "RUC": "10032268442",
+        "BENEFICI": "OCAÑA YAJAHUANCA JORGE SANTIAGO",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "26/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "26/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1654-2025-MPH",
+        "CONFOR_FEC": "11/12/2025",
+        "MONTO": "5300.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000004",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "4.26.65.2600008",
+        "RUC": "0",
+        "BENEFICI": "DIRECCION GENERAL DEL TESORO PUBLICO",
+        "RUBRO": "09",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "07/01/2026",
+        "COD_DOC_B": "065",
+        "NOM_DOC_B": "CHEQUE GIRADO",
+        "FEC_DOC_B": "07/01/2026",
+        "CONST_PAGO": "-",
+        "CONFOR_DOC": "-",
+        "CONFOR_DES": "-",
+        "CONFOR_FEC": "-",
+        "MONTO": "138000.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000005",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "5.26.81.2600055",
+        "RUC": "10428014419",
+        "BENEFICI": "SANTOS CHINCHAY WALTER",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "15/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "15/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1155-2025-MPH",
+        "CONFOR_FEC": "22/12/2025",
+        "MONTO": "85000.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000006",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "6.26.65.2600056",
+        "RUC": "0",
+        "BENEFICI": "DIRECCION GENERAL DEL TESORO PUBLICO",
+        "RUBRO": "08",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "13/01/2026",
+        "COD_DOC_B": "065",
+        "NOM_DOC_B": "CHEQUE GIRADO",
+        "FEC_DOC_B": "13/01/2026",
+        "CONST_PAGO": "-",
+        "CONFOR_DOC": "-",
+        "CONFOR_DES": "-",
+        "CONFOR_FEC": "-",
+        "MONTO": "25000.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000007",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "7.26.81.2600302",
+        "RUC": "10754109403",
+        "BENEFICI": "MENDOZA PEÑA JORGE GUSTAVO",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "26/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "26/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1679-2025-MPH",
+        "CONFOR_FEC": "17/12/2025",
+        "MONTO": "3500.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000008",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "8.26.81.2600301",
+        "RUC": "10754109403",
+        "BENEFICI": "MENDOZA PEÑA JORGE GUSTAVO",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "26/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "26/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1678-2025-MPH",
+        "CONFOR_FEC": "17/12/2025",
+        "MONTO": "3500.00",
+        "ESTADO": "APROBADO"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "EXPEDIENTE": "0000000009",
+        "SECUENCIA": "0003",
+        "NUM_DOC": "9.26.81.2600298",
+        "RUC": "10715305394",
+        "BENEFICI": "ALBERCA GARCIA NADIA SAVISTKI",
+        "RUBRO": "07",
+        "GLOSA": "(memo)",
+        "COD_DOC": "243",
+        "FECHA_DOC": "22/01/2026",
+        "COD_DOC_B": "081",
+        "NOM_DOC_B": "TRANSFERENCIA A CUENTA DE TERCEROS",
+        "FEC_DOC_B": "22/01/2026",
+        "CONST_PAGO": "SI",
+        "CONFOR_DOC": "INFORME DE CONFORMIDAD",
+        "CONFOR_DES": "1162",
+        "CONFOR_FEC": "08/01/2026",
+        "MONTO": "4000.00",
+        "ESTADO": "APROBADO"
+      }
+    ],
+    "total_records": 1875,
+    "version": 48
+  },
+  {
+    "file": "old_nombre_proyectos.dbf",
+    "fields": [
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "ACT_PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "M",
+        "length": 4,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [],
+    "total_records": 0,
+    "version": 48
+  },
+  {
+    "file": "pliego.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SECTOR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PLIEGO",
+        "type": "C",
+        "length": 3,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "00",
+        "PLIEGO": "01",
+        "NOMBRE": "HUANCABAMBA",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 1,
+    "version": 48
+  },
+  {
+    "file": "presupuesto_ejecucion_gasto.DBF",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_FUNC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFICAD",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "MTO_PIA",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_MODIF",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PIM",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_CERTIF",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_CPANUA",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP01",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP02",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP03",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP04",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP05",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP06",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP07",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP08",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP09",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP10",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP11",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_ATCP12",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_01",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_02",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_03",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_04",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_05",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_06",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_07",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_08",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_09",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_10",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_11",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_DEV_12",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_01",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_02",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_03",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_04",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_05",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_06",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_07",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_08",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_09",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_10",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_11",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_GIR_12",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_01",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_02",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_03",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_04",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_05",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_06",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_07",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_08",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_09",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_10",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_11",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PG_12",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0001",
+        "RUBRO": "00",
+        "CLASIFICAD": "2.2.2.3.1.1",
+        "MTO_PIA": "52622.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "52622.00",
+        "MTO_CERTIF": "52621.99",
+        "MTO_CPANUA": "0.00",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.3.1.2.1.1",
+        "MTO_PIA": "10600.00",
+        "MTO_MODIF": "-10600.00",
+        "MTO_PIM": "0.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.3.2.7.11.2",
+        "MTO_PIA": "6500.00",
+        "MTO_MODIF": "-6500.00",
+        "MTO_PIM": "0.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.6.3.1.1.1",
+        "MTO_PIA": "30000.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "30000.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.1.4.1.1.2",
+        "MTO_PIA": "14400.00",
+        "MTO_MODIF": "-14400.00",
+        "MTO_PIM": "0.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.3.2.7.11.99",
+        "MTO_PIA": "272900.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "272900.00",
+        "MTO_CERTIF": "33000.00",
+        "MTO_CPANUA": "33000.00",
+        "MTO_ATCP01": "0.00",
+        "MTO_ATCP02": "33000.00",
+        "MTO_ATCP03": "37500.00",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "0.00",
+        "MTO_DEV_02": "33000.00",
+        "MTO_DEV_03": "37500.00",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "-1900.00",
+        "MTO_GIR_02": "31200.00",
+        "MTO_GIR_03": "39300.00",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "0.00",
+        "MTO_PG_02": "30000.00",
+        "MTO_PG_03": "26100.00",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.3.2.7.11.6",
+        "MTO_PIA": "1950.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "1950.00",
+        "MTO_CERTIF": "1950.00",
+        "MTO_CPANUA": "1950.00",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "1950.00",
+        "MTO_ATCP03": "0.00",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "1950.00",
+        "MTO_DEV_03": "0.00",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "1445.00",
+        "MTO_GIR_03": "505.00",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "1445.00",
+        "MTO_PG_03": "505.00",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.1.1.13.1.2",
+        "MTO_PIA": "15600.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "15600.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.3.1.10.1.1",
+        "MTO_PIA": "300.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "300.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "SEC_FUNC": "0002",
+        "RUBRO": "07",
+        "CLASIFICAD": "2.1.1.9.1.4",
+        "MTO_PIA": "600.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "600.00",
+        "MTO_CERTIF": "",
+        "MTO_CPANUA": "",
+        "MTO_ATCP01": "",
+        "MTO_ATCP02": "",
+        "MTO_ATCP03": "",
+        "MTO_ATCP04": "",
+        "MTO_ATCP05": "",
+        "MTO_ATCP06": "",
+        "MTO_ATCP07": "",
+        "MTO_ATCP08": "",
+        "MTO_ATCP09": "",
+        "MTO_ATCP10": "",
+        "MTO_ATCP11": "",
+        "MTO_ATCP12": "",
+        "MTO_DEV_01": "",
+        "MTO_DEV_02": "",
+        "MTO_DEV_03": "",
+        "MTO_DEV_04": "",
+        "MTO_DEV_05": "",
+        "MTO_DEV_06": "",
+        "MTO_DEV_07": "",
+        "MTO_DEV_08": "",
+        "MTO_DEV_09": "",
+        "MTO_DEV_10": "",
+        "MTO_DEV_11": "",
+        "MTO_DEV_12": "",
+        "MTO_GIR_01": "",
+        "MTO_GIR_02": "",
+        "MTO_GIR_03": "",
+        "MTO_GIR_04": "",
+        "MTO_GIR_05": "",
+        "MTO_GIR_06": "",
+        "MTO_GIR_07": "",
+        "MTO_GIR_08": "",
+        "MTO_GIR_09": "",
+        "MTO_GIR_10": "",
+        "MTO_GIR_11": "",
+        "MTO_GIR_12": "",
+        "MTO_PG_01": "",
+        "MTO_PG_02": "",
+        "MTO_PG_03": "",
+        "MTO_PG_04": "",
+        "MTO_PG_05": "",
+        "MTO_PG_06": "",
+        "MTO_PG_07": "",
+        "MTO_PG_08": "",
+        "MTO_PG_09": "",
+        "MTO_PG_10": "",
+        "MTO_PG_11": "",
+        "MTO_PG_12": ""
+      }
+    ],
+    "total_records": 680,
+    "version": 48
+  },
+  {
+    "file": "presupuesto_ejecucion_ingreso.DBF",
+    "fields": [
+      {
+        "name": "ANO_PROC",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "CLASIFICAD",
+        "type": "C",
+        "length": 15,
+        "decimal": 0
+      },
+      {
+        "name": "MTO_PIA",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_MODIF",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "MTO_PIM",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_01",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_02",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_03",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_04",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_05",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_06",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_07",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_08",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_09",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_10",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_11",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      },
+      {
+        "name": "RECAUD_12",
+        "type": "N",
+        "length": 18,
+        "decimal": 2
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "08",
+        "CLASIFICAD": "1.1.2.1.1.1",
+        "MTO_PIA": "86112.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "86112.00",
+        "RECAUD_01": "12572.13",
+        "RECAUD_02": "17994.95",
+        "RECAUD_03": "26111.79",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "13",
+        "CLASIFICAD": "1.4.1.3.1.1",
+        "MTO_PIA": "0.00",
+        "MTO_MODIF": "105792.00",
+        "MTO_PIM": "105792.00",
+        "RECAUD_01": "0.00",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "105792.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "08",
+        "CLASIFICAD": "0.0.0.0.0.0",
+        "MTO_PIA": "0.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "0.00",
+        "RECAUD_01": "25000.00",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "09",
+        "CLASIFICAD": "1.3.3.9.2.9",
+        "MTO_PIA": "0.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "0.00",
+        "RECAUD_01": "0.00",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "18",
+        "CLASIFICAD": "1.4.1.4.1.3",
+        "MTO_PIA": "403373.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "403373.00",
+        "RECAUD_01": "201686.50",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "18",
+        "CLASIFICAD": "1.4.1.4.1.7",
+        "MTO_PIA": "702.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "702.00",
+        "RECAUD_01": "0.00",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "09",
+        "CLASIFICAD": "1.3.2.8.1.9",
+        "MTO_PIA": "79586.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "79586.00",
+        "RECAUD_01": "2746.11",
+        "RECAUD_02": "2997.70",
+        "RECAUD_03": "2860.20",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "09",
+        "CLASIFICAD": "1.3.3.1.1.1",
+        "MTO_PIA": "0.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "0.00",
+        "RECAUD_01": "0.00",
+        "RECAUD_02": "0.00",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "08",
+        "CLASIFICAD": "1.1.2.1.1.2",
+        "MTO_PIA": "92000.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "92000.00",
+        "RECAUD_01": "2164.62",
+        "RECAUD_02": "1163.76",
+        "RECAUD_03": "3334.68",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      },
+      {
+        "ANO_PROC": "2026",
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "RUBRO": "18",
+        "CLASIFICAD": "1.4.1.4.1.1",
+        "MTO_PIA": "7463059.00",
+        "MTO_MODIF": "0.00",
+        "MTO_PIM": "7463059.00",
+        "RECAUD_01": "30381.11",
+        "RECAUD_02": "267619.71",
+        "RECAUD_03": "0.00",
+        "RECAUD_04": "0.00",
+        "RECAUD_05": "0.00",
+        "RECAUD_06": "0.00",
+        "RECAUD_07": "0.00",
+        "RECAUD_08": "0.00",
+        "RECAUD_09": "0.00",
+        "RECAUD_10": "0.00",
+        "RECAUD_11": "0.00",
+        "RECAUD_12": "0.00"
+      }
+    ],
+    "total_records": 142,
+    "version": 48
+  },
+  {
+    "file": "producto_proyecto.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "ACT_PROY",
+        "type": "C",
+        "length": 7,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "M",
+        "length": 4,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2001621",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2401152",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2444417",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2450036",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2490394",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2493077",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2493580",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2526828",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2526863",
+        "NOMBRE": "(memo)"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "ACT_PROY": "2529158",
+        "NOMBRE": "(memo)"
+      }
+    ],
+    "total_records": 57,
+    "version": 48
+  },
+  {
+    "file": "programa_pptal.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "PROGPPTO",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 250,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0016",
+        "NOMBRE": "TBC-VIH/SIDA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0030",
+        "NOMBRE": "REDUCCION DE DELITOS Y FALTAS QUE AFECTAN LA SEGURIDAD CIUDADANA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0036",
+        "NOMBRE": "GESTION INTEGRAL DE RESIDUOS SOLIDOS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0039",
+        "NOMBRE": "MEJORA DE LA SANIDAD ANIMAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0040",
+        "NOMBRE": "MEJORA Y MANTENIMIENTO DE LA SANIDAD VEGETAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0042",
+        "NOMBRE": "APROVECHAMIENTO DE LOS RECURSOS HIDRICOS PARA USO AGRARIO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0068",
+        "NOMBRE": "REDUCCION DE VULNERABILIDAD Y ATENCION DE EMERGENCIAS POR DESASTRES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0083",
+        "NOMBRE": "PROGRAMA NACIONAL DE SANEAMIENTO RURAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0087",
+        "NOMBRE": "INCREMENTO DE LA COMPETIVIDAD DEL SECTOR ARTESANIA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "PROGPPTO": "0090",
+        "NOMBRE": "LOGROS DE APRENDIZAJE DE ESTUDIANTES DE LA EDUCACION BASICA REGULAR",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 21,
+    "version": 48
+  },
+  {
+    "file": "proveedor.dbf",
+    "fields": [
+      {
+        "name": "RUC",
+        "type": "C",
+        "length": 11,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "DIRECCION",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "RUC": "0",
+        "NOMBRE": "CARRASCO MARTINEZ MARIA HERLINDA",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10002508058",
+        "NOMBRE": "QUEVEDO BARCO RICARDO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10026589253",
+        "NOMBRE": "BACA TAVARA WALTER ALFREDO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10027797399",
+        "NOMBRE": "SANTA CRUZ PALACIOS JULIO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10028569420",
+        "NOMBRE": "PALACIOS MIÑAN CHRISTIAN RONALD",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10028735532",
+        "NOMBRE": "CORREA GARCIA CARLOS AUGUSTO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10028999904",
+        "NOMBRE": "RIVERA ALVARADO RODIN OMAR",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10031271369",
+        "NOMBRE": "CALLE RENTERIA VICTOR AUGUSTO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10032000148",
+        "NOMBRE": "GOMEZ ADRIANZEN NESTOR RODOLFO",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "RUC": "10032000521",
+        "NOMBRE": "GARCIA DE OCAÑA LEYVY MARLENY",
+        "DIRECCION": "",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 392,
+    "version": 48
+  },
+  {
+    "file": "provincia.dbf",
+    "fields": [
+      {
+        "name": "DEPARTAMEN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "PROVINCIA",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "01",
+        "NOMBRE": "CHACHAPOYAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "02",
+        "NOMBRE": "BAGUA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "03",
+        "NOMBRE": "BONGARA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "04",
+        "NOMBRE": "CONDORCANQUI",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "05",
+        "NOMBRE": "LUYA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "06",
+        "NOMBRE": "RODRIGUEZ DE MENDOZA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "01",
+        "PROVINCIA": "07",
+        "NOMBRE": "UCTUBAMBA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "02",
+        "PROVINCIA": "01",
+        "NOMBRE": "HUARAZ",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "02",
+        "PROVINCIA": "02",
+        "NOMBRE": "AIJA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "DEPARTAMEN": "02",
+        "PROVINCIA": "03",
+        "NOMBRE": "ANTONIO RAIMONDI",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 225,
+    "version": 48
+  },
+  {
+    "file": "rubro.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "FUENTE_FIN",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "00",
+        "NOMBRE": "RECURSOS ORDINARIOS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "07",
+        "NOMBRE": "FONDO DE COMPENSACION MUNICIPAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "08",
+        "NOMBRE": "IMPUESTOS MUNICIPALES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "09",
+        "NOMBRE": "RECURSOS DIRECTAMENTE RECAUDADOS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "13",
+        "NOMBRE": "DONACIONES Y TRANSFERENCIAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "18",
+        "NOMBRE": "CANON Y SOBRECANON, REGALIAS, RENTA DE ADUANAS Y PARTICIPACIONES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "FUENTE_FIN": "19",
+        "NOMBRE": "RECURSOS POR OPERACIONES OFICIALES DE CREDITO",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 7,
+    "version": 48
+  },
+  {
+    "file": "sector.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SECTOR",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 150,
+        "decimal": 0
+      },
+      {
+        "name": "_NullFlags",
+        "type": "0",
+        "length": 1,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "00",
+        "NOMBRE": "FICTICIO",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "01",
+        "NOMBRE": "PRESIDENCIA CONSEJO MINISTROS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "03",
+        "NOMBRE": "CULTURA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "04",
+        "NOMBRE": "PODER JUDICIAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "05",
+        "NOMBRE": "AMBIENTAL",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "06",
+        "NOMBRE": "JUSTICIA",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "07",
+        "NOMBRE": "INTERIOR",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "08",
+        "NOMBRE": "RELACIONES EXTERIORES",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "09",
+        "NOMBRE": "ECONOMIA Y FINANZAS",
+        "_NullFlags": "\u0000"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SECTOR": "10",
+        "NOMBRE": "EDUCACION",
+        "_NullFlags": "\u0000"
+      }
+    ],
+    "total_records": 35,
+    "version": 48
+  },
+  {
+    "file": "swproceso_certificaciones.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "ARCHIVO",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_CREA",
+        "type": "D",
+        "length": 8,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_CARGA",
+        "type": "D",
+        "length": 8,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "01",
+        "ARCHIVO": "REPORTE_PCA_01.XLSX",
+        "FEC_CREA": "20260417",
+        "FEC_CARGA": "20260527"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "MES_EJE": "02",
+        "ARCHIVO": "REPORTE_PCA_02.XLSX",
+        "FEC_CREA": "20260417",
+        "FEC_CARGA": "20260527"
+      }
+    ],
+    "total_records": 2,
+    "version": 48
+  },
+  {
+    "file": "swproceso_ingreso_gasto_2025.dbf",
+    "fields": [
+      {
+        "name": "ANO_EJE",
+        "type": "C",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SEC_EJEC",
+        "type": "C",
+        "length": 6,
+        "decimal": 0
+      },
+      {
+        "name": "CICLO",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "FASE",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "MES_EJE",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "ARCHIVO",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_CREA",
+        "type": "D",
+        "length": 8,
+        "decimal": 0
+      },
+      {
+        "name": "FEC_CARGA",
+        "type": "D",
+        "length": 8,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CICLO": "G",
+        "FASE": "T",
+        "MES_EJE": "01",
+        "ARCHIVO": "REPORTEA_GASTOS_01.XLSX",
+        "FEC_CREA": "20260417",
+        "FEC_CARGA": "20260527"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CICLO": "G",
+        "FASE": "T",
+        "MES_EJE": "02",
+        "ARCHIVO": "REPORTEA_GASTOS_02.XLSX",
+        "FEC_CREA": "20260417",
+        "FEC_CARGA": "20260527"
+      },
+      {
+        "ANO_EJE": "2026",
+        "SEC_EJEC": "301548",
+        "CICLO": "G",
+        "FASE": "T",
+        "MES_EJE": "03",
+        "ARCHIVO": "REPORTEA_GASTOS_03.XLSX",
+        "FEC_CREA": "20260417",
+        "FEC_CARGA": "20260527"
+      }
+    ],
+    "total_records": 3,
+    "version": 48
+  },
+  {
+    "file": "tipo_recurso_interfase.dbf",
+    "fields": [
+      {
+        "name": "RUBRO",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "TIPO_REC",
+        "type": "C",
+        "length": 2,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRETIPO",
+        "type": "C",
+        "length": 100,
+        "decimal": 0
+      },
+      {
+        "name": "REQ_AUTORI",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "VIAJA_BANC",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "ES_CUT",
+        "type": "C",
+        "length": 1,
+        "decimal": 0
+      },
+      {
+        "name": "SELCUT",
+        "type": "I",
+        "length": 4,
+        "decimal": 0
+      },
+      {
+        "name": "SELNOCUT",
+        "type": "I",
+        "length": 4,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "RUBRO": "07",
+        "TIPO_REC": "0",
+        "NOMBRETIPO": "NORMAL",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "N",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "07",
+        "TIPO_REC": "1",
+        "NOMBRETIPO": "MUNICIPIOS",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "N",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "07",
+        "TIPO_REC": "2",
+        "NOMBRETIPO": "FONCOMUN",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "07",
+        "TIPO_REC": "3",
+        "NOMBRETIPO": "SUB CUENTA - SALDOS DE TRANSFERENCIAS - FONCOMUN",
+        "REQ_AUTORI": "S",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "S",
+        "SELCUT": "\u0001\u0000\u0000\u0000",
+        "SELNOCUT": "\u0000\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "07",
+        "TIPO_REC": "A",
+        "NOMBRETIPO": "SUB CUENTA - FONCOMUN",
+        "REQ_AUTORI": "S",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "S",
+        "SELCUT": "\u0001\u0000\u0000\u0000",
+        "SELNOCUT": "\u0000\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "08",
+        "TIPO_REC": "0",
+        "NOMBRETIPO": "NORMAL",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "N",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "08",
+        "TIPO_REC": "1",
+        "NOMBRETIPO": "IMPUESTOS MUNICIPALES",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "08",
+        "TIPO_REC": "3",
+        "NOMBRETIPO": "SUB CUENTA - TRAGAMONEDAS",
+        "REQ_AUTORI": "S",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "S",
+        "SELCUT": "\u0001\u0000\u0000\u0000",
+        "SELNOCUT": "\u0000\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "08",
+        "TIPO_REC": "7",
+        "NOMBRETIPO": "SUB CUENTA - IMPUESTOS MUNICIPALES",
+        "REQ_AUTORI": "S",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "S",
+        "SELCUT": "\u0001\u0000\u0000\u0000",
+        "SELNOCUT": "\u0000\u0000\u0000\u0000"
+      },
+      {
+        "RUBRO": "09",
+        "TIPO_REC": "0",
+        "NOMBRETIPO": "NORMAL",
+        "REQ_AUTORI": "N",
+        "VIAJA_BANC": "S",
+        "ES_CUT": "N",
+        "SELCUT": "\u0000\u0000\u0000\u0000",
+        "SELNOCUT": "\u0001\u0000\u0000\u0000"
+      }
+    ],
+    "total_records": 58,
+    "version": 48
+  },
+  {
+    "file": "unidad_medida.dbf",
+    "fields": [
+      {
+        "name": "UNIDAD_MED",
+        "type": "C",
+        "length": 10,
+        "decimal": 0
+      },
+      {
+        "name": "NOMBRE",
+        "type": "C",
+        "length": 50,
+        "decimal": 0
+      }
+    ],
+    "sample_records": [
+      {
+        "UNIDAD_MED": "001",
+        "NOMBRE": "ACCION"
+      },
+      {
+        "UNIDAD_MED": "010",
+        "NOMBRE": "BENEFICIARIO"
+      },
+      {
+        "UNIDAD_MED": "017",
+        "NOMBRE": "CATASTRO"
+      },
+      {
+        "UNIDAD_MED": "022",
+        "NOMBRE": "CONTROL REALIZADO"
+      },
+      {
+        "UNIDAD_MED": "023",
+        "NOMBRE": "CONVENIO"
+      },
+      {
+        "UNIDAD_MED": "048",
+        "NOMBRE": "EVENTO CULTURAL"
+      },
+      {
+        "UNIDAD_MED": "049",
+        "NOMBRE": "EVENTO DEPORTIVO"
+      },
+      {
+        "UNIDAD_MED": "054",
+        "NOMBRE": "EXPEDIENTE TECNICO"
+      },
+      {
+        "UNIDAD_MED": "056",
+        "NOMBRE": "FAMILIA"
+      },
+      {
+        "UNIDAD_MED": "059",
+        "NOMBRE": "HECTAREA"
+      }
+    ],
+    "total_records": 38,
+    "version": 48
+  }
+]

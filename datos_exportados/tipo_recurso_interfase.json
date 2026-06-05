@@ -1,0 +1,157 @@
+{
+  "file": "tipo_recurso_interfase.dbf",
+  "fields": [
+    {
+      "name": "RUBRO",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "TIPO_REC",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRETIPO",
+      "type": "C",
+      "length": 100,
+      "decimal": 0
+    },
+    {
+      "name": "REQ_AUTORI",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "VIAJA_BANC",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "ES_CUT",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    },
+    {
+      "name": "SELCUT",
+      "type": "I",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "SELNOCUT",
+      "type": "I",
+      "length": 4,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "RUBRO": "07",
+      "TIPO_REC": "0",
+      "NOMBRETIPO": "NORMAL",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "N",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "07",
+      "TIPO_REC": "1",
+      "NOMBRETIPO": "MUNICIPIOS",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "N",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "07",
+      "TIPO_REC": "2",
+      "NOMBRETIPO": "FONCOMUN",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "07",
+      "TIPO_REC": "3",
+      "NOMBRETIPO": "SUB CUENTA - SALDOS DE TRANSFERENCIAS - FONCOMUN",
+      "REQ_AUTORI": "S",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "S",
+      "SELCUT": "\u0001\u0000\u0000\u0000",
+      "SELNOCUT": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "07",
+      "TIPO_REC": "A",
+      "NOMBRETIPO": "SUB CUENTA - FONCOMUN",
+      "REQ_AUTORI": "S",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "S",
+      "SELCUT": "\u0001\u0000\u0000\u0000",
+      "SELNOCUT": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "08",
+      "TIPO_REC": "0",
+      "NOMBRETIPO": "NORMAL",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "N",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "08",
+      "TIPO_REC": "1",
+      "NOMBRETIPO": "IMPUESTOS MUNICIPALES",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "08",
+      "TIPO_REC": "3",
+      "NOMBRETIPO": "SUB CUENTA - TRAGAMONEDAS",
+      "REQ_AUTORI": "S",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "S",
+      "SELCUT": "\u0001\u0000\u0000\u0000",
+      "SELNOCUT": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "08",
+      "TIPO_REC": "7",
+      "NOMBRETIPO": "SUB CUENTA - IMPUESTOS MUNICIPALES",
+      "REQ_AUTORI": "S",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "S",
+      "SELCUT": "\u0001\u0000\u0000\u0000",
+      "SELNOCUT": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "RUBRO": "09",
+      "TIPO_REC": "0",
+      "NOMBRETIPO": "NORMAL",
+      "REQ_AUTORI": "N",
+      "VIAJA_BANC": "S",
+      "ES_CUT": "N",
+      "SELCUT": "\u0000\u0000\u0000\u0000",
+      "SELNOCUT": "\u0001\u0000\u0000\u0000"
+    }
+  ],
+  "total_records": 58,
+  "version": 48
+}

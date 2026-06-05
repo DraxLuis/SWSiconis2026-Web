@@ -1,0 +1,125 @@
+{
+  "file": "fichaproy_filtro.dbf",
+  "fields": [
+    {
+      "name": "IDREG",
+      "type": "I",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "CODIGO",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "CLASIF",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "CLASE",
+      "type": "C",
+      "length": 80,
+      "decimal": 0
+    },
+    {
+      "name": "ESTADO",
+      "type": "C",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "IDREG": "\u0001\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 1",
+      "NOMBRE": "EDIFICIOS ADMINISTRATIVOS",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0002\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 2",
+      "NOMBRE": "INSTALACIONES EDUCATIVAS",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0003\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 3",
+      "NOMBRE": "INSTALACIONES MEDICAS",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0004\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 4",
+      "NOMBRE": "INSTALACIONES SOCIALES Y CULTURALES",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0005\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 5",
+      "NOMBRE": "CENTROS DE RECLUSION",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0006\u0000\u0000\u0000",
+      "CODIGO": "01",
+      "CLASIF": "26 2 2 6",
+      "NOMBRE": "OTROS EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "CLASE": "EDIFICIOS O UNIDADES NO RESIDENCIALES",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0007\u0000\u0000\u0000",
+      "CODIGO": "02",
+      "CLASIF": "26 2 3 1",
+      "NOMBRE": "PUERTOS Y AEROPUERTOS",
+      "CLASE": "OTRAS ESTRUCTURAS",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\b\u0000\u0000\u0000",
+      "CODIGO": "02",
+      "CLASIF": "26 2 3 2",
+      "NOMBRE": "INFRAESTRUCTURA VIAL",
+      "CLASE": "OTRAS ESTRUCTURAS",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0000\u0000\u0000",
+      "CODIGO": "02",
+      "CLASIF": "26 2 3 3",
+      "NOMBRE": "INFRAESTRUCTURA ELECTRICA",
+      "CLASE": "OTRAS ESTRUCTURAS",
+      "ESTADO": "A"
+    },
+    {
+      "IDREG": "\u0000\u0000\u0000",
+      "CODIGO": "02",
+      "CLASIF": "26 2 3 4",
+      "NOMBRE": "INFRAESTRUCTURA AGRICOLA",
+      "CLASE": "OTRAS ESTRUCTURAS",
+      "ESTADO": "A"
+    }
+  ],
+  "total_records": 27,
+  "version": 48
+}

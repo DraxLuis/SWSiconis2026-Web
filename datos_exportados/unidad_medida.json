@@ -1,0 +1,61 @@
+{
+  "file": "unidad_medida.dbf",
+  "fields": [
+    {
+      "name": "UNIDAD_MED",
+      "type": "C",
+      "length": 10,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 50,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "UNIDAD_MED": "001",
+      "NOMBRE": "ACCION"
+    },
+    {
+      "UNIDAD_MED": "010",
+      "NOMBRE": "BENEFICIARIO"
+    },
+    {
+      "UNIDAD_MED": "017",
+      "NOMBRE": "CATASTRO"
+    },
+    {
+      "UNIDAD_MED": "022",
+      "NOMBRE": "CONTROL REALIZADO"
+    },
+    {
+      "UNIDAD_MED": "023",
+      "NOMBRE": "CONVENIO"
+    },
+    {
+      "UNIDAD_MED": "048",
+      "NOMBRE": "EVENTO CULTURAL"
+    },
+    {
+      "UNIDAD_MED": "049",
+      "NOMBRE": "EVENTO DEPORTIVO"
+    },
+    {
+      "UNIDAD_MED": "054",
+      "NOMBRE": "EXPEDIENTE TECNICO"
+    },
+    {
+      "UNIDAD_MED": "056",
+      "NOMBRE": "FAMILIA"
+    },
+    {
+      "UNIDAD_MED": "059",
+      "NOMBRE": "HECTAREA"
+    }
+  ],
+  "total_records": 38,
+  "version": 48
+}

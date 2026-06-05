@@ -1,0 +1,75 @@
+{
+  "file": "rubro.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "FUENTE_FIN",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "00",
+      "NOMBRE": "RECURSOS ORDINARIOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "07",
+      "NOMBRE": "FONDO DE COMPENSACION MUNICIPAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "08",
+      "NOMBRE": "IMPUESTOS MUNICIPALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "09",
+      "NOMBRE": "RECURSOS DIRECTAMENTE RECAUDADOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "13",
+      "NOMBRE": "DONACIONES Y TRANSFERENCIAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "18",
+      "NOMBRE": "CANON Y SOBRECANON, REGALIAS, RENTA DE ADUANAS Y PARTICIPACIONES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUENTE_FIN": "19",
+      "NOMBRE": "RECURSOS POR OPERACIONES OFICIALES DE CREDITO",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 7,
+  "version": 48
+}

@@ -1,0 +1,93 @@
+{
+  "file": "funcion.dbf",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C",
+      "length": 4,
+      "decimal": 0
+    },
+    {
+      "name": "FUNCION",
+      "type": "C",
+      "length": 2,
+      "decimal": 0
+    },
+    {
+      "name": "NOMBRE",
+      "type": "C",
+      "length": 150,
+      "decimal": 0
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0",
+      "length": 1,
+      "decimal": 0
+    }
+  ],
+  "sample_records": [
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "03",
+      "NOMBRE": "PLANEAMIENTO, GESTION Y RESERVA DE CONTINGENCIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "05",
+      "NOMBRE": "ORDEN PUBLICO Y SEGURIDAD",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "07",
+      "NOMBRE": "TRABAJO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "08",
+      "NOMBRE": "COMERCIO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "09",
+      "NOMBRE": "TURISMO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "10",
+      "NOMBRE": "AGROPECUARIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "15",
+      "NOMBRE": "TRANSPORTE",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "17",
+      "NOMBRE": "AMBIENTE",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "18",
+      "NOMBRE": "SANEAMIENTO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "FUNCION": "19",
+      "NOMBRE": "VIVIENDA Y DESARROLLO URBANO",
+      "_NullFlags": "\u0000"
+    }
+  ],
+  "total_records": 15,
+  "version": 48
+}
