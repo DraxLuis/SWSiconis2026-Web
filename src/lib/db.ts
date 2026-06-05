@@ -7,7 +7,7 @@ const config: mssql.config = {
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 1433,
   options: {
-    encrypt: true,
+    encrypt: false,
     trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true',
   },
 };
