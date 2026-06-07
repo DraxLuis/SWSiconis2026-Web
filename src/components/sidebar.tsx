@@ -4,112 +4,214 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
-  LayoutDashboard,
-  TrendingUp,
-  TrendingDown,
-  FileText,
-  CreditCard,
-  Target,
-  FolderOpen,
-  ClipboardCheck,
-  Layers,
-  ChevronDown,
-  ChevronRight,
-  Banknote,
+  Monitor,
+  CalendarDays,
+  Calculator,
   Printer,
-  Building2,
-  ChevronLeft,
+  Clock,
+  LogOut,
+  Table2,
+  Target,
+  BookMarked,
+  Layers,
+  FolderKanban,
   BarChart3,
+  TrendingDown,
+  TrendingUp,
+  FileCheck,
+  FolderOpen,
+  FileText,
+  Users,
+  CreditCard,
+  Building2,
   Wallet,
   ShoppingCart,
-  GitMerge,
+  ArrowRightLeft,
+  Upload,
+  FileOutput,
+  Landmark,
+  FileSpreadsheet,
   Settings,
+  KeyRound,
+  HardDrive,
   HelpCircle,
-  ArrowRightLeft
+  Info,
+  BookOpen,
+  ScrollText,
+  ChevronDown,
+  ChevronRight,
+  ChevronLeft,
+  UserCog,
+  Banknote,
+  ListChecks,
+  PenLine,
 } from 'lucide-react';
 import { useState } from 'react';
 
+/* ─────────────────────────────────────────────────────────
+   NAVIGATION SCHEMA — exacto al original SICONIS
+   ───────────────────────────────────────────────────────── */
+
 interface NavItem {
   label: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
   href?: string;
   children?: NavItem[];
-  tag?: string;
+  divider?: boolean; // separador antes de este item
 }
 
 const navigation: NavItem[] = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '/' },
+  // ── SISTEMA ───────────────────────────────────────────
+  {
+    label: 'Sistema',
+    icon: Monitor,
+    children: [
+      { label: 'Agenda',               icon: CalendarDays, href: '/sistema/agenda' },
+      { label: 'Calculadora',          icon: Calculator,   href: '/sistema/calculadora' },
+      { label: 'Especificar Impresora…', icon: Printer,   href: '/sistema/impresora' },
+      { label: 'Autorizar período',    icon: Clock,        href: '/sistema/autorizar-periodo' },
+      { label: 'Salir',               icon: LogOut,        href: '/sistema/salir' },
+    ],
+  },
 
+  // ── TABLAS ────────────────────────────────────────────
+  {
+    label: 'Tablas',
+    icon: Table2,
+    children: [
+      { label: 'Metas',                     icon: Target,       href: '/tablas/metas' },
+      { label: 'Clasificadores',            icon: BookMarked,   href: '/tablas/clasificadores' },
+      { label: 'Rubros',                    icon: Layers,       href: '/tablas/rubros' },
+      { label: 'Proyectos',                 icon: FolderKanban, href: '/tablas/proyectos' },
+      { label: 'Programas Presupuestales',  icon: BarChart3,    href: '/tablas/programas' },
+    ],
+  },
+
+  // ── PRESUPUESTO ───────────────────────────────────────
   {
     label: 'Presupuesto',
-    icon: Layers,
+    icon: ListChecks,
     children: [
-      { label: 'Ejecución de Gastos',  icon: TrendingDown, href: '/gastos' },
-      { label: 'Por Meta / Func.',      icon: Target,       href: '/metas' },
-      { label: 'Por Actividad / Proy.', icon: FolderOpen,   href: '/proyectos' },
-      { label: 'Ejecución Ingresos',   icon: TrendingUp,   href: '/ingresos' },
-      { label: 'Certificaciones',      icon: ClipboardCheck, href: '/certificados' },
-      { label: 'Expedientes Gastos',   icon: FileText,     href: '/expedientes' },
+      { label: 'Metas',                          icon: Target,       href: '/presupuesto/metas' },
+      { label: 'Actividad - Proyecto',           icon: FolderKanban, href: '/presupuesto/actividad-proyecto' },
+      { label: 'Activ. Obras Acc.Inv.',          icon: Building2,    href: '/presupuesto/obras' },
+      { label: 'Ejecución de Ingreso',           icon: TrendingUp,   href: '/ingresos' },
+      { label: 'Certificaciones',                icon: FileCheck,    href: '/certificados' },
+      {
+        label: 'Expedientes Administrativos',
+        icon: FolderOpen,
+        children: [
+          { label: 'Expedientes de Gastos',   icon: TrendingDown, href: '/gastos' },
+          { label: 'Expedientes de Ingresos', icon: TrendingUp,   href: '/expedientes/ingresos' },
+        ],
+      },
+      { label: 'Actualizar Nom., Proveedor, Glosa', icon: PenLine,    href: '/presupuesto/actualizar' },
+      { label: 'Proveedores',                   icon: Users,        href: '/proveedores' },
+      { label: 'Documentos de Giros',           icon: Banknote,     href: '/giros' },
     ],
   },
 
+  // ── PROGRAMAS PRESUPUESTALES ──────────────────────────
   {
-    label: 'Prog. Presupuestales',
+    label: 'Programas Presupuestales',
     icon: BarChart3,
-    tag: 'Próx.',
     children: [
-      { label: 'Programa Presupuestal', icon: BarChart3,   href: '/programas' },
-      { label: 'Ejecución Programas',   icon: TrendingDown, href: '/programas/ejecucion' },
+      { label: 'Programa Presupuestal', icon: BarChart3,    href: '/programas' },
+      { label: 'Ejecución de Programas', icon: TrendingDown, href: '/programas/ejecucion' },
     ],
   },
 
+  // ── INVERSIÓN ─────────────────────────────────────────
   {
     label: 'Inversión',
     icon: Building2,
-    tag: 'Próx.',
     children: [
-      { label: 'Proyectos 2025',     icon: Building2,  href: '/inversion' },
-      { label: 'Ejecución Proyectos', icon: TrendingDown, href: '/inversion/ejecucion' },
+      { label: 'Consulta de Proyectos-2025', icon: FolderKanban, href: '/inversion' },
+      { label: 'Ejecución Proyectos',        icon: TrendingDown,  href: '/inversion/ejecucion' },
     ],
   },
 
+  // ── TESORERÍA ─────────────────────────────────────────
   {
     label: 'Tesorería',
     icon: Wallet,
     children: [
-      { label: 'Comprobantes de Pago', icon: CreditCard, href: '/pagos' },
-      { label: 'Cheques Girados',      icon: Banknote,   href: '/giros' },
-      { label: 'Viáticos y Encargos',  icon: Wallet,     href: '/viaticos', tag: 'Próx.' },
+      { label: 'Comprobantes de Pago', icon: CreditCard,   href: '/pagos' },
+      { label: 'Cheques Girados',      icon: Banknote,     href: '/giros' },
+      { label: 'Viáticos y Encargos',  icon: Wallet,       href: '/viaticos' },
     ],
   },
 
+  // ── LOGÍSTICA ─────────────────────────────────────────
   {
     label: 'Logística',
     icon: ShoppingCart,
-    tag: 'Próx.',
     children: [
-      { label: 'Proveedores', icon: ShoppingCart, href: '/proveedores' },
+      { label: 'Proveedores', icon: Users, href: '/logistica/proveedores' },
     ],
   },
 
+  // ── INTERFASE ─────────────────────────────────────────
   {
-    label: 'Interfase SIAF',
+    label: 'Interfase',
     icon: ArrowRightLeft,
-    tag: 'Próx.',
     children: [
-      { label: 'Carga PIA Ingresos',  icon: TrendingUp,   href: '/interfase/pia-ing' },
-      { label: 'Carga PIA Gastos',    icon: TrendingDown, href: '/interfase/pia-gas' },
-      { label: 'Certificaciones',     icon: ClipboardCheck, href: '/interfase/certif' },
-      { label: 'Transferencia TXT',   icon: GitMerge,     href: '/interfase/txt' },
+      {
+        label: 'Presupuesto',
+        icon: ListChecks,
+        children: [
+          { label: 'Carga de PIA – Ingresos', icon: Upload, href: '/interfase/pia-ingresos' },
+          { label: 'Carga de PIA – Gastos',   icon: Upload, href: '/interfase/pia-gastos' },
+        ],
+      },
+      { label: 'Certificaciones',             icon: FileCheck,    href: '/interfase/certificaciones' },
+      { label: 'Expedientes Ingresos',        icon: FolderOpen,   href: '/interfase/exp-ingresos' },
+      { label: 'Expedientes Gastos',          icon: FolderOpen,   href: '/interfase/exp-gastos' },
+      { label: 'Notas de Pago',              icon: FileText,     href: '/interfase/notas-pago' },
+      { label: 'Archivo Transferencia (TXT)', icon: FileOutput,   href: '/interfase/txt' },
+      { label: 'Arch. Transfer. CtaCte BN',  icon: Landmark,     href: '/interfase/bn' },
+      { label: 'Arch. Transfer. RR.OO',      icon: FileOutput,   href: '/interfase/rroo' },
     ],
   },
 
-  { label: 'Reportes',   icon: Printer,   href: '/reportes' },
-  { label: 'Utilitarios', icon: Settings,  href: '/utilitarios', tag: 'Próx.' },
-  { label: 'Ayuda',      icon: HelpCircle, href: '/ayuda', tag: 'Próx.' },
+  // ── EXCEL ─────────────────────────────────────────────
+  {
+    label: 'Excel',
+    icon: FileSpreadsheet,
+    children: [
+      { label: 'Reporte Excel', icon: FileSpreadsheet, href: '/reportes' },
+    ],
+  },
+
+  // ── UTILITARIOS ───────────────────────────────────────
+  {
+    label: 'Utilitarios',
+    icon: Settings,
+    children: [
+      { label: 'Seleccionar Periodo',   icon: CalendarDays, href: '/utilitarios/periodo' },
+      { label: 'Usuarios',              icon: UserCog,      href: '/utilitarios/usuarios' },
+      { label: 'Actualiza Clave',       icon: KeyRound,     href: '/utilitarios/clave' },
+      { label: 'Cambia Ruta DATA SIAF', icon: HardDrive,    href: '/utilitarios/ruta-siaf' },
+    ],
+  },
+
+  // ── AYUDA ─────────────────────────────────────────────
+  {
+    label: 'Ayuda',
+    icon: HelpCircle,
+    children: [
+      { label: 'Acerca de…',        icon: Info,       href: '/ayuda/acerca' },
+      { label: 'Manual del Sistema', icon: BookOpen,   href: '/ayuda/manual' },
+      { label: 'Reportes del Sistema', icon: ScrollText, href: '/ayuda/reportes' },
+    ],
+  },
 ];
 
-function NavGroup({
+/* ─────────────────────────────────────────────────────────
+   NAV ITEM COMPONENT (recursive — soporta 3 niveles)
+   ───────────────────────────────────────────────────────── */
+
+function NavNode({
   item,
   level = 0,
   collapsed,
@@ -119,87 +221,110 @@ function NavGroup({
   collapsed: boolean;
 }) {
   const pathname = usePathname();
-  const isLeaf = !item.children;
+  const isLeaf = !item.children || item.children.length === 0;
   const isActive = item.href ? pathname === item.href : false;
-  const hasActiveChild = item.children?.some(
-    (c) => c.href && pathname.startsWith(c.href)
+  const hasActiveChild = !!item.children?.some(
+    (c) => (c.href && (pathname === c.href || pathname.startsWith(c.href + '/'))) ||
+            c.children?.some((cc) => cc.href && pathname === cc.href)
   );
-  const [open, setOpen] = useState(hasActiveChild || false);
+  const [open, setOpen] = useState(hasActiveChild);
 
+  // ── Leaf (link)
   if (isLeaf && item.href) {
+    const Icon = item.icon;
     return (
       <Link
         href={item.href}
         title={collapsed ? item.label : undefined}
         className={cn(
           'nav-item group relative',
-          level > 0 && !collapsed && 'pl-8 text-[0.73rem]',
-          isActive
-            ? 'active'
-            : 'hover:bg-white/5'
+          level === 1 && !collapsed && 'pl-7 text-[0.72rem]',
+          level === 2 && !collapsed && 'pl-10 text-[0.68rem]',
+          isActive ? 'active' : ''
         )}
       >
-        <item.icon
-          className={cn(
-            'flex-shrink-0 transition-colors duration-200',
-            level > 0 ? 'h-3.5 w-3.5' : 'h-4 w-4',
-            isActive ? 'text-[#D40000]' : 'text-[#4A6080] group-hover:text-slate-300'
-          )}
-        />
+        {Icon && (
+          <Icon
+            className={cn(
+              'flex-shrink-0',
+              level === 0 ? 'h-4 w-4' : 'h-3.5 w-3.5',
+              isActive
+                ? 'text-[#D40000]'
+                : 'text-[#4A6080] group-hover:text-slate-300 transition-colors'
+            )}
+          />
+        )}
         {!collapsed && (
           <span className="flex-1 truncate leading-tight">{item.label}</span>
         )}
-        {!collapsed && item.tag && (
-          <span className="badge badge-muted flex-shrink-0">{item.tag}</span>
-        )}
         {isActive && (
-          <span className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-[#D40000] rounded-l-full" />
+          <span className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-[#D40000] rounded-l-full" />
         )}
       </Link>
     );
   }
 
+  // ── Group (collapsible)
+  const Icon = item.icon;
   return (
     <div>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((v) => !v)}
         title={collapsed ? item.label : undefined}
         className={cn(
-          'nav-item w-full',
-          hasActiveChild ? 'text-white' : 'hover:bg-white/5'
+          'nav-item w-full group',
+          level === 1 && !collapsed && 'pl-7 text-[0.72rem]',
+          hasActiveChild && !isActive ? 'text-white' : ''
         )}
       >
-        <item.icon
-          className={cn(
-            'flex-shrink-0 h-4 w-4 transition-colors duration-200',
-            hasActiveChild ? 'text-[#D40000]' : 'text-[#4A6080] group-hover:text-slate-300'
-          )}
-        />
+        {Icon && (
+          <Icon
+            className={cn(
+              'flex-shrink-0',
+              level === 0 ? 'h-4 w-4' : 'h-3.5 w-3.5',
+              hasActiveChild
+                ? 'text-[#D40000]'
+                : 'text-[#4A6080] group-hover:text-slate-300 transition-colors'
+            )}
+          />
+        )}
         {!collapsed && (
           <>
             <span className="flex-1 text-left truncate">{item.label}</span>
-            {item.tag && (
-              <span className="badge badge-muted mr-1">{item.tag}</span>
-            )}
             {open ? (
-              <ChevronDown className="h-3.5 w-3.5 text-[#4A6080] flex-shrink-0" />
+              <ChevronDown className="h-3 w-3 text-[#4A6080] flex-shrink-0" />
             ) : (
-              <ChevronRight className="h-3.5 w-3.5 text-[#4A6080] flex-shrink-0" />
+              <ChevronRight className="h-3 w-3 text-[#4A6080] flex-shrink-0" />
             )}
           </>
         )}
       </button>
 
       {open && !collapsed && item.children && (
-        <div className="mt-0.5 ml-2 pl-2 border-l border-white/5 space-y-0.5 animate-fade-in">
+        <div
+          className={cn(
+            'mt-0.5 space-y-0.5 animate-fade-in',
+            level === 0 && 'ml-2 pl-2 border-l border-white/[0.05]',
+            level === 1 && 'ml-3 pl-2 border-l border-white/[0.04]'
+          )}
+        >
           {item.children.map((child) => (
-            <NavGroup key={child.label} item={child} level={level + 1} collapsed={collapsed} />
+            <NavNode
+              key={child.label}
+              item={child}
+              level={level + 1}
+              collapsed={collapsed}
+            />
           ))}
         </div>
       )}
     </div>
   );
 }
+
+/* ─────────────────────────────────────────────────────────
+   SIDEBAR COMPONENT
+   ───────────────────────────────────────────────────────── */
 
 interface SidebarProps {
   collapsed: boolean;
@@ -216,15 +341,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         collapsed ? 'w-[60px]' : 'w-[240px]'
       )}
     >
-      {/* Toggle Button */}
+      {/* Toggle button */}
       <button
         onClick={onToggle}
         className={cn(
           'absolute -right-3 top-6 z-50',
           'h-6 w-6 rounded-full flex items-center justify-center',
           'bg-[#0A1F35] border border-white/10 text-[#4A6080]',
-          'hover:text-white hover:border-white/20 transition-all duration-200',
-          'shadow-lg'
+          'hover:text-white hover:border-white/20 transition-all duration-200 shadow-lg'
         )}
       >
         <ChevronLeft
@@ -235,35 +359,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         />
       </button>
 
-      {/* Navigation */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden py-4 px-2 space-y-0.5">
-
-        {/* Main nav items */}
-        {navigation.map((item) => {
-          // Add section separators
-          const separatorBefore =
-            item.label === 'Prog. Presupuestales' ||
-            item.label === 'Tesorería' ||
-            item.label === 'Interfase SIAF' ||
-            item.label === 'Reportes';
-
-          return (
-            <div key={item.label}>
-              {separatorBefore && !collapsed && (
-                <div className="nav-group-label mt-4 mb-1">
-                  {item.label === 'Tesorería' ? 'Gestión' :
-                   item.label === 'Interfase SIAF' ? 'Integración' :
-                   item.label === 'Reportes' ? 'Salidas' : 'Más módulos'}
-                </div>
-              )}
-              {separatorBefore && !collapsed && (
-                <div className="h-px bg-white/[0.04] mx-1 mb-2" />
-              )}
-              <NavGroup item={item} collapsed={collapsed} />
-            </div>
-          );
-        })}
-      </div>
+      {/* Nav list */}
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 space-y-0.5">
+        {navigation.map((item) => (
+          <NavNode key={item.label} item={item} level={0} collapsed={collapsed} />
+        ))}
+      </nav>
 
       {/* Footer */}
       {!collapsed && (
