@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div
         className={cn(
           'min-h-screen pt-14 transition-all duration-300 ease-in-out',
-          sidebarCollapsed ? 'pl-[60px]' : 'pl-[240px]'
+          sidebarCollapsed ? 'pl-[68px]' : 'pl-[268px]'
         )}
         style={{
           background:
