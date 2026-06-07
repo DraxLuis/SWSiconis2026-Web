@@ -151,14 +151,14 @@ export default function DashboardPage() {
       if (data.success) {
         setCards(data.cards);
         setMonths(data.months || []);
-        if (data.rubros && rubros.length === 0) setRubros(data.rubros);
+        setRubros(prev => prev.length === 0 && data.rubros ? data.rubros : prev);
       }
     } catch (e) {
       console.error(e);
     } finally {
       setLoading(false);
     }
-  }, [filterRubro, filterClasificador, rubros.length]);
+  }, [filterRubro, filterClasificador]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
