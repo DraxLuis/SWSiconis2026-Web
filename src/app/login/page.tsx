@@ -293,7 +293,8 @@ export default function LoginPage() {
                   <select
                     value={conexion}
                     onChange={(e) => setConexion(e.target.value)}
-                    className="form-select pl-9 pr-9 py-2 cursor-pointer bg-[#03101F]/90 border-white/[0.06] text-xs font-semibold text-white focus:border-[#D40000]/50"
+                    className="form-select pr-9 py-2 cursor-pointer bg-[#03101F]/90 border-white/[0.06] text-xs font-semibold text-white focus:border-[#D40000]/50"
+                    style={{ paddingLeft: '2.5rem' }}
                   >
                     <option value="produccion">SQL Server - Producción (Local)</option>
                     <option value="respaldo">SQL Server - Respaldo Externo</option>
@@ -315,7 +316,8 @@ export default function LoginPage() {
                     type="text"
                     value={usuario}
                     onChange={(e) => setUsuario(e.target.value)}
-                    className="form-input pl-9 py-2 bg-[#03101F]/90 border-white/[0.06] text-xs font-semibold focus:border-[#D40000]/50"
+                    className="form-input py-2 bg-[#03101F]/90 border-white/[0.06] text-xs font-semibold focus:border-[#D40000]/50"
+                    style={{ paddingLeft: '2.5rem' }}
                     placeholder="ADMINISTRADOR"
                     required
                   />
@@ -337,7 +339,8 @@ export default function LoginPage() {
                     type="password"
                     value={clave}
                     onChange={(e) => setClave(e.target.value)}
-                    className="form-input pl-9 py-2 bg-[#03101F]/90 border-white/[0.06] text-xs focus:border-[#D40000]/50"
+                    className="form-input py-2 bg-[#03101F]/90 border-white/[0.06] text-xs focus:border-[#D40000]/50"
+                    style={{ paddingLeft: '2.5rem' }}
                     placeholder="•••••••• (Opcional en desarrollo)"
                   />
                 </div>
