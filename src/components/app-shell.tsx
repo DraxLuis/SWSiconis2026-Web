@@ -1,18 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { Inter } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Sidebar } from '@/components/sidebar';
 import { Topbar } from '@/components/topbar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', weight: ['400', '500', '600', '700'] });
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className={cn('min-h-screen', inter.variable)}>
+    <div className={cn('min-h-screen', inter.variable, jetbrainsMono.variable)}>
       {/* Fixed Topbar — always at top */}
       <Topbar />
 
