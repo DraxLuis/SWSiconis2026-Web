@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { 
   Database, 
   Lock, 
@@ -18,7 +17,6 @@ import {
 } from 'lucide-react';
 
 export default function LoginPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [usuario, setUsuario] = useState('ADMINISTRADOR');
   const [clave, setClave] = useState('');
@@ -33,8 +31,8 @@ export default function LoginPage() {
       const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
       document.cookie = `siconis_session=${encodeURIComponent(usuario)}; path=/; max-age=${maxAge}; SameSite=Lax`;
       
-      router.push('/');
-      router.refresh();
+      // Redirección forzada de página para limpiar la caché del router del cliente de Next.js
+      window.location.href = '/';
     }, 1000);
   };
 

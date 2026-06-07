@@ -5,6 +5,16 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get('siconis_session');
   const { pathname } = request.nextUrl;
 
+  // Evitar interceptar estáticos, APIs, favicon y archivos con extensión
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/favicon.ico') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
+
   // Redirigir si no hay sesión y no está en /login
   if (!session && pathname !== '/login') {
     const loginUrl = new URL('/login', request.url);
