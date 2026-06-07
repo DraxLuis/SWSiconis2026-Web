@@ -1,12 +1,28 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Building2, CalendarDays, User, ChevronDown } from 'lucide-react';
 
 export function Topbar() {
-  const now = new Date();
-  const fecha = now.toLocaleDateString('es-PE', {
-    weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
-  });
+  // null = no renderizado aún (evita mismatch servidor/cliente)
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    // Solo corre en el cliente
+    setNow(new Date());
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const fecha = now
+    ? now.toLocaleDateString('es-PE', {
+        weekday: 'long', day: '2-digit', month: 'long', year: 'numeric',
+      })
+    : '';
+
+  const hora = now
+    ? now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })
+    : '';
 
   return (
     <header className="topbar">
@@ -62,14 +78,18 @@ export function Topbar() {
 
       {/* Right — User & Date */}
       <div className="flex items-center gap-3">
-        {/* Date */}
-        <div className="hidden lg:block text-right">
-          <p className="text-[10px] text-[#4A6080] font-medium capitalize leading-tight">
-            {fecha}
-          </p>
-          <p className="text-[9px] text-[#2A3A50] font-medium leading-tight">
-            {now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}
-          </p>
+        {/* Date — solo se muestra cuando now está disponible (cliente) */}
+        <div className="hidden lg:block text-right min-w-[120px]">
+          {now && (
+            <>
+              <p className="text-[10px] text-[#4A6080] font-medium capitalize leading-tight">
+                {fecha}
+              </p>
+              <p className="text-[9px] text-[#2A3A50] font-medium leading-tight tabular-nums">
+                {hora}
+              </p>
+            </>
+          )}
         </div>
 
         {/* Divider */}
