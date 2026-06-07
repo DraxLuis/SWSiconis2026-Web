@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Sidebar } from '@/components/sidebar';
 import { Topbar } from '@/components/topbar';
@@ -11,6 +12,16 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mon
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/login';
+
+  if (isLoginPage) {
+    return (
+      <div className={cn('min-h-screen', inter.variable, jetbrainsMono.variable)}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className={cn('min-h-screen', inter.variable, jetbrainsMono.variable)}>
