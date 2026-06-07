@@ -1,26 +1,32 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { 
-  DollarSign, 
-  TrendingUp, 
-  Percent, 
-  RefreshCw, 
+import {
+  DollarSign,
+  TrendingUp,
+  Percent,
+  RefreshCw,
   SlidersHorizontal,
-  Building,
-  Calendar,
+  Building2,
   Layers,
   ArrowUpRight,
-  TrendingDown
+  TrendingDown,
+  CheckCircle,
+  CreditCard,
+  ChevronDown,
+  Activity,
 } from 'lucide-react';
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
 } from 'recharts';
 import { cn } from '@/lib/utils';
 
@@ -44,21 +50,127 @@ interface RubroOption {
   nombre: string;
 }
 
+const formatMoney = (val: number) =>
+  new Intl.NumberFormat('es-PE', {
+    style: 'currency',
+    currency: 'PEN',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(val || 0);
+
+const formatMoneyCompact = (val: number) => {
+  if (val >= 1_000_000) return `S/ ${(val / 1_000_000).toFixed(2)}M`;
+  if (val >= 1_000) return `S/ ${(val / 1_000).toFixed(1)}K`;
+  return `S/ ${val.toFixed(0)}`;
+};
+
+// ─────────────────────────────────────────────────
+// KPI Card Component
+// ─────────────────────────────────────────────────
+interface KpiCardProps {
+  label: string;
+  value: number;
+  subValue?: string;
+  subLabel?: string;
+  icon: React.ElementType;
+  accentColor: string;
+  glowColor?: string;
+  loading?: boolean;
+  delay?: number;
+}
+
+function KpiCard({
+  label, value, subValue, subLabel, icon: Icon,
+  accentColor, glowColor, loading, delay = 0
+}: KpiCardProps) {
+  return (
+    <div
+      className="kpi-card animate-fade-in"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {/* Accent bar */}
+      <span className="kpi-accent-bar" style={{ background: accentColor }} />
+
+      {/* Icon */}
+      <div className="flex items-start justify-between mb-4">
+        <div
+          className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0"
+          style={{ background: `${accentColor}18`, border: `1px solid ${accentColor}28` }}
+        >
+          <Icon className="h-4.5 w-4.5" style={{ color: accentColor }} />
+        </div>
+        {subValue && (
+          <span className="badge badge-muted text-[9px]">{subValue}</span>
+        )}
+      </div>
+
+      {/* Value */}
+      {loading ? (
+        <div className="space-y-2">
+          <div className="skeleton h-6 w-3/4" />
+          <div className="skeleton h-3 w-1/2" />
+        </div>
+      ) : (
+        <>
+          <p className="text-[9px] font-800 uppercase tracking-widest text-[#4A6080] mb-1.5">{label}</p>
+          <h3
+            className="text-xl font-black leading-none tabular-nums"
+            style={{ color: glowColor || '#F0F4FF' }}
+          >
+            {formatMoneyCompact(value)}
+          </h3>
+          <p className="text-[10px] text-[#4A6080] mt-1 font-medium">
+            {formatMoney(value)}
+          </p>
+          {subLabel && (
+            <p className="text-[9px] font-semibold mt-2" style={{ color: accentColor }}>
+              {subLabel}
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────
+// Custom Chart Tooltip
+// ─────────────────────────────────────────────────
+interface TooltipPayloadItem { color: string; name: string; value: number; }
+interface TooltipProps { active?: boolean; payload?: TooltipPayloadItem[]; label?: string; }
+
+function ChartTooltip({ active, payload, label }: TooltipProps) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="glass-card-elevated px-4 py-3 shadow-2xl border border-white/10 rounded-xl">
+        <p className="text-[10px] font-bold text-[#4A6080] uppercase tracking-widest mb-2">{label}</p>
+        {payload.map((item, i) => (
+          <div key={i} className="flex items-center gap-2 text-xs mb-1 last:mb-0">
+            <span className="h-2 w-2 rounded-full flex-shrink-0" style={{ background: item.color }} />
+            <span className="text-slate-400 font-medium">{item.name}:</span>
+            <span className="text-white font-bold tabular-nums">{formatMoney(item.value)}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────────
+// Main Dashboard
+// ─────────────────────────────────────────────────
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [filterRubro, setFilterRubro] = useState('');
   const [filterClasificador, setFilterClasificador] = useState('');
   const [rubrosList, setRubrosList] = useState<RubroOption[]>([]);
-  
+  const [filterOpen, setFilterOpen] = useState(false);
+
   const [cards, setCards] = useState<CardData>({
-    total_pia: 0,
-    total_pim: 0,
-    total_certif: 0,
-    total_comprometido: 0,
-    total_devengado: 0,
-    total_girado: 0,
+    total_pia: 0, total_pim: 0, total_certif: 0,
+    total_comprometido: 0, total_devengado: 0, total_girado: 0,
   });
-  
   const [months, setMonths] = useState<MonthData[]>([]);
 
   const fetchDashboardData = useCallback(async () => {
@@ -68,134 +180,108 @@ export default function DashboardPage() {
       const params = new URLSearchParams();
       if (filterRubro) params.append('rubro', filterRubro);
       if (filterClasificador) params.append('clasificador', filterClasificador);
-      if (params.toString()) {
-        url += `?${params.toString()}`;
-      }
+      if (params.toString()) url += `?${params.toString()}`;
 
       const res = await fetch(url);
       const data = await res.json();
       if (data.success) {
         setCards(data.cards);
         setMonths(data.months);
-        if (data.rubros && rubrosList.length === 0) {
-          setRubrosList(data.rubros);
-        }
+        if (data.rubros && rubrosList.length === 0) setRubrosList(data.rubros);
       }
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+    } catch (e) {
+      console.error('Error fetching dashboard data:', e);
     } finally {
       setLoading(false);
     }
   }, [filterRubro, filterClasificador, rubrosList.length]);
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, [fetchDashboardData]);
+  useEffect(() => { fetchDashboardData(); }, [fetchDashboardData]);
 
-  // Format money to PEN currency style: S/ 1,234.56
-  const formatMoney = (val: number) => {
-    return new Intl.NumberFormat('es-PE', {
-      style: 'currency',
-      currency: 'PEN',
-      minimumFractionDigits: 2,
-    }).format(val || 0);
-  };
+  const progressPercent = cards.total_pim > 0
+    ? (cards.total_devengado / cards.total_pim) * 100 : 0;
 
-  // Execution Avance Percentage
-  const progressPercent = cards.total_pim > 0 
-    ? (cards.total_devengado / cards.total_pim) * 100 
-    : 0;
+  const circumference = 2 * Math.PI * 42;
+  const dashOffset = circumference - (circumference * Math.min(progressPercent, 100)) / 100;
 
-  // Custom Chart Tooltip
-  interface TooltipPayloadItem {
-    color: string;
-    name: string;
-    value: number;
-  }
-
-  interface TooltipProps {
-    active?: boolean;
-    payload?: TooltipPayloadItem[];
-    label?: string;
-  }
-
-  const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-[#0b1329]/95 border border-slate-700/60 p-4 rounded-xl shadow-2xl backdrop-blur-md">
-          <p className="text-xs font-bold text-slate-400 mb-2">{label}</p>
-          {payload.map((item, idx: number) => (
-            <div key={idx} className="flex items-center gap-3 text-xs mb-1 last:mb-0">
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
-              <span className="text-slate-300 font-medium">{item.name}:</span>
-              <span className="text-white font-bold">{formatMoney(item.value)}</span>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
+  // Bar chart data for budget stages
+  const stagesData = [
+    { name: 'PIA',        value: cards.total_pia,          color: '#4A6080' },
+    { name: 'PIM',        value: cards.total_pim,          color: '#1565C0' },
+    { name: 'Certif.',    value: cards.total_certif,       color: '#7C3AED' },
+    { name: 'Comprom.',   value: cards.total_comprometido, color: '#F59E0B' },
+    { name: 'Devengado',  value: cards.total_devengado,    color: '#D40000' },
+    { name: 'Girado',     value: cards.total_girado,       color: '#10B981' },
+  ];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      
-      {/* Header Area */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
+    <div className="space-y-7 stagger-children">
+
+      {/* ── Page Header ────────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-[#d40000] text-xs font-bold uppercase tracking-widest mb-1">
-            <Building className="h-4 w-4" />
-            UNIDAD EJECUTORA 301548
+          <div className="section-label mb-1.5">
+            <Building2 className="h-3.5 w-3.5" />
+            Unidad Ejecutora 301548
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none">
-            Municipalidad Provincial de Huancabamba
+          <h1 className="page-title">
+            Municipalidad Provincial<br className="hidden sm:block" /> de Huancabamba
           </h1>
-          <p className="text-slate-400 text-xs mt-1 font-medium">
-            Seguimiento de la Ejecución de Inversiones — Año Presupuestal 2026
+          <p className="text-[12px] text-[#4A6080] mt-1.5 font-medium">
+            Seguimiento de Ejecución Presupuestal — Año Fiscal 2026
           </p>
         </div>
 
-        <button 
-          onClick={fetchDashboardData}
-          className="flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-300 hover:text-white transition-all duration-300 backdrop-blur-sm shadow-sm"
-        >
-          <RefreshCw className={cn("h-3.5 w-3.5", loading && "animate-spin")} />
-          Actualizar Datos
-        </button>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Filter toggle */}
+          <button
+            onClick={() => setFilterOpen(!filterOpen)}
+            className={cn(
+              'btn-secondary',
+              filterOpen && 'border-[#D40000]/40 text-white bg-white/[0.06]'
+            )}
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            Filtros
+            <ChevronDown
+              className={cn('h-3 w-3 transition-transform duration-200', filterOpen && 'rotate-180')}
+            />
+          </button>
+          {/* Refresh */}
+          <button onClick={fetchDashboardData} className="btn-secondary">
+            <RefreshCw className={cn('h-3.5 w-3.5', loading && 'animate-spin-smooth')} />
+            Actualizar
+          </button>
+        </div>
       </div>
 
-      {/* Interactive Filters Panel */}
-      <div className="p-5 rounded-2xl border border-slate-800/70 bg-[#091122]/40 backdrop-blur-md shadow-lg shadow-black/20 flex flex-col md:flex-row md:items-center gap-5">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-          <SlidersHorizontal className="h-4 w-4 text-[#d40000]" />
-          Filtros de Búsqueda
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-          {/* Rubro Selector */}
+      {/* ── Filter Panel (collapsible) ────────────── */}
+      {filterOpen && (
+        <div className="filter-panel animate-fade-in grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
+            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
               <Layers className="h-3 w-3" />
               Fuente de Financiamiento (Rubro)
             </label>
-            <select
-              value={filterRubro}
-              onChange={(e) => setFilterRubro(e.target.value)}
-              className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
-            >
-              <option value="">Todos los Rubros</option>
-              {rubrosList.map((r) => (
-                <option key={r.codigo} value={r.codigo}>
-                  {r.codigo} - {r.nombre}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={filterRubro}
+                onChange={(e) => setFilterRubro(e.target.value)}
+                className="form-select pr-8"
+              >
+                <option value="">Todos los Rubros</option>
+                {rubrosList.map((r) => (
+                  <option key={r.codigo} value={r.codigo}>
+                    {r.codigo} — {r.nombre}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#4A6080] pointer-events-none" />
+            </div>
           </div>
-
-          {/* Clasificador Filter */}
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
-              <Calendar className="h-3 w-3" />
+            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+              <Layers className="h-3 w-3" />
               Clasificador Presupuestal
             </label>
             <input
@@ -203,247 +289,294 @@ export default function DashboardPage() {
               placeholder="Ej: 2.3 o 2.6..."
               value={filterClasificador}
               onChange={(e) => setFilterClasificador(e.target.value)}
-              className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+              className="form-input"
             />
           </div>
         </div>
+      )}
+
+      {/* ── KPI Cards Grid ────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <KpiCard
+          label="Presupuesto Apertura (PIA)"
+          value={cards.total_pia}
+          icon={DollarSign}
+          accentColor="#4A6080"
+          subLabel="Presupuesto Inicial Aprobado"
+          loading={loading}
+          delay={50}
+        />
+        <KpiCard
+          label="Presupuesto Modificado (PIM)"
+          value={cards.total_pim}
+          icon={TrendingUp}
+          accentColor="#1565C0"
+          subLabel={`Δ ${formatMoneyCompact(cards.total_pim - cards.total_pia)} vs PIA`}
+          loading={loading}
+          delay={100}
+        />
+        <KpiCard
+          label="Presupuesto Certificado"
+          value={cards.total_certif}
+          icon={CheckCircle}
+          accentColor="#7C3AED"
+          subLabel={`${((cards.total_certif / (cards.total_pim || 1)) * 100).toFixed(1)}% del PIM`}
+          loading={loading}
+          delay={150}
+        />
+        <KpiCard
+          label="Monto Comprometido Anual"
+          value={cards.total_comprometido}
+          icon={Percent}
+          accentColor="#F59E0B"
+          subLabel="Contratos y compromisos formalizados"
+          loading={loading}
+          delay={200}
+        />
+        <KpiCard
+          label="Gasto Devengado (Ejecutado)"
+          value={cards.total_devengado}
+          icon={ArrowUpRight}
+          accentColor="#D40000"
+          glowColor="#FF8080"
+          subLabel="Obligaciones de pago reconocidas"
+          loading={loading}
+          delay={250}
+        />
+        <KpiCard
+          label="Gasto Girado (Pagado)"
+          value={cards.total_girado}
+          icon={CreditCard}
+          accentColor="#10B981"
+          glowColor="#6EE7B7"
+          subLabel="Transferencias y cheques emitidos"
+          loading={loading}
+          delay={300}
+        />
       </div>
 
-      {/* Cards KPI Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* PIA */}
-        <div className="p-6 rounded-2xl border border-slate-800/50 bg-[#091224]/30 backdrop-blur-md hover:border-slate-700/40 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-            <DollarSign className="h-16 w-16 text-white" />
-          </div>
-          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1.5">Presupuesto Apertura (PIA)</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_pia)}</h3>
-          <div className="mt-3 flex items-center gap-1 text-[10px] text-slate-500 font-semibold">
-            Presupuesto Inicial Aprobado
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-slate-700" />
-        </div>
+      {/* ── Charts Row ────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
-        {/* PIM */}
-        <div className="p-6 rounded-2xl border border-slate-800/50 bg-[#091224]/30 backdrop-blur-md hover:border-slate-700/40 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-            <TrendingUp className="h-16 w-16 text-white" />
-          </div>
-          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1.5">Presupuesto Modificado (PIM)</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_pim)}</h3>
-          <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-emerald-500">
-            Modificaciones: {formatMoney(cards.total_pim - cards.total_pia)}
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-gradient-to-b from-[#d40000] to-red-800" />
-        </div>
-
-        {/* Certificado */}
-        <div className="p-6 rounded-2xl border border-slate-800/50 bg-[#091224]/30 backdrop-blur-md hover:border-slate-700/40 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-            <Percent className="h-16 w-16 text-white" />
-          </div>
-          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1.5">Presupuesto Certificado</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_certif)}</h3>
-          <div className="mt-3 flex items-center gap-1 text-[10px] text-slate-500 font-semibold">
-            Reserva presupuestal aprobada ({((cards.total_certif / (cards.total_pim || 1)) * 100).toFixed(1)}% del PIM)
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-blue-600" />
-        </div>
-
-        {/* Comprometido */}
-        <div className="p-6 rounded-2xl border border-slate-800/50 bg-[#091224]/30 backdrop-blur-md hover:border-slate-700/40 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1.5">Monto Comprometido Anual</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_comprometido)}</h3>
-          <div className="mt-3 flex items-center gap-1 text-[10px] text-slate-500 font-semibold">
-            Contratos y compromisos formalizados
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-orange-600" />
-        </div>
-
-        {/* Devengado */}
-        <div className="p-6 rounded-2xl border border-[#d40000]/25 bg-gradient-to-br from-[#091224]/30 to-[#d40000]/5 backdrop-blur-md hover:border-[#d40000]/50 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-            <ArrowUpRight className="h-16 w-16 text-[#d40000]" />
-          </div>
-          <p className="text-[10px] uppercase font-bold text-red-400 tracking-widest mb-1.5">Gasto Devengado (Ejecutado)</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_devengado)}</h3>
-          <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-[#d40000]">
-            Obligaciones de pago reconocidas
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-[#d40000]" />
-        </div>
-
-        {/* Girado */}
-        <div className="p-6 rounded-2xl border border-slate-800/50 bg-[#091224]/30 backdrop-blur-md hover:border-slate-700/40 hover:-translate-y-1 transition-all duration-300 shadow-xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-            <TrendingDown className="h-16 w-16 text-white" />
-          </div>
-          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-1.5">Gasto Girado (Pagos Emitidos)</p>
-          <h3 className="text-2xl font-black text-white">{formatMoney(cards.total_girado)}</h3>
-          <div className="mt-3 flex items-center gap-1 text-[10px] text-slate-500 font-semibold">
-            Transferencias y cheques girados
-          </div>
-          <div className="absolute left-0 bottom-0 top-0 w-1 bg-emerald-600" />
-        </div>
-      </div>
-
-      {/* Chart and Progress Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Progress Card */}
-        <div className="p-6 rounded-2xl border border-slate-800/60 bg-[#091122]/35 backdrop-blur-md shadow-xl flex flex-col justify-between">
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 mb-6">
-              Avance de la Ejecución Financiera
+        {/* Gauge Progress Card */}
+        <div className="lg:col-span-4 glass-card p-6 flex flex-col">
+          <div className="flex items-center gap-2 mb-1">
+            <Activity className="h-4 w-4 text-[#D40000]" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+              Avance de Ejecución
             </h3>
-            
-            <div className="relative flex flex-col items-center justify-center my-6">
-              {/* Circular Gauge Representation */}
-              <div className="relative h-40 w-40 flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  <circle 
-                    cx="50" 
-                    cy="50" 
-                    r="40" 
-                    stroke="rgba(30, 41, 59, 0.5)" 
-                    strokeWidth="10" 
-                    fill="transparent" 
-                  />
-                  <circle 
-                    cx="50" 
-                    cy="50" 
-                    r="40" 
-                    stroke="url(#progressGradient)" 
-                    strokeWidth="10" 
-                    fill="transparent" 
-                    strokeDasharray="251.2"
-                    strokeDashoffset={251.2 - (251.2 * Math.min(progressPercent, 100)) / 100}
-                    strokeLinecap="round"
-                    className="transition-all duration-1000 ease-out"
-                  />
-                  <defs>
-                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ef4444" />
-                      <stop offset="100%" stopColor="#b91c1c" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute flex flex-col items-center justify-center">
-                  <span className="text-3xl font-black text-white">{progressPercent.toFixed(1)}%</span>
-                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Avance Real</span>
-                </div>
+          </div>
+          <p className="text-[10px] text-[#4A6080] mb-6">Devengado vs. PIM total</p>
+
+          {/* SVG Gauge */}
+          <div className="flex justify-center my-4">
+            <div className="relative h-44 w-44">
+              <svg
+                viewBox="0 0 100 100"
+                className="w-full h-full -rotate-90 drop-shadow-2xl"
+              >
+                {/* Track */}
+                <circle
+                  cx="50" cy="50" r="42"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.05)"
+                  strokeWidth="8"
+                />
+                {/* Glow layer */}
+                <circle
+                  cx="50" cy="50" r="42"
+                  fill="none"
+                  stroke="rgba(212,0,0,0.12)"
+                  strokeWidth="12"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={dashOffset}
+                />
+                {/* Main fill */}
+                <defs>
+                  <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#8B0000" />
+                    <stop offset="100%" stopColor="#D40000" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  cx="50" cy="50" r="42"
+                  fill="none"
+                  stroke="url(#gaugeGrad)"
+                  strokeWidth="8"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={dashOffset}
+                  strokeLinecap="round"
+                  style={{ transition: 'stroke-dashoffset 1.2s cubic-bezier(0.34,1.56,0.64,1)' }}
+                />
+              </svg>
+              {/* Center text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-3xl font-black tabular-nums text-white leading-none">
+                  {progressPercent.toFixed(1)}%
+                </span>
+                <span className="text-[9px] font-bold text-[#4A6080] uppercase tracking-widest mt-1">
+                  Ejecutado
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="space-y-3.5 border-t border-slate-800/60 pt-6">
-            <div className="flex justify-between text-xs font-semibold text-slate-400">
-              <span>PIM Total:</span>
-              <span className="text-white font-bold">{formatMoney(cards.total_pim)}</span>
-            </div>
-            <div className="flex justify-between text-xs font-semibold text-slate-400">
-              <span>Devengado Total:</span>
-              <span className="text-white font-bold">{formatMoney(cards.total_devengado)}</span>
-            </div>
-            
-            {/* Linear Progress Bar fallback */}
-            <div className="w-full bg-slate-800/40 rounded-full h-2 overflow-hidden border border-slate-700/20">
-              <div 
-                className="bg-gradient-to-r from-red-600 to-[#d40000] h-full rounded-full transition-all duration-1000"
+          {/* Stats below gauge */}
+          <div className="border-t border-white/[0.06] pt-4 space-y-3 mt-auto">
+            {[
+              { label: 'PIM Total',      value: cards.total_pim,      color: '#94A3B8' },
+              { label: 'Devengado',      value: cards.total_devengado, color: '#D40000' },
+              { label: 'Saldo',          value: cards.total_pim - cards.total_devengado, color: '#4A6080' },
+            ].map((row) => (
+              <div key={row.label} className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold text-[#4A6080]">{row.label}</span>
+                <span className="text-[11px] font-bold tabular-nums" style={{ color: row.color }}>
+                  {formatMoneyCompact(row.value)}
+                </span>
+              </div>
+            ))}
+
+            <div className="progress-bar-track mt-2">
+              <div
+                className="progress-bar-fill red"
                 style={{ width: `${Math.min(progressPercent, 100)}%` }}
               />
             </div>
           </div>
         </div>
 
-        {/* Monthly Trend Area Chart */}
-        <div className="p-6 rounded-2xl border border-slate-800/60 bg-[#091122]/35 backdrop-blur-md shadow-xl lg:col-span-2 flex flex-col justify-between">
+        {/* Area Chart */}
+        <div className="lg:col-span-8 glass-card p-6 flex flex-col">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
                 Evolución Mensual del Gasto
               </h3>
-              <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Devengados vs. Girados 2026</p>
+              <p className="text-[10px] text-[#4A6080] mt-0.5">
+                Devengados vs. Girados — 2026
+              </p>
             </div>
-            
-            <div className="flex items-center gap-4 text-xs font-medium text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-3 bg-[#d40000] rounded-sm" />
-                Devengado
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-3 bg-emerald-600 rounded-sm" />
-                Girado
-              </div>
+            <div className="flex items-center gap-4">
+              {[
+                { color: '#D40000', label: 'Devengado' },
+                { color: '#10B981', label: 'Girado' },
+              ].map((l) => (
+                <div key={l.label} className="flex items-center gap-1.5">
+                  <span className="h-2 w-3 rounded-sm" style={{ background: l.color }} />
+                  <span className="text-[10px] font-semibold text-[#4A6080]">{l.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="h-72 w-full">
+          <div className="flex-1 min-h-[220px]">
             {loading ? (
-              <div className="h-full w-full flex items-center justify-center">
-                <RefreshCw className="h-8 w-8 text-slate-600 animate-spin" />
+              <div className="h-full flex items-center justify-center">
+                <RefreshCw className="h-8 w-8 text-[#2A3A50] animate-spin-smooth" />
               </div>
             ) : months.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={months}
-                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                >
+                <AreaChart data={months} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="colorDevengado" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d40000" stopOpacity={0.25}/>
-                      <stop offset="95%" stopColor="#d40000" stopOpacity={0}/>
+                    <linearGradient id="gradDev" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#D40000" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#D40000" stopOpacity={0} />
                     </linearGradient>
-                    <linearGradient id="colorGirado" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.25}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                    <linearGradient id="gradGir" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.15} />
+                      <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.3} />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#64748b" 
-                    fontSize={10} 
-                    tickLine={false} 
-                    axisLine={false} 
-                  />
-                  <YAxis 
-                    stroke="#64748b" 
-                    fontSize={10} 
-                    tickLine={false} 
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                  <XAxis
+                    dataKey="name"
+                    stroke="#2A3A50"
+                    tick={{ fill: '#4A6080', fontSize: 10 }}
+                    tickLine={false}
                     axisLine={false}
-                    tickFormatter={(tick) => `S/ ${(tick / 1000).toFixed(0)}k`} 
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Area 
-                    type="monotone" 
-                    dataKey="devengado" 
+                  <YAxis
+                    stroke="#2A3A50"
+                    tick={{ fill: '#4A6080', fontSize: 9 }}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(v) => `S/ ${(v / 1000).toFixed(0)}k`}
+                  />
+                  <Tooltip content={<ChartTooltip />} />
+                  <Area
+                    type="monotone"
+                    dataKey="devengado"
                     name="Devengado"
-                    stroke="#d40000" 
+                    stroke="#D40000"
                     strokeWidth={2.5}
-                    fillOpacity={1} 
-                    fill="url(#colorDevengado)" 
+                    fill="url(#gradDev)"
                   />
-                  <Area 
-                    type="monotone" 
-                    dataKey="girado" 
+                  <Area
+                    type="monotone"
+                    dataKey="girado"
                     name="Girado"
-                    stroke="#10b981" 
+                    stroke="#10B981"
                     strokeWidth={2}
-                    fillOpacity={1} 
-                    fill="url(#colorGirado)" 
+                    fill="url(#gradGir)"
                   />
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full w-full flex items-center justify-center text-slate-500 text-xs font-semibold">
-                No hay datos de ejecución mensual disponibles.
+              <div className="h-full flex items-center justify-center text-[#2A3A50] text-xs font-semibold">
+                No hay datos mensuales disponibles.
               </div>
             )}
           </div>
         </div>
-
       </div>
+
+      {/* ── Budget Waterfall ──────────────────────── */}
+      <div className="glass-card p-6">
+        <div className="flex items-center gap-2 mb-5">
+          <TrendingDown className="h-4 w-4 text-[#D40000]" />
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+            Cascada Presupuestaria — Comparativa de Etapas
+          </h3>
+        </div>
+
+        <div className="h-48">
+          {loading ? (
+            <div className="h-full flex items-center justify-center">
+              <RefreshCw className="h-6 w-6 text-[#2A3A50] animate-spin-smooth" />
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={stagesData}
+                margin={{ top: 5, right: 10, left: -10, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  stroke="#2A3A50"
+                  tick={{ fill: '#4A6080', fontSize: 10, fontWeight: 600 }}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis
+                  stroke="#2A3A50"
+                  tick={{ fill: '#4A6080', fontSize: 9 }}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(v) => `S/ ${(v / 1_000_000).toFixed(1)}M`}
+                />
+                <Tooltip content={<ChartTooltip />} />
+                <Bar dataKey="value" name="Monto" radius={[4, 4, 0, 0]} maxBarSize={60}>
+                  {stagesData.map((entry, index) => (
+                    <Cell key={index} fill={entry.color} fillOpacity={0.85} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
     </div>
   );
 }

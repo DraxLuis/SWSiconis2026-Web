@@ -1,22 +1,17 @@
 import { NextResponse } from 'next/server';
-import { query } from '@/lib/db';
+import { loadTable } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const result = await query('SELECT @@VERSION as version');
+    const gastos = loadTable('presupuesto_ejecucion_gasto');
     return NextResponse.json({
       success: true,
-      message: 'Conexión a SQL Server exitosa',
-      version: result.recordset[0].version,
+      message: `Datos JSON cargados correctamente. ${gastos.length} registros en presupuesto_ejecucion_gasto.`,
+      totalTablas: 38,
     });
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return NextResponse.json({
-      success: false,
-      message: 'Error de conexión a la base de datos',
-      error: errorMessage,
-    }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }

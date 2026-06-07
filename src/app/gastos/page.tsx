@@ -1,34 +1,28 @@
 'use client';
 
 import { useState, useEffect, useCallback, Fragment } from 'react';
-import { 
-  TrendingDown, 
-  Search, 
-  FileSpreadsheet, 
-  ChevronDown, 
-  ChevronUp, 
-  RefreshCw, 
+import {
+  TrendingDown,
+  Search,
+  FileSpreadsheet,
+  ChevronDown,
+  ChevronUp,
+  RefreshCw,
   SlidersHorizontal,
   Layers,
-  Calendar,
   ChevronLeft,
   ChevronRight,
-  AlertTriangle
+  AlertTriangle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import * as XLSX from 'xlsx';
+import { PageHeader } from '@/components/ui/page-header';
 
 interface GastoRow {
-  rubro: string;
-  rubro_nombre: string;
-  clasificador: string;
-  clasificador_nombre: string;
-  pia: number;
-  pim: number;
-  certificado: number;
-  comprometido: number;
-  devengado_total: number;
-  girado_total: number;
+  rubro: string; rubro_nombre: string;
+  clasificador: string; clasificador_nombre: string;
+  pia: number; pim: number; certificado: number; comprometido: number;
+  devengado_total: number; girado_total: number;
   dev_01: number; dev_02: number; dev_03: number; dev_04: number;
   dev_05: number; dev_06: number; dev_07: number; dev_08: number;
   dev_09: number; dev_10: number; dev_11: number; dev_12: number;
@@ -37,27 +31,26 @@ interface GastoRow {
   gir_09: number; gir_10: number; gir_11: number; gir_12: number;
 }
 
-interface RubroOption {
-  codigo: string;
-  nombre: string;
-}
+interface RubroOption { codigo: string; nombre: string; }
+
+const formatMoney = (val: number) =>
+  new Intl.NumberFormat('es-PE', {
+    style: 'currency', currency: 'PEN', minimumFractionDigits: 2,
+  }).format(val || 0);
+
+const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 
 export default function GastosPage() {
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<GastoRow[]>([]);
   const [rubrosList, setRubrosList] = useState<RubroOption[]>([]);
-  
-  // Filters
   const [filterRubro, setFilterRubro] = useState('');
   const [filterClasificador, setFilterClasificador] = useState('');
-  const [searchQuery, setSearchQuery] = useState(''); // Text search across names
-
-  // Expanded rows state
+  const [searchQuery, setSearchQuery] = useState('');
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
-
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [filterOpen, setFilterOpen] = useState(true);
 
   const fetchGastos = useCallback(async () => {
     setLoading(true);
@@ -66,320 +59,232 @@ export default function GastosPage() {
       const params = new URLSearchParams();
       if (filterRubro) params.append('rubro', filterRubro);
       if (filterClasificador) params.append('clasificador', filterClasificador);
-      
-      if (params.toString()) {
-        url += `?${params.toString()}`;
-      }
-
+      if (params.toString()) url += `?${params.toString()}`;
       const res = await fetch(url);
       const data = await res.json();
       if (data.success) {
         setRows(data.rows || []);
-        if (data.rubros && rubrosList.length === 0) {
-          setRubrosList(data.rubros);
-        }
+        if (data.rubros && rubrosList.length === 0) setRubrosList(data.rubros);
       }
-    } catch (error) {
-      console.error('Error fetching gastos data:', error);
+    } catch (e) {
+      console.error('Error:', e);
     } finally {
       setLoading(false);
     }
   }, [filterRubro, filterClasificador, rubrosList.length]);
 
-  useEffect(() => {
-    fetchGastos();
-    setCurrentPage(1); // Reset page on filter changes
-  }, [fetchGastos]);
+  useEffect(() => { fetchGastos(); setCurrentPage(1); }, [fetchGastos]);
 
-  // Format money to PEN currency style: S/ 1,234.56
-  const formatMoney = (val: number) => {
-    return new Intl.NumberFormat('es-PE', {
-      style: 'currency',
-      currency: 'PEN',
-      minimumFractionDigits: 2,
-    }).format(val || 0);
-  };
-
-  // Filter rows by search query (clasificador or names)
-  const filteredRows = rows.filter(row => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return true;
+  const filteredRows = rows.filter((row) => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return true;
     return (
-      row.clasificador.toLowerCase().includes(query) ||
-      (row.clasificador_nombre && row.clasificador_nombre.toLowerCase().includes(query)) ||
-      (row.rubro_nombre && row.rubro_nombre.toLowerCase().includes(query))
+      row.clasificador.toLowerCase().includes(q) ||
+      (row.clasificador_nombre && row.clasificador_nombre.toLowerCase().includes(q)) ||
+      (row.rubro_nombre && row.rubro_nombre.toLowerCase().includes(q))
     );
   });
 
-  // Calculate totals of filtered rows
-  const totals = filteredRows.reduce((acc, row) => {
-    acc.pia += row.pia || 0;
-    acc.pim += row.pim || 0;
-    acc.certificado += row.certificado || 0;
-    acc.comprometido += row.comprometido || 0;
-    acc.devengado_total += row.devengado_total || 0;
-    acc.girado_total += row.girado_total || 0;
-    return acc;
-  }, { pia: 0, pim: 0, certificado: 0, comprometido: 0, devengado_total: 0, girado_total: 0 });
+  const totals = filteredRows.reduce(
+    (acc, row) => {
+      acc.pia += row.pia || 0;
+      acc.pim += row.pim || 0;
+      acc.certificado += row.certificado || 0;
+      acc.comprometido += row.comprometido || 0;
+      acc.devengado_total += row.devengado_total || 0;
+      acc.girado_total += row.girado_total || 0;
+      return acc;
+    },
+    { pia: 0, pim: 0, certificado: 0, comprometido: 0, devengado_total: 0, girado_total: 0 }
+  );
 
-  // Pagination logic
   const totalRecords = filteredRows.length;
   const totalPages = Math.ceil(totalRecords / pageSize) || 1;
   const startIndex = (currentPage - 1) * pageSize;
   const paginatedRows = filteredRows.slice(startIndex, startIndex + pageSize);
 
-  const toggleRow = (rowId: string) => {
-    setExpandedRows(prev => ({
-      ...prev,
-      [rowId]: !prev[rowId]
-    }));
-  };
+  const toggleRow = (id: string) =>
+    setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
 
-  const toggleAllRows = () => {
-    const allExpanded = Object.keys(expandedRows).length === paginatedRows.length && 
-                        paginatedRows.every(r => expandedRows[`${r.rubro}-${r.clasificador}`]);
-    
-    if (allExpanded) {
-      setExpandedRows({});
-    } else {
-      const newExpanded: Record<string, boolean> = {};
-      paginatedRows.forEach(r => {
-        newExpanded[`${r.rubro}-${r.clasificador}`] = true;
-      });
-      setExpandedRows(newExpanded);
-    }
-  };
-
-  // Export to Excel function using xlsx
   const exportToExcel = () => {
-    const exportData = filteredRows.map((row) => ({
-      'Rubro': row.rubro,
-      'Nombre Rubro': row.rubro_nombre || '',
-      'Clasificador': row.clasificador,
-      'Nombre Clasificador': row.clasificador_nombre || '',
-      'PIA (S/)': row.pia,
-      'PIM (S/)': row.pim,
-      'Certificado (S/)': row.certificado,
-      'Comprometido (S/)': row.comprometido,
-      'Devengado Total (S/)': row.devengado_total,
-      'Girado Total (S/)': row.girado_total,
-      'Avance Devengado (%)': row.pim > 0 ? ((row.devengado_total / row.pim) * 100).toFixed(2) : '0.00',
-      'Avance Girado (%)': row.pim > 0 ? ((row.girado_total / row.pim) * 100).toFixed(2) : '0.00',
-      // Monthly breakdown columns
-      'Dev Ene': row.dev_01, 'Dev Feb': row.dev_02, 'Dev Mar': row.dev_03, 'Dev Abr': row.dev_04,
-      'Dev May': row.dev_05, 'Dev Jun': row.dev_06, 'Dev Jul': row.dev_07, 'Dev Ago': row.dev_08,
-      'Dev Set': row.dev_09, 'Dev Oct': row.dev_10, 'Dev Nov': row.dev_11, 'Dev Dic': row.dev_12,
-      'Gir Ene': row.gir_01, 'Gir Feb': row.gir_02, 'Gir Mar': row.gir_03, 'Gir Abr': row.gir_04,
-      'Gir May': row.gir_05, 'Gir Jun': row.gir_06, 'Gir Jul': row.gir_07, 'Gir Ago': row.gir_08,
-      'Gir Set': row.gir_09, 'Gir Oct': row.gir_10, 'Gir Nov': row.gir_11, 'Gir Dic': row.gir_12,
+    const data = filteredRows.map((row) => ({
+      'Rubro': row.rubro, 'Nombre Rubro': row.rubro_nombre || '',
+      'Clasificador': row.clasificador, 'Nombre Clasificador': row.clasificador_nombre || '',
+      'PIA (S/)': row.pia, 'PIM (S/)': row.pim,
+      'Certificado (S/)': row.certificado, 'Comprometido (S/)': row.comprometido,
+      'Devengado Total (S/)': row.devengado_total, 'Girado Total (S/)': row.girado_total,
+      'Avance Dev. (%)': row.pim > 0 ? ((row.devengado_total / row.pim) * 100).toFixed(2) : '0.00',
     }));
-
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ejecución Gastos');
-    
-    // Auto-fit column widths
-    const maxLens = Object.keys(exportData[0] || {}).map(key => {
-      let maxLen = key.length;
-      exportData.forEach(row => {
-        const val = row[key as keyof typeof row];
-        if (val !== null && val !== undefined) {
-          maxLen = Math.max(maxLen, String(val).length);
-        }
-      });
-      return { wch: maxLen + 2 };
-    });
-    worksheet['!cols'] = maxLens;
-
-    XLSX.writeFile(workbook, `SWSiconis_Ejecucion_Gastos_${new Date().getFullYear()}.xlsx`);
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Ejecución Gastos');
+    XLSX.writeFile(wb, `SWSiconis_Gastos_${new Date().getFullYear()}.xlsx`);
   };
-
-  const monthsHeader = [
-    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
-    'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'
-  ];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      
-      {/* Header Area */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
-        <div>
-          <div className="flex items-center gap-2 text-[#d40000] text-xs font-bold uppercase tracking-widest mb-1">
-            <TrendingDown className="h-4 w-4" />
-            Módulo de Presupuesto
-          </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none">
-            Ejecución de Gastos
-          </h1>
-          <p className="text-slate-400 text-xs mt-1 font-medium">
-            Seguimiento detallado de PIA, PIM, Certificaciones y la evolución mensual de Devengados y Girados.
-          </p>
-        </div>
+    <div className="space-y-6 animate-fade-in">
 
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={exportToExcel}
-            disabled={loading || filteredRows.length === 0}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-lg border border-emerald-800/60 bg-emerald-950/40 hover:bg-emerald-900/40 text-emerald-400 hover:text-emerald-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-emerald-950/20"
-          >
-            <FileSpreadsheet className="h-4 w-4" />
-            Exportar Excel
-          </button>
-          
-          <button 
-            onClick={fetchGastos}
-            className="flex items-center justify-center p-2.5 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-300 hover:text-white transition-all duration-300 backdrop-blur-sm"
-            title="Actualizar datos"
-          >
-            <RefreshCw className={cn("h-4 w-4", loading && "animate-spin")} />
-          </button>
-        </div>
-      </div>
+      {/* Header */}
+      <PageHeader
+        sectionLabel="Módulo de Presupuesto"
+        icon={TrendingDown}
+        title="Ejecución de Gastos"
+        description="Seguimiento detallado de PIA, PIM, Certificaciones y evolución mensual de Devengados y Girados."
+        actions={
+          <>
+            <button
+              onClick={exportToExcel}
+              disabled={loading || filteredRows.length === 0}
+              className="btn-excel"
+            >
+              <FileSpreadsheet className="h-3.5 w-3.5" />
+              Exportar Excel
+            </button>
+            <button
+              onClick={() => setFilterOpen(!filterOpen)}
+              className={cn('btn-secondary', filterOpen && 'border-[#D40000]/40 text-white')}
+            >
+              <SlidersHorizontal className="h-3.5 w-3.5" />
+              Filtros
+            </button>
+            <button onClick={fetchGastos} className="btn-secondary p-2">
+              <RefreshCw className={cn('h-3.5 w-3.5', loading && 'animate-spin-smooth')} />
+            </button>
+          </>
+        }
+      />
 
-      {/* Interactive Filters Panel */}
-      <div className="p-5 rounded-2xl border border-slate-800/70 bg-[#091122]/40 backdrop-blur-md shadow-lg shadow-black/20 flex flex-col gap-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-          <SlidersHorizontal className="h-4 w-4 text-[#d40000]" />
-          Filtros y Búsqueda
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Rubro Selector */}
+      {/* Filter Panel */}
+      {filterOpen && (
+        <div className="filter-panel animate-fade-in grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
-              <Layers className="h-3.5 w-3.5" />
-              Rubro (Fuente Financiamiento)
+            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+              <Layers className="h-3 w-3" /> Rubro
             </label>
             <select
               value={filterRubro}
               onChange={(e) => setFilterRubro(e.target.value)}
-              className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+              className="form-select"
             >
               <option value="">Todos los Rubros</option>
               {rubrosList.map((r) => (
                 <option key={r.codigo} value={r.codigo}>
-                  {r.codigo} - {r.nombre}
+                  {r.codigo} — {r.nombre}
                 </option>
               ))}
             </select>
           </div>
-
-          {/* Clasificador Filter */}
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" />
-              Nivel Clasificador (Prefijo)
+            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+              <Layers className="h-3 w-3" /> Clasificador (Prefijo)
             </label>
             <input
               type="text"
               placeholder="Ej: 2.6 o 2.3..."
               value={filterClasificador}
               onChange={(e) => setFilterClasificador(e.target.value)}
-              className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+              className="form-input"
             />
           </div>
-
-          {/* Text Search Filter */}
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
-              <Search className="h-3.5 w-3.5" />
-              Búsqueda por Nombre / Clasificador
+            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+              <Search className="h-3 w-3" /> Búsqueda por Nombre
             </label>
             <div className="relative">
               <input
                 type="text"
-                placeholder="Buscar coincidencia..."
+                placeholder="Buscar clasificador o descripción..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl pl-9 pr-3.5 py-2.5 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+                className="form-input pl-8"
               />
-              <Search className="absolute left-3.5 top-3 h-3.5 w-3.5 text-slate-600" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#4A6080]" />
             </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Summary Mini Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
-          <p className="text-[9px] uppercase font-bold text-slate-500 tracking-widest mb-1">PIM Total Filtrado</p>
-          <p className="text-base font-extrabold text-white">{formatMoney(totals.pim)}</p>
-        </div>
-        <div className="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
-          <p className="text-[9px] uppercase font-bold text-slate-500 tracking-widest mb-1">Certificado Total</p>
-          <p className="text-base font-extrabold text-blue-400">{formatMoney(totals.certificado)}</p>
-        </div>
-        <div className="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
-          <p className="text-[9px] uppercase font-bold text-red-400/80 tracking-widest mb-1">Devengado Total</p>
-          <p className="text-base font-extrabold text-red-400">{formatMoney(totals.devengado_total)}</p>
-        </div>
-        <div className="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
-          <p className="text-[9px] uppercase font-bold text-slate-500 tracking-widest mb-1">% Avance (Dev/PIM)</p>
-          <div className="flex items-center gap-2">
-            <p className="text-base font-extrabold text-white">
-              {totals.pim > 0 ? ((totals.devengado_total / totals.pim) * 100).toFixed(1) : 0}%
-            </p>
-            <div className="flex-1 bg-slate-800 rounded-full h-1.5 overflow-hidden">
-              <div 
-                className="bg-red-600 h-full rounded-full" 
-                style={{ width: `${Math.min(totals.pim > 0 ? (totals.devengado_total / totals.pim) * 100 : 0, 100)}%` }}
-              />
-            </div>
+      {/* KPI Summary Row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 stagger-children">
+        {[
+          { label: 'PIM Total', value: totals.pim,              color: '#1565C0' },
+          { label: 'Certificado', value: totals.certificado,    color: '#7C3AED' },
+          { label: 'Devengado', value: totals.devengado_total,  color: '#D40000' },
+          { label: '% Avance Dev.',
+            value: totals.pim > 0 ? (totals.devengado_total / totals.pim) * 100 : 0,
+            color: '#10B981', isPercent: true,
+            progress: totals.pim > 0 ? (totals.devengado_total / totals.pim) * 100 : 0 },
+        ].map((item) => (
+          <div key={item.label} className="kpi-card !p-4">
+            <p className="text-[9px] font-800 uppercase tracking-widest text-[#4A6080] mb-1.5">{item.label}</p>
+            {(item as { isPercent?: boolean }).isPercent ? (
+              <>
+                <p className="text-lg font-black tabular-nums" style={{ color: item.color }}>
+                  {item.value.toFixed(1)}%
+                </p>
+                <div className="progress-bar-track mt-2">
+                  <div className="progress-bar-fill green" style={{ width: `${Math.min(item.value, 100)}%` }} />
+                </div>
+              </>
+            ) : (
+              <p className="text-base font-black tabular-nums" style={{ color: item.color }}>
+                {new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(item.value)}
+              </p>
+            )}
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Main Table Container */}
-      <div className="rounded-2xl border border-slate-800/80 bg-[#081020]/60 backdrop-blur-md shadow-2xl overflow-hidden">
+      {/* Main Table */}
+      <div className="rounded-2xl border border-white/[0.06] bg-[#061526]/70 backdrop-blur-xl shadow-2xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/35 text-slate-400 text-[10px] uppercase font-bold tracking-wider">
-                <th className="py-4 px-5 w-12 text-center">
-                  <button 
-                    onClick={toggleAllRows}
-                    className="p-1 rounded bg-slate-800/60 hover:bg-slate-700/60 transition-colors"
+              <tr>
+                <th className="w-10 text-center">
+                  <button
+                    onClick={() => {
+                      const allExp = paginatedRows.every(r => expandedRows[`${r.rubro}-${r.clasificador}`]);
+                      if (allExp) {
+                        setExpandedRows({});
+                      } else {
+                        const next: Record<string, boolean> = {};
+                        paginatedRows.forEach(r => { next[`${r.rubro}-${r.clasificador}`] = true; });
+                        setExpandedRows(next);
+                      }
+                    }}
+                    className="p-1 rounded-md bg-white/[0.05] hover:bg-white/[0.08] transition-colors"
                     title="Expandir/Contraer todos"
                   >
-                    <ChevronDown className="h-3.5 w-3.5 text-slate-300" />
+                    <ChevronDown className="h-3.5 w-3.5 text-[#4A6080]" />
                   </button>
                 </th>
-                <th className="py-4 px-4 w-16 text-center">Rubro</th>
-                <th className="py-4 px-4 w-32">Clasificador</th>
-                <th className="py-4 px-4">Descripción</th>
-                <th className="py-4 px-4 text-right">PIA</th>
-                <th className="py-4 px-4 text-right">PIM</th>
-                <th className="py-4 px-4 text-right">Certificado</th>
-                <th className="py-4 px-4 text-right">Devengado</th>
-                <th className="py-4 px-4 text-right">Girado</th>
-                <th className="py-4 px-4 text-center w-28">% Avance</th>
+                <th className="w-14 text-center">Rubro</th>
+                <th className="w-32">Clasificador</th>
+                <th>Descripción</th>
+                <th className="text-right">PIA</th>
+                <th className="text-right">PIM</th>
+                <th className="text-right">Certif.</th>
+                <th className="text-right">Devengado</th>
+                <th className="text-right">Girado</th>
+                <th className="text-center w-28">% Avance</th>
               </tr>
             </thead>
-            
-            <tbody className="divide-y divide-slate-800/40 text-xs font-medium text-slate-300">
+            <tbody>
               {loading ? (
-                // Skeleton Rows
-                Array.from({ length: 5 }).map((_, idx) => (
-                  <tr key={idx} className="animate-pulse">
-                    <td className="py-5 px-5"><div className="h-4 w-4 bg-slate-800 rounded mx-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-8 bg-slate-800 rounded mx-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-20 bg-slate-800 rounded" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-44 bg-slate-800 rounded" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
-                    <td className="py-5 px-4"><div className="h-4 w-12 bg-slate-800 rounded mx-auto" /></td>
+                Array.from({ length: 7 }).map((_, i) => (
+                  <tr key={i}>
+                    {Array.from({ length: 10 }).map((__, j) => (
+                      <td key={j}><div className="skeleton h-4 w-full" /></td>
+                    ))}
                   </tr>
                 ))
               ) : paginatedRows.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="py-12 text-center text-slate-500 font-semibold">
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <AlertTriangle className="h-8 w-8 text-slate-600" />
-                      <span>No se encontraron registros de ejecución de gastos.</span>
+                  <td colSpan={10} className="py-16 text-center">
+                    <div className="flex flex-col items-center gap-3 text-[#2A3A50]">
+                      <AlertTriangle className="h-10 w-10" />
+                      <p className="text-sm font-semibold">No se encontraron registros de ejecución de gastos.</p>
                     </div>
                   </td>
                 </tr>
@@ -387,135 +292,127 @@ export default function GastosPage() {
                 paginatedRows.map((row) => {
                   const rowId = `${row.rubro}-${row.clasificador}`;
                   const isExpanded = !!expandedRows[rowId];
-                  const avanceVal = row.pim > 0 ? (row.devengado_total / row.pim) * 100 : 0;
-                  
+                  const avance = row.pim > 0 ? (row.devengado_total / row.pim) * 100 : 0;
+
                   return (
                     <Fragment key={rowId}>
-                      {/* Base Row */}
-                      <tr 
+                      <tr
                         className={cn(
-                          "hover:bg-[#0c162b]/40 transition-colors duration-200 cursor-pointer",
-                          isExpanded && "bg-[#0b152d]/60 border-l-2 border-[#d40000]"
+                          'cursor-pointer transition-colors duration-150',
+                          isExpanded && 'bg-white/[0.03] border-l-2 border-[#D40000]'
                         )}
                         onClick={() => toggleRow(rowId)}
                       >
-                        <td className="py-4 px-5 text-center">
-                          <button className="p-1 rounded hover:bg-slate-800/80 transition-colors">
+                        <td className="text-center">
+                          <span className="p-1 rounded hover:bg-white/10 transition-colors inline-flex">
                             {isExpanded ? (
-                              <ChevronUp className="h-4 w-4 text-[#d40000]" />
+                              <ChevronUp className="h-3.5 w-3.5 text-[#D40000]" />
                             ) : (
-                              <ChevronDown className="h-4 w-4 text-slate-400" />
+                              <ChevronDown className="h-3.5 w-3.5 text-[#4A6080]" />
                             )}
-                          </button>
+                          </span>
                         </td>
-                        <td className="py-4 px-4 text-center font-bold text-slate-400">{row.rubro}</td>
-                        <td className="py-4 px-4 font-mono font-bold text-white tracking-wide">{row.clasificador}</td>
-                        <td className="py-4 px-4 max-w-[240px] truncate" title={row.clasificador_nombre}>
-                          <p className="font-semibold text-slate-200 truncate">{row.clasificador_nombre || 'Sin especificación'}</p>
-                          <p className="text-[10px] text-slate-500 truncate">{row.rubro_nombre}</p>
+                        <td className="text-center font-bold text-[#4A6080]">{row.rubro}</td>
+                        <td className="font-mono font-bold text-white tracking-wider text-[11px]">{row.clasificador}</td>
+                        <td className="max-w-[220px]" title={row.clasificador_nombre}>
+                          <p className="font-semibold text-[#D0D8E8] truncate text-[11px]">
+                            {row.clasificador_nombre || 'Sin especificación'}
+                          </p>
+                          <p className="text-[9px] text-[#4A6080] truncate">{row.rubro_nombre}</p>
                         </td>
-                        <td className="py-4 px-4 text-right font-mono font-semibold">{formatMoney(row.pia)}</td>
-                        <td className="py-4 px-4 text-right font-mono font-semibold text-white">{formatMoney(row.pim)}</td>
-                        <td className="py-4 px-4 text-right font-mono font-semibold text-blue-400">{formatMoney(row.certificado)}</td>
-                        <td className="py-4 px-4 text-right font-mono font-semibold text-red-400">{formatMoney(row.devengado_total)}</td>
-                        <td className="py-4 px-4 text-right font-mono font-semibold text-emerald-400">{formatMoney(row.girado_total)}</td>
-                        <td className="py-4 px-4 text-center">
+                        <td className="text-right font-mono text-[11px] text-[#4A6080]">{formatMoney(row.pia)}</td>
+                        <td className="text-right font-mono font-semibold text-[11px] text-white">{formatMoney(row.pim)}</td>
+                        <td className="text-right font-mono text-[11px] text-purple-400">{formatMoney(row.certificado)}</td>
+                        <td className="text-right font-mono font-semibold text-[11px] text-red-400">{formatMoney(row.devengado_total)}</td>
+                        <td className="text-right font-mono text-[11px] text-emerald-400">{formatMoney(row.girado_total)}</td>
+                        <td className="text-center">
                           <div className="flex flex-col items-center gap-1">
-                            <span className="font-bold font-mono text-white text-[11px]">{avanceVal.toFixed(1)}%</span>
-                            <div className="w-20 bg-slate-800/80 rounded-full h-1 overflow-hidden border border-slate-700/10">
-                              <div 
+                            <span className="font-bold font-mono text-[11px] text-white">{avance.toFixed(1)}%</span>
+                            <div className="w-16 progress-bar-track">
+                              <div
                                 className={cn(
-                                  "h-full rounded-full transition-all duration-500",
-                                  avanceVal >= 75 ? "bg-emerald-500" : avanceVal >= 40 ? "bg-orange-500" : "bg-red-600"
+                                  'progress-bar-fill',
+                                  avance >= 75 ? 'green' : avance >= 40 ? 'orange' : 'red'
                                 )}
-                                style={{ width: `${Math.min(avanceVal, 100)}%` }}
+                                style={{ width: `${Math.min(avance, 100)}%` }}
                               />
                             </div>
                           </div>
                         </td>
                       </tr>
 
-                      {/* Expandable Details Row */}
                       {isExpanded && (
                         <tr>
-                          <td colSpan={10} className="p-0 bg-slate-950/45 border-b border-slate-800/40">
-                            <div className="p-6 space-y-4 animate-in slide-in-from-top-2 duration-300">
-                              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-850 pb-2">
-                                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                                  <span className="h-2 w-2 rounded-full bg-[#d40000]" />
-                                  Distribución Presupuestal Mensual
+                          <td colSpan={10} className="p-0 bg-[#020B18]/60">
+                            <div className="p-5 space-y-4 animate-fade-in">
+                              <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
+                                <h4 className="text-[10px] font-extrabold uppercase tracking-widest text-[#94A3B8] flex items-center gap-2">
+                                  <span className="h-2 w-2 rounded-full bg-[#D40000]" />
+                                  Distribución Mensual — Rubro {row.rubro} / {row.clasificador}
                                 </h4>
-                                <span className="text-[10px] text-slate-500 font-semibold">
-                                  Rubro {row.rubro} — Clasificador {row.clasificador}
+                                <span className="text-[9px] text-[#4A6080] font-semibold">
+                                  {row.clasificador_nombre}
                                 </span>
                               </div>
 
-                              {/* Monthly Columns Grid */}
-                              <div className="overflow-x-auto rounded-xl border border-slate-800/80 bg-[#091124]/40">
-                                <table className="w-full min-w-[700px] border-collapse text-[11px]">
+                              {/* Monthly table */}
+                              <div className="overflow-x-auto rounded-xl border border-white/[0.06] bg-[#03101F]/60">
+                                <table className="w-full min-w-[780px] border-collapse text-[10px]">
                                   <thead>
-                                    <tr className="bg-slate-900/40 text-slate-500 font-bold border-b border-slate-800">
-                                      <th className="py-2.5 px-3 text-left w-24">Concepto</th>
-                                      {monthsHeader.map((m) => (
-                                        <th key={m} className="py-2.5 px-2 text-right">{m}</th>
+                                    <tr className="border-b border-white/[0.06]">
+                                      <th className="py-2.5 px-3 text-left font-bold text-[#4A6080] uppercase tracking-wider w-24">Concepto</th>
+                                      {MONTHS.map((m) => (
+                                        <th key={m} className="py-2.5 px-2 text-right font-bold text-[#4A6080]">{m}</th>
                                       ))}
-                                      <th className="py-2.5 px-3 text-right font-extrabold text-slate-400">Total</th>
+                                      <th className="py-2.5 px-3 text-right font-bold text-[#94A3B8]">Total</th>
                                     </tr>
                                   </thead>
-                                  <tbody className="divide-y divide-slate-800/40 font-mono font-medium">
-                                    {/* Devengados row */}
-                                    <tr className="hover:bg-slate-900/10">
-                                      <td className="py-2.5 px-3 text-left font-sans font-bold text-red-400">Devengado</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_01)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_02)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_03)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_04)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_05)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_06)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_07)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_08)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_09)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_10)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_11)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.dev_12)}</td>
-                                      <td className="py-2.5 px-3 text-right font-bold text-red-400 bg-red-950/10">{formatMoney(row.devengado_total)}</td>
+                                  <tbody className="font-mono">
+                                    <tr className="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                                      <td className="py-2.5 px-3 font-sans font-bold text-red-400">Devengado</td>
+                                      {([1,2,3,4,5,6,7,8,9,10,11,12] as const).map((m) => (
+                                        <td key={m} className="py-2.5 px-2 text-right text-[#4A6080]">
+                                          {formatMoney(row[`dev_${String(m).padStart(2,'0')}` as keyof GastoRow] as number)}
+                                        </td>
+                                      ))}
+                                      <td className="py-2.5 px-3 text-right font-bold text-red-400 bg-red-950/10">
+                                        {formatMoney(row.devengado_total)}
+                                      </td>
                                     </tr>
-                                    {/* Girados row */}
-                                    <tr className="hover:bg-slate-900/10">
-                                      <td className="py-2.5 px-3 text-left font-sans font-bold text-emerald-400">Girado</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_01)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_02)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_03)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_04)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_05)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_06)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_07)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_08)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_09)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_10)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_11)}</td>
-                                      <td className="py-2.5 px-2 text-right">{formatMoney(row.gir_12)}</td>
-                                      <td className="py-2.5 px-3 text-right font-bold text-emerald-400 bg-emerald-950/10">{formatMoney(row.girado_total)}</td>
+                                    <tr className="hover:bg-white/[0.02]">
+                                      <td className="py-2.5 px-3 font-sans font-bold text-emerald-400">Girado</td>
+                                      {([1,2,3,4,5,6,7,8,9,10,11,12] as const).map((m) => (
+                                        <td key={m} className="py-2.5 px-2 text-right text-[#4A6080]">
+                                          {formatMoney(row[`gir_${String(m).padStart(2,'0')}` as keyof GastoRow] as number)}
+                                        </td>
+                                      ))}
+                                      <td className="py-2.5 px-3 text-right font-bold text-emerald-400 bg-emerald-950/10">
+                                        {formatMoney(row.girado_total)}
+                                      </td>
                                     </tr>
                                   </tbody>
                                 </table>
                               </div>
 
-                              {/* Progress compare bar inside panel */}
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                                <div className="p-3.5 rounded-xl border border-slate-800/40 bg-slate-900/20 flex justify-between items-center text-xs">
-                                  <div className="space-y-1">
-                                    <span className="text-slate-500 font-semibold block uppercase text-[9px] tracking-wider">Saldo por Comprometer</span>
-                                    <span className="font-bold font-mono text-slate-200">{formatMoney(row.pim - row.certificado)}</span>
+                              {/* Detail cards */}
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] flex justify-between items-center">
+                                  <div>
+                                    <p className="text-[9px] uppercase tracking-widest font-bold text-[#4A6080]">Saldo por Devengar</p>
+                                    <p className="font-mono font-bold text-[#D40000] mt-0.5">
+                                      {formatMoney(row.pim - row.devengado_total)}
+                                    </p>
                                   </div>
-                                  <span className="text-[10px] text-slate-400 font-semibold">PIM - Certificado</span>
+                                  <span className="text-[9px] text-[#4A6080] font-semibold">PIM − Devengado</span>
                                 </div>
-                                <div className="p-3.5 rounded-xl border border-slate-800/40 bg-slate-900/20 flex justify-between items-center text-xs">
-                                  <div className="space-y-1">
-                                    <span className="text-slate-500 font-semibold block uppercase text-[9px] tracking-wider">Saldo por Devengar</span>
-                                    <span className="font-bold font-mono text-[#d40000]">{formatMoney(row.pim - row.devengado_total)}</span>
+                                <div className="p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] flex justify-between items-center">
+                                  <div>
+                                    <p className="text-[9px] uppercase tracking-widest font-bold text-[#4A6080]">Saldo por Comprometer</p>
+                                    <p className="font-mono font-bold text-white mt-0.5">
+                                      {formatMoney(row.pim - row.certificado)}
+                                    </p>
                                   </div>
-                                  <span className="text-[10px] text-slate-400 font-semibold">PIM - Devengado</span>
+                                  <span className="text-[9px] text-[#4A6080] font-semibold">PIM − Certif.</span>
                                 </div>
                               </div>
                             </div>
@@ -527,101 +424,90 @@ export default function GastosPage() {
                 })
               )}
             </tbody>
+
+            {/* Totals row */}
+            {!loading && filteredRows.length > 0 && (
+              <tfoot>
+                <tr>
+                  <td colSpan={4} className="font-sans font-extrabold uppercase tracking-wide text-[#94A3B8] text-[10px]">
+                    Total Consolidado ({totalRecords} registros)
+                  </td>
+                  <td className="text-right font-mono">{formatMoney(totals.pia)}</td>
+                  <td className="text-right font-mono text-white">{formatMoney(totals.pim)}</td>
+                  <td className="text-right font-mono text-purple-400">{formatMoney(totals.certificado)}</td>
+                  <td className="text-right font-mono text-red-400">{formatMoney(totals.devengado_total)}</td>
+                  <td className="text-right font-mono text-emerald-400">{formatMoney(totals.girado_total)}</td>
+                  <td className="text-center font-mono font-bold text-white">
+                    {totals.pim > 0 ? ((totals.devengado_total / totals.pim) * 100).toFixed(1) : 0}%
+                  </td>
+                </tr>
+              </tfoot>
+            )}
           </table>
         </div>
 
-        {/* Client Side Pagination Controls */}
+        {/* Pagination */}
         {!loading && filteredRows.length > 0 && (
-          <div className="px-5 py-4 border-t border-slate-800/80 bg-slate-900/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
+          <div className="px-5 py-4 border-t border-white/[0.05] bg-white/[0.02] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4 text-[11px] font-semibold text-[#4A6080]">
               <span className="flex items-center gap-2">
                 Filas por página:
                 <select
                   value={pageSize}
-                  onChange={(e) => {
-                    setPageSize(Number(e.target.value));
-                    setCurrentPage(1);
-                  }}
-                  className="bg-[#0b1428] border border-slate-800 rounded px-2.5 py-1 text-slate-300 focus:outline-none focus:border-[#d40000]/60 transition-colors"
+                  onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}
+                  className="form-select w-auto !py-1 !px-2 !rounded-md"
                 >
-                  <option value={10}>10</option>
-                  <option value={25}>25</option>
-                  <option value={50}>50</option>
-                  <option value={100}>100</option>
+                  {[10,25,50,100].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
               </span>
               <span>
-                Mostrando {startIndex + 1} a {Math.min(startIndex + pageSize, totalRecords)} de {totalRecords} registros
+                {startIndex + 1}–{Math.min(startIndex + pageSize, totalRecords)} de {totalRecords}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => setCurrentPage(1)}
-                disabled={currentPage === 1}
-                className="p-2 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-400 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                title="Primera página"
-              >
-                <ChevronLeft className="h-4 w-4 transform -translate-x-0.5" />
-              </button>
-              <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-400 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
-              >
-                <ChevronLeft className="h-3.5 w-3.5" />
-                Anterior
-              </button>
-              
-              <div className="flex items-center gap-1">
-                {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
-                  // Pages logic around current page
-                  let pageNum = i + 1;
-                  if (currentPage > 3 && totalPages > 5) {
-                    pageNum = currentPage - 3 + i;
-                    if (pageNum + (4 - i) > totalPages) {
-                      pageNum = totalPages - 4 + i;
-                    }
-                  }
-                  
-                  return (
-                    <button
-                      key={pageNum}
-                      onClick={() => setCurrentPage(pageNum)}
-                      className={cn(
-                        "w-8 h-8 rounded-lg text-xs font-bold border transition-all duration-200",
-                        currentPage === pageNum 
-                          ? "bg-[#d40000] border-[#d40000] text-white shadow-lg shadow-red-950/45" 
-                          : "border-slate-800 bg-[#0b1329]/20 hover:bg-slate-800/50 text-slate-400 hover:text-white"
-                      )}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="flex items-center gap-1">
+              {[
+                { label: <ChevronLeft className="h-4 w-4" />, action: () => setCurrentPage(1), disabled: currentPage === 1 },
+                { label: <><ChevronLeft className="h-3.5 w-3.5" />Ant.</>, action: () => setCurrentPage(p => Math.max(p-1,1)), disabled: currentPage === 1 },
+              ].map((btn, i) => (
+                <button key={i} onClick={btn.action} disabled={btn.disabled}
+                  className="btn-secondary !px-2 !py-1.5 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-0.5 text-[11px]">
+                  {btn.label}
+                </button>
+              ))}
 
-              <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-400 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
-              >
-                Siguiente
-                <ChevronRight className="h-3.5 w-3.5" />
-              </button>
-              <button
-                onClick={() => setCurrentPage(totalPages)}
-                disabled={currentPage === totalPages}
-                className="p-2 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-400 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                title="Última página"
-              >
-                <ChevronRight className="h-4 w-4 transform translate-x-0.5" />
-              </button>
+              {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
+                let p = i + 1;
+                if (currentPage > 3 && totalPages > 5) {
+                  p = currentPage - 3 + i;
+                  if (p + (4 - i) > totalPages) p = totalPages - 4 + i;
+                }
+                return (
+                  <button key={p} onClick={() => setCurrentPage(p)}
+                    className={cn(
+                      'w-8 h-8 rounded-lg text-[11px] font-bold border transition-all',
+                      currentPage === p
+                        ? 'bg-[#D40000] border-[#D40000] text-white shadow-lg shadow-red-950/50'
+                        : 'btn-secondary !p-0'
+                    )}>
+                    {p}
+                  </button>
+                );
+              })}
+
+              {[
+                { label: <>Sig.<ChevronRight className="h-3.5 w-3.5" /></>, action: () => setCurrentPage(p => Math.min(p+1,totalPages)), disabled: currentPage === totalPages },
+                { label: <ChevronRight className="h-4 w-4" />, action: () => setCurrentPage(totalPages), disabled: currentPage === totalPages },
+              ].map((btn, i) => (
+                <button key={i} onClick={btn.action} disabled={btn.disabled}
+                  className="btn-secondary !px-2 !py-1.5 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-0.5 text-[11px]">
+                  {btn.label}
+                </button>
+              ))}
             </div>
           </div>
         )}
       </div>
-
     </div>
   );
 }
