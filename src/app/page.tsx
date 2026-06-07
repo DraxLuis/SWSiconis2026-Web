@@ -10,7 +10,6 @@ import {
   CreditCard,
   RefreshCw,
   SlidersHorizontal,
-  Building2,
   ChevronDown,
   Activity,
   TrendingDown,
@@ -181,37 +180,47 @@ export default function DashboardPage() {
     <div className="space-y-8">
 
       {/* ── HEADER ──────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 pb-6 border-b border-white/[0.05]">
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <Building2 className="h-5 w-5 text-[#D40000]" />
-            <span className="text-base font-bold uppercase tracking-widest text-[#D40000]">
-              Unidad Ejecutora 301548
-            </span>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/[0.06] relative">
+        <div className="space-y-1.5">
+          {/* Breadcrumb / Tag */}
+          <div className="flex items-center gap-2.5 text-[10px] font-bold tracking-widest text-slate-500 uppercase">
+            <span>SICONIS 2026</span>
+            <span className="h-1 w-1 rounded-full bg-slate-700" />
+            <span className="text-[#D40000] font-black">PANEL DE CONTROL</span>
+            <span className="h-1 w-1 rounded-full bg-slate-700" />
+            <span>UE 301548</span>
           </div>
-          <h1 className="text-4xl font-black text-white leading-tight">
-            Municipalidad Provincial<br className="hidden sm:block" /> de Huancabamba
+          
+          {/* Main Title */}
+          <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+            Resumen de Ejecución General
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06] text-slate-400 font-mono tracking-normal">
+              AÑO 2026
+            </span>
           </h1>
-          <p className="text-lg text-slate-400 mt-2 font-medium">
-            Seguimiento de Ejecución Presupuestal — Año Fiscal 2026
+          
+          {/* Subtitle */}
+          <p className="text-xs text-slate-400 font-medium">
+            Seguimiento presupuestal interactivo — Municipalidad Provincial de Huancabamba
           </p>
         </div>
 
-        <div className="flex items-center gap-3 flex-shrink-0 mt-2">
+        {/* Buttons / Actions */}
+        <div className="flex items-center gap-2.5 flex-shrink-0">
           <button
             onClick={() => setFilterOpen(!filterOpen)}
-            className={cn('btn-secondary !text-sm !px-4 !py-2.5',
+            className={cn('btn-secondary !text-xs !px-3.5 !py-2 flex items-center gap-1.5',
               filterOpen && 'border-[#D40000]/40 text-white bg-white/[0.06]')}
           >
-            <SlidersHorizontal className="h-4 w-4" />
+            <SlidersHorizontal className="h-3.5 w-3.5" />
             Filtros
-            <ChevronDown className={cn('h-3.5 w-3.5 transition-transform', filterOpen && 'rotate-180')} />
+            <ChevronDown className={cn('h-3 w-3 transition-transform', filterOpen && 'rotate-180')} />
           </button>
           <button
             onClick={fetchData}
-            className="btn-secondary !text-sm !px-4 !py-2.5"
+            className="btn-secondary !text-xs !px-3.5 !py-2 flex items-center gap-1.5"
           >
-            <RefreshCw className={cn('h-4 w-4', loading && 'animate-spin-smooth')} />
+            <RefreshCw className={cn('h-3.5 w-3.5', loading && 'animate-spin-smooth')} />
             Actualizar
           </button>
         </div>
