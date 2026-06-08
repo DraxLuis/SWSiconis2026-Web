@@ -14,6 +14,11 @@ export default function ProgramasCatalogPage() {
   const [programas, setProgramas] = useState<Programa[]>([]);
   const [search, setSearch] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -119,39 +124,54 @@ export default function ProgramasCatalogPage() {
             </div>
           </div>
         ) : (
-          filtered.map(prog => (
-            <div 
-              key={prog.progppto}
-              className="group relative p-5 rounded-2xl border border-slate-800/80 bg-[#081020]/60 hover:bg-[#0c162b]/80 backdrop-blur-md transition-all duration-300 hover:border-[#d40000]/40 hover:shadow-[0_0_20px_rgba(212,0,0,0.05)] flex flex-col justify-between h-40"
-            >
-              <div>
-                <div className="flex justify-between items-start">
-                  <span className="font-mono text-xs font-black text-[#d40000] bg-[#d40000]/10 px-2.5 py-1 rounded-lg">
-                    {prog.progppto}
-                  </span>
-                  <button
-                    onClick={() => handleCopy(prog.progppto)}
-                    className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700/60 text-slate-400 hover:text-white transition-all"
-                    title="Copiar código"
-                  >
-                    {copiedId === prog.progppto ? (
-                      <Check className="h-3.5 w-3.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="h-3.5 w-3.5" />
-                    )}
-                  </button>
+          filtered.map(prog => {
+            const isExpanded = !!expandedIds[prog.progppto];
+            const isLong = prog.nombre.length > 55;
+            return (
+              <div 
+                key={prog.progppto}
+                className="group relative p-5 rounded-2xl border border-slate-800/80 bg-[#081020]/60 hover:bg-[#0c162b]/80 backdrop-blur-md transition-all duration-300 hover:border-[#d40000]/40 hover:shadow-[0_0_20px_rgba(212,0,0,0.05)] flex flex-col justify-between min-h-[10rem] h-auto"
+              >
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="font-mono text-xs font-black text-[#d40000] bg-[#d40000]/10 px-2.5 py-1 rounded-lg">
+                      {prog.progppto}
+                    </span>
+                    <button
+                      onClick={() => handleCopy(prog.progppto)}
+                      className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700/60 text-slate-400 hover:text-white transition-all"
+                      title="Copiar código"
+                    >
+                      {copiedId === prog.progppto ? (
+                        <Check className="h-3.5 w-3.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="h-3.5 w-3.5" />
+                      )}
+                    </button>
+                  </div>
+                  <h3 className={cn(
+                    "font-bold text-white text-[13px] group-hover:text-[#d40000] transition-colors leading-snug mt-3.5",
+                    isExpanded ? "" : "line-clamp-2"
+                  )} title={prog.nombre}>
+                    {prog.nombre}
+                  </h3>
+                  {isLong && (
+                    <button
+                      onClick={() => toggleExpand(prog.progppto)}
+                      className="text-[#d40000] hover:text-[#ff3b3b] text-[10px] font-extrabold mt-1.5 transition-colors focus:outline-none flex items-center gap-1 bg-[#d40000]/5 px-2.5 py-0.5 rounded border border-[#d40000]/10 w-fit"
+                    >
+                      {isExpanded ? 'Ver menos' : 'Ver todo'}
+                    </button>
+                  )}
                 </div>
-                <h3 className="font-bold text-white text-[13px] group-hover:text-[#d40000] transition-colors leading-snug mt-3.5 line-clamp-2" title={prog.nombre}>
-                  {prog.nombre}
-                </h3>
+                <div className="mt-4">
+                  <span className={cn('inline-flex px-2 py-0.5 rounded text-[9px] font-bold border', getProgramBadgeCls(prog.progppto))}>
+                    {getProgramType(prog.progppto)}
+                  </span>
+                </div>
               </div>
-              <div className="mt-3">
-                <span className={cn('inline-flex px-2 py-0.5 rounded text-[9px] font-bold border', getProgramBadgeCls(prog.progppto))}>
-                  {getProgramType(prog.progppto)}
-                </span>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>
