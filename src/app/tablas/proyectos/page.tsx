@@ -14,7 +14,7 @@ export default function ProyectosCatalogPage() {
   const [loading, setLoading] = useState(true);
   const [proyectos, setProyectos] = useState<Proyecto[]>([]);
   const [search, setSearch] = useState('');
-  const [filterTipo, setFilterTipo] = useState('');
+  const [filterTipo, setFilterTipo] = useState('Producto');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const fetchData = async () => {
@@ -53,8 +53,7 @@ export default function ProyectosCatalogPage() {
 
   const getTipoBadgeCls = (tipo: string) => {
     if (tipo === 'Proyecto') return 'bg-purple-900/40 text-purple-300 border-purple-800/30';
-    if (tipo === 'Actividad') return 'bg-blue-900/40 text-blue-300 border-blue-800/30';
-    return 'bg-orange-900/40 text-orange-300 border-orange-800/30';
+    return 'bg-blue-900/40 text-blue-300 border-blue-800/30';
   };
 
   return (
@@ -66,10 +65,10 @@ export default function ProyectosCatalogPage() {
             <FolderKanban className="h-4 w-4" /> Catálogos del Sistema
           </div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none">
-            Actividades y Proyectos
+            Productos y Proyectos
           </h1>
           <p className="text-slate-400 text-xs mt-1 font-medium">
-            Códigos de productos, proyectos de inversión pública y obras en ejecución — 2026
+            Códigos de productos y proyectos de inversión pública — 2026
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -89,17 +88,33 @@ export default function ProyectosCatalogPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Tipo de Producto</label>
-            <select 
-              value={filterTipo} 
-              onChange={e => setFilterTipo(e.target.value)}
-              className="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none focus:border-[#d40000]/60 transition-all"
-            >
-              <option value="">Todos</option>
-              <option value="Actividad">Actividades</option>
-              <option value="Proyecto">Proyectos</option>
-              <option value="Obra/Acción de Inversión">Obras / Acciones de Inversión</option>
-            </select>
+            <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Ver Tipo</label>
+            <div className="flex bg-[#0b1428] border border-slate-800/80 rounded-xl p-1 gap-1">
+              <button
+                type="button"
+                onClick={() => setFilterTipo('Producto')}
+                className={cn(
+                  "flex-1 text-xs py-2.5 px-3 rounded-lg font-bold transition-all text-center",
+                  filterTipo === 'Producto' 
+                    ? "bg-[#d40000] text-white shadow-md shadow-[#d40000]/10" 
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/20"
+                )}
+              >
+                Productos
+              </button>
+              <button
+                type="button"
+                onClick={() => setFilterTipo('Proyecto')}
+                className={cn(
+                  "flex-1 text-xs py-2.5 px-3 rounded-lg font-bold transition-all text-center",
+                  filterTipo === 'Proyecto' 
+                    ? "bg-[#d40000] text-white shadow-md shadow-[#d40000]/10" 
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/20"
+                )}
+              >
+                Proyectos
+              </button>
+            </div>
           </div>
           <div className="space-y-1.5">
             <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">

@@ -25,26 +25,20 @@ const PRODUCT_NAMES_FALLBACK: Record<string, string> = {
 
 export async function GET() {
   try {
-    await preloadTables(['meta', 'producto_proyecto', 'activ_obra_accinv']);
+    await preloadTables(['meta', 'producto_proyecto']);
     const metas = loadTable('meta');
     const producto = loadTable('producto_proyecto');
-    const actObra = loadTable('activ_obra_accinv');
 
     const list: { codigo: string; nombre: string; tipo: string }[] = [];
 
     // Create maps from meta to resolve names of projects and activities
     const metaProjMap = new Map<string, string>();
-    const metaCompMap = new Map<string, string>();
 
     metas.forEach(m => {
       const actProy = str(m['ACT_PROY']);
-      const comp = str(m['COMPONENTE']);
       const name = str(m['NOMBRE']);
       if (actProy && name) {
         metaProjMap.set(actProy, name);
-      }
-      if (comp && name) {
-        metaCompMap.set(comp, name);
       }
     });
 
@@ -59,22 +53,7 @@ export async function GET() {
         list.push({
           codigo,
           nombre: nombre || 'Producto / Proyecto ' + codigo,
-          tipo: codigo.startsWith('2') ? 'Proyecto' : 'Actividad'
-        });
-      });
-
-    actObra
-      .filter(a => str(a['ANO_EJE']) === AÑO && str(a['SEC_EJEC']) === SEC_EJEC)
-      .forEach(a => {
-        const codigo = str(a['ACTOBRACIN']);
-        let nombre = str(a['NOMBRE']);
-        if (!nombre || nombre === 'null') {
-          nombre = metaCompMap.get(codigo) || '';
-        }
-        list.push({
-          codigo,
-          nombre: nombre || 'Actividad / Obra ' + codigo,
-          tipo: 'Obra/Acción de Inversión'
+          tipo: codigo.startsWith('2') ? 'Proyecto' : 'Producto'
         });
       });
 
