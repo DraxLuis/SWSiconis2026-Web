@@ -92,7 +92,7 @@ const navigation: { section?: string; items: NavItem[] }[] = [
         icon: ListChecks,
         children: [
           { label: 'Metas',                icon: Target,       href: '/presupuesto/metas' },
-          { label: 'Actividad / Proyecto', icon: FolderKanban, href: '/inversion/ejecucion' },
+          { label: 'Actividad / Proyecto', icon: FolderKanban, href: '/presupuesto/actividad-proyecto' },
           { label: 'Obras · Acc. Inv.',    icon: Building2,    href: '/presupuesto/obras' },
           { label: 'Ejecución de Ingresos', icon: TrendingUp,  href: '/ingresos' },
           { label: 'Certificaciones',      icon: FileCheck,    href: '/certificados' },
