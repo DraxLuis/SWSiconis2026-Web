@@ -3,30 +3,74 @@ import { loadTable, preloadTables, str, AÑO, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
+const PRODUCT_NAMES_FALLBACK: Record<string, string> = {
+  '3000669': 'PERSONAS AFECTADAS CON TUBERCULOSIS RECIBEN APOYO NUTRICIONAL',
+  '3000355': 'PERSONAS QUE RECIBEN SERVICIO DE PATRULLAJE MUNICIPAL POR SECTOR',
+  '3000356': 'COMUNIDAD RECIBE ACCIONES DE PREVENCION EN EL MARCO DEL PLAN DE SEGURIDAD CIUDADANA',
+  '3000848': 'MANEJO DE RESIDUOS SOLIDOS MUNICIPALES',
+  '3000850': 'FISCALIZACION DE LA GESTION DE RESIDUOS SOLIDOS',
+  '3000523': 'PREVENCION, CONTROL Y ERRADICACION DE ENFERMEDADES EN ANIMALES',
+  '3000735': 'MANTENIMIENTO DE CAUCES, DRENAJES Y SEGURIDAD FISICA',
+  '3000882': 'SISTEMAS DE SANEAMIENTO BASICO EN LA LOCALIDAD',
+  '3000662': 'FORTALECIMIENTO DEL SECTOR ARTESANAL',
+  '3000887': 'ATENCION A NIÑAS, NIÑOS Y ADOLESCENTES EN RIESGO',
+  '3000630': 'ASISTENCIA TECNICA A PRODUCTORES AGRICOLAS Y PECUARIOS',
+  '3000664': 'CONSERVACION Y PUESTA EN VALOR DE RECURSOS TURISTICOS',
+  '3000384': 'RECUPERACION DE AREAS FORESTALES DEGRADADAS',
+  '3000133': 'MANTENIMIENTO DE CAMINOS VECINALES',
+  '3033251': 'FAMILIAS SALUDABLES CON CONOCIMIENTOS PARA EL CUIDADO INFANTIL Y ALIMENTACION',
+  '3000808': 'SEGUIMIENTO Y VERIFICACION DEL CUMPLIMIENTO DE LAS OBLIGACIONES AMBIENTALES',
+  '3999999': 'SIN PRODUCTO'
+};
+
 export async function GET() {
   try {
-    await preloadTables(['producto_proyecto', 'activ_obra_accinv']);
+    await preloadTables(['meta', 'producto_proyecto', 'activ_obra_accinv']);
+    const metas = loadTable('meta');
     const producto = loadTable('producto_proyecto');
     const actObra = loadTable('activ_obra_accinv');
 
     const list: { codigo: string; nombre: string; tipo: string }[] = [];
 
+    // Create maps from meta to resolve names of projects and activities
+    const metaProjMap = new Map<string, string>();
+    const metaCompMap = new Map<string, string>();
+
+    metas.forEach(m => {
+      const actProy = str(m['ACT_PROY']);
+      const comp = str(m['COMPONENTE']);
+      const name = str(m['NOMBRE']);
+      if (actProy && name) {
+        metaProjMap.set(actProy, name);
+      }
+      if (comp && name) {
+        metaCompMap.set(comp, name);
+      }
+    });
+
     producto
       .filter(p => str(p['ANO_EJE']) === AÑO && str(p['SEC_EJEC']) === SEC_EJEC)
       .forEach(p => {
+        const codigo = str(p['ACT_PROY']);
+        let nombre = PRODUCT_NAMES_FALLBACK[codigo];
+        if (!nombre) {
+          nombre = metaProjMap.get(codigo) || str(p['NOMBRE']);
+        }
         list.push({
-          codigo: str(p['ACT_PROY']),
-          nombre: str(p['NOMBRE']),
-          tipo: str(p['ACT_PROY']).startsWith('2') ? 'Proyecto' : 'Actividad'
+          codigo,
+          nombre: nombre || 'Producto / Proyecto ' + codigo,
+          tipo: codigo.startsWith('2') ? 'Proyecto' : 'Actividad'
         });
       });
 
     actObra
       .filter(a => str(a['ANO_EJE']) === AÑO && str(a['SEC_EJEC']) === SEC_EJEC)
       .forEach(a => {
+        const codigo = str(a['ACTOBRACIN']);
+        const nombre = metaCompMap.get(codigo) || str(a['NOMBRE']);
         list.push({
-          codigo: str(a['ACTOBRACIN']),
-          nombre: str(a['NOMBRE']),
+          codigo,
+          nombre: nombre || 'Actividad / Obra ' + codigo,
           tipo: 'Obra/Acción de Inversión'
         });
       });
@@ -46,3 +90,4 @@ export async function GET() {
     return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }
+
