@@ -26,47 +26,47 @@ export function Topbar() {
     : '';
 
   return (
-    <header className="topbar px-6">
-      {/* Left — Brand & Entity (Merged & Simplified) */}
+    <header className="topbar px-6 h-[72px] flex items-center justify-between">
+      {/* Left — Brand & Entity (Scaled for Legibility) */}
       <div className="flex items-center gap-4">
         {/* SICONIS Logo */}
-        <div className="flex items-center gap-2.5">
-          <div className="h-8.5 w-8.5 rounded-xl bg-gradient-to-br from-[#D40000] to-[#8B0000] flex items-center justify-center shadow-lg shadow-red-950/40 border border-white/10">
-            <span className="text-xs font-black text-white tracking-widest">SC</span>
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-[#D40000] to-[#8B0000] flex items-center justify-center shadow-lg shadow-red-950/40 border border-white/15">
+            <span className="text-base font-black text-white tracking-widest">SC</span>
           </div>
           <div>
-            <div className="flex items-baseline gap-1 leading-none">
-              <h1 className="text-xs font-black tracking-widest text-white">
+            <div className="flex items-baseline gap-1.5 leading-none">
+              <h1 className="text-base md:text-[17px] font-black tracking-widest text-white leading-none">
                 SICONIS
               </h1>
-              <span className="text-[9px] font-bold text-[#D40000]">2026</span>
+              <span className="text-xs md:text-sm font-black text-[#FF3B30]">2026</span>
             </div>
-            <p className="text-[7.5px] text-[#4A6080] font-bold tracking-widest uppercase mt-0.5">
+            <p className="text-[11px] text-[#5F7A9F] font-extrabold tracking-widest uppercase mt-1.5 leading-none">
               Consultas SIAF®
             </p>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-6 w-px bg-white/[0.06] hidden lg:block" />
+        <div className="h-10 w-px bg-white/[0.08] hidden lg:block" />
 
-        {/* Entity details (Text-only, no border box) */}
+        {/* Entity details */}
         <div className="hidden lg:flex flex-col justify-center">
-          <span className="text-[9.5px] font-extrabold tracking-wider text-slate-200 uppercase leading-none">
+          <span className="text-[13.5px] font-black tracking-wider text-slate-100 uppercase leading-none">
             MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA
           </span>
-          <span className="text-[8px] text-[#4A6080] font-bold tracking-widest uppercase leading-none mt-1">
+          <span className="text-[11px] text-[#5F7A9F] font-extrabold tracking-widest uppercase leading-none mt-1.5">
             UE 301548 · PIURA
           </span>
         </div>
       </div>
 
-      {/* Center — Period badge (Simplified) */}
-      <div className="hidden md:flex items-center gap-2">
-        <span className="text-[8.5px] font-extrabold tracking-widest text-[#4A6080] uppercase">
+      {/* Center — Period badge */}
+      <div className="hidden md:flex items-center gap-2.5">
+        <span className="text-[11px] font-extrabold tracking-widest text-[#5F7A9F] uppercase">
           AÑO FISCAL
         </span>
-        <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-[#D40000]/10 border border-[#D40000]/20 text-[#D40000] font-mono leading-none">
+        <span className="text-sm font-black px-3 py-1.5 rounded-lg bg-[#D40000]/12 border border-[#D40000]/30 text-[#FF453A] font-mono leading-none">
           2026
         </span>
       </div>
@@ -75,33 +75,33 @@ export function Topbar() {
       <div className="flex items-center gap-4">
         {/* Compact Date/Time */}
         {now && (
-          <div className="hidden sm:flex flex-col text-right min-w-[100px]">
-            <p className="text-[9.5px] font-bold text-slate-300 leading-none uppercase font-mono">
+          <div className="hidden sm:flex flex-col text-right min-w-[120px]">
+            <p className="text-[12px] font-bold text-slate-200 leading-none uppercase font-mono">
               {fecha}
             </p>
-            <p className="text-[8.5px] text-[#4A6080] font-bold tracking-wider leading-none mt-1 font-mono">
+            <p className="text-[11px] text-[#5F7A9F] font-bold tracking-wider leading-none mt-1.5 font-mono">
               {hora}
             </p>
           </div>
         )}
 
         {/* Divider */}
-        <div className="h-6 w-px bg-white/[0.06] hidden sm:block" />
+        <div className="h-8 w-px bg-white/[0.08] hidden sm:block" />
 
         {/* User dropdown chip */}
         <div className="relative">
           <button 
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl border border-white/[0.05] hover:border-white/[0.1] hover:bg-white/[0.03] transition-all duration-200 group focus:outline-none"
+            className="flex items-center gap-3 px-3.5 py-2 rounded-xl border border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-200 group focus:outline-none"
           >
-            <div className="h-6.5 w-6.5 rounded-lg bg-gradient-to-br from-[#D40000] to-[#8B0000] flex items-center justify-center flex-shrink-0 shadow-lg shadow-red-950/20 border border-white/5">
-              <User className="h-3.5 w-3.5 text-white" />
+            <div className="h-8.5 w-8.5 rounded-lg bg-gradient-to-br from-[#D40000] to-[#8B0000] flex items-center justify-center flex-shrink-0 shadow-lg shadow-red-950/20 border border-white/10">
+              <User className="h-4.5 w-4.5 text-white" />
             </div>
             <div className="hidden md:block text-left">
-              <p className="text-[9.5px] font-black text-white leading-tight tracking-wider">ADMINISTRADOR</p>
-              <p className="text-[8px] text-[#4A6080] font-bold tracking-widest uppercase leading-none mt-0.5">SQL Server</p>
+              <p className="text-[12px] font-black text-white leading-tight tracking-wider">ADMINISTRADOR</p>
+              <p className="text-[10.5px] text-[#5F7A9F] font-extrabold tracking-widest uppercase leading-none mt-1.5">SQL Server</p>
             </div>
-            <ChevronDown className="h-3.5 w-3.5 text-[#4A6080] group-hover:text-slate-300 transition-colors hidden md:block" />
+            <ChevronDown className="h-4.5 w-4.5 text-[#5F7A9F] group-hover:text-slate-300 transition-colors hidden md:block" />
           </button>
           
           {dropdownOpen && (
@@ -113,8 +113,8 @@ export function Topbar() {
               
               <div className="absolute right-0 mt-2 w-48 rounded-xl bg-[#061526] border border-white/[0.08] shadow-2xl z-50 py-1.5 animate-scale-in">
                 <div className="px-3 py-2 border-b border-white/[0.06]">
-                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">SESIÓN ACTIVA</p>
-                  <p className="text-[11px] font-semibold text-white mt-0.5">Administrador</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SESIÓN ACTIVA</p>
+                  <p className="text-xs font-semibold text-white mt-0.5">Administrador</p>
                 </div>
                 <button 
                   onClick={() => {
@@ -122,9 +122,9 @@ export function Topbar() {
                     router.push('/login');
                     router.refresh();
                   }}
-                  className="w-full text-left px-3 py-2 text-[11px] font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-150 flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 text-[11.5px] font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-150 flex items-center gap-2"
                 >
-                  <LogOut className="h-3.5 w-3.5" />
+                  <LogOut className="h-4 w-4" />
                   Cerrar Sesión
                 </button>
               </div>

@@ -195,7 +195,6 @@ const navigation: { section?: string; items: NavItem[] }[] = [
         icon: Settings,
         children: [
           { label: 'Seleccionar Periodo',   icon: CalendarDays, href: '/utilitarios/periodo' },
-          { label: 'Autorizar Período',     icon: CalendarDays, href: '/sistema/autorizar-periodo' },
           { label: 'Usuarios',              icon: UserCog,      href: '/utilitarios/usuarios' },
           { label: 'Actualizar Clave',      icon: KeyRound,     href: '/utilitarios/clave' },
           { label: 'Ruta DATA SIAF',        icon: HardDrive,    href: '/utilitarios/ruta-siaf' },
@@ -340,7 +339,7 @@ interface SidebarProps {
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   return (
     <aside className={cn(
-      'fixed left-0 top-14 bottom-0 z-40 flex flex-col',
+      'fixed left-0 top-[72px] bottom-0 z-40 flex flex-col',
       'border-r border-white/[0.06] bg-[#020D1C]/98 backdrop-blur-2xl',
       'transition-all duration-300 ease-in-out',
       collapsed ? 'w-[68px]' : 'w-[268px]'
@@ -350,20 +349,21 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <button
         onClick={onToggle}
         className={cn(
-          'absolute -right-3.5 top-8 z-50',
-          'h-7 w-7 rounded-full flex items-center justify-center',
-          'bg-[#0A1F35] border border-white/10 text-slate-500',
-          'hover:text-white hover:border-white/20 transition-all duration-200 shadow-xl'
+          'absolute -right-3 top-5 z-50',
+          'h-6 w-6 rounded-full flex items-center justify-center',
+          'bg-[#061527] border border-white/[0.08] text-slate-400',
+          'hover:text-white hover:bg-[#D40000] hover:border-[#D40000] hover:shadow-[0_0_12px_rgba(212,0,0,0.45)]',
+          'transition-all duration-200 cursor-pointer'
         )}
       >
         <ChevronLeft className={cn(
-          'h-4 w-4 transition-transform duration-300',
+          'h-3.5 w-3.5 transition-transform duration-300',
           collapsed && 'rotate-180'
         )} />
       </button>
 
       {/* Scrollable nav */}
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-4 px-3 space-y-1">
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden pt-14 pb-4 px-3 space-y-1">
         {navigation.map((group, gi) => (
           <div key={gi} className={gi > 0 ? 'mt-2' : ''}>
 

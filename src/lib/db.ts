@@ -18,6 +18,42 @@ interface DBFJson {
 /** Cache to avoid re-reading files on every request */
 const cache: Map<string, Record<string, unknown>[]> = new Map();
 
+/** Preload specific tables from SQL Server into the in-memory cache if DB is configured */
+export async function preloadTables(tableNames: string[], forceRefresh = false) {
+  if (!process.env.DB_SERVER) return;
+
+  try {
+    const mssql = await import('mssql');
+    const config: import('mssql').config = {
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      server: process.env.DB_SERVER || 'localhost',
+      database: process.env.DB_DATABASE,
+      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 1433,
+      options: { encrypt: false, trustServerCertificate: true },
+    };
+
+    const pool = await new mssql.default.ConnectionPool(config).connect();
+    
+    for (const name of tableNames) {
+      const key = name.toLowerCase();
+      if (cache.has(key) && !forceRefresh) continue;
+
+      try {
+        const request = pool.request();
+        const result = await request.query(`SELECT * FROM [${name}]`);
+        cache.set(key, result.recordset || []);
+      } catch (err) {
+        console.error(`Error precargando tabla "${name}" desde SQL Server:`, err);
+        // No guardamos en caché si falla la consulta (ej. tabla inexistente), para dar opción al fallback JSON
+      }
+    }
+    await pool.close();
+  } catch (err) {
+    console.error('Error de conexión a SQL Server durante la precarga:', err);
+  }
+}
+
 /** Load a table from the exported JSON file */
 export function loadTable(tableName: string): Record<string, unknown>[] {
   const key = tableName.toLowerCase();
