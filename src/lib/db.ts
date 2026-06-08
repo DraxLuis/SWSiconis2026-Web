@@ -47,11 +47,17 @@ export async function preloadTables(tableNames: string[], forceRefresh = false) 
       if (cache.has(key) && !forceRefresh) continue;
 
       const sqlTableName = TABLE_NAME_MAP[name] || name;
-
       try {
         const request = pool.request();
         const result = await request.query(`SELECT * FROM [${sqlTableName}]`);
-        cache.set(key, result.recordset || []);
+        const normalizedRows = (result.recordset || []).map(row => {
+          const newRow: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(row)) {
+            newRow[k.toUpperCase()] = v;
+          }
+          return newRow;
+        });
+        cache.set(key, normalizedRows);
       } catch (err) {
         console.error(`Error precargando tabla "${name}" (as [${sqlTableName}]) desde SQL Server:`, err);
         // No guardamos en caché si falla la consulta (ej. tabla inexistente), para dar opción al fallback JSON
