@@ -97,7 +97,7 @@ export interface ExpedienteRow {
  * Font: Arial Narrow
  * SheetName: Registros
  */
-export function exportEjecucionPPTO(rows: EjecucionRow[]) {
+export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion presupuestal.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name & Current Date (NOW)
@@ -325,7 +325,7 @@ export function exportEjecucionPPTO(rows: EjecucionRow[]) {
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Registros');
-  XLSX.writeFile(wb, 'ejecucion presupuestal.xlsx');
+  XLSX.writeFile(wb, filename);
 }
 
 /**
@@ -334,7 +334,7 @@ export function exportEjecucionPPTO(rows: EjecucionRow[]) {
  * Font: Calibri
  * SheetName: [programCode]
  */
-export function exportCertificados(programCode: string, programName: string, rows: CertificadoRow[]) {
+export function exportCertificados(programCode: string, programName: string, rows: CertificadoRow[], filename = 'certificados.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name
@@ -570,7 +570,7 @@ export function exportCertificados(programCode: string, programName: string, row
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, programCode);
-  XLSX.writeFile(wb, 'certificados.xlsx');
+  XLSX.writeFile(wb, filename);
 }
 
 /**
@@ -579,7 +579,7 @@ export function exportCertificados(programCode: string, programName: string, row
  * Font: Calibri
  * SheetName: [programCode]
  */
-export function exportDevengados(programCode: string, programName: string, rows: ExpedienteRow[]) {
+export function exportDevengados(programCode: string, programName: string, rows: ExpedienteRow[], filename = 'devengados.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name
@@ -813,7 +813,7 @@ export function exportDevengados(programCode: string, programName: string, rows:
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, programCode);
-  XLSX.writeFile(wb, 'devengados.xlsx');
+  XLSX.writeFile(wb, filename);
 }
 
 /**
@@ -822,7 +822,7 @@ export function exportDevengados(programCode: string, programName: string, rows:
  * Font: Calibri
  * SheetName: [programCode]
  */
-export function exportGiros(programCode: string, programName: string, rows: ExpedienteRow[]) {
+export function exportGiros(programCode: string, programName: string, rows: ExpedienteRow[], filename = 'giros.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name
@@ -1056,7 +1056,7 @@ export function exportGiros(programCode: string, programName: string, rows: Expe
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, programCode);
-  XLSX.writeFile(wb, 'giros.xlsx');
+  XLSX.writeFile(wb, filename);
 }
 
 /**
@@ -1065,7 +1065,7 @@ export function exportGiros(programCode: string, programName: string, rows: Expe
  * Font: Calibri
  * SheetName: [programCode]
  */
-export function exportGirosConGlosa(programCode: string, programName: string, rows: ExpedienteRow[]) {
+export function exportGirosConGlosa(programCode: string, programName: string, rows: ExpedienteRow[], filename = 'giros con glosa.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name
@@ -1302,7 +1302,7 @@ export function exportGirosConGlosa(programCode: string, programName: string, ro
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, programCode);
-  XLSX.writeFile(wb, 'giros con glosa.xlsx'); // Space in name!
+  XLSX.writeFile(wb, filename);
 }
 
 /**
@@ -1754,7 +1754,7 @@ export function exportEjecucionActProy(rows: {
   atcp: number;
   devengado: number;
   girado: number;
-}[]) {
+}[], filename = 'ejecucion-actproy.xlsx') {
   const wsData: unknown[][] = [];
 
   // Row 1: Entity Name & Current Date
@@ -1952,7 +1952,7 @@ export function exportEjecucionActProy(rows: {
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Registros');
-  XLSX.writeFile(wb, 'ejecucion-actproy.xlsx');
+  XLSX.writeFile(wb, filename);
 }
 
 export interface PagoExportRow {
@@ -2442,5 +2442,724 @@ export function exportViaticos(rows: ViaticoExportRow[]) {
   XLSX.utils.book_append_sheet(wb, ws, 'resumen');
   XLSX.writeFile(wb, 'viaticos_y_encargos.xlsx');
 }
+
+// =========================================================================
+// NEW EXPORT FUNCTIONS FOR EL GENERADOR DE REPORTES EXCEL
+// =========================================================================
+
+export function exportCertificadoResumen(rows: Record<string, unknown>[], filename = 'certificado.xlsx') {
+  const wsData: unknown[][] = [];
+  wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+  wsData.push(Array(8).fill(''));
+  wsData.push(['Estado de Certificaciones']);
+  wsData.push(Array(8).fill(''));
+  wsData.push(Array(8).fill(''));
+  wsData.push(['AñoEje', 'Número', 'Meta', 'Rubro', 'Clasificador', 'Certificado', 'Compromiso', 'Saldo']);
+
+  rows.forEach(r => {
+    wsData.push([
+      r.ano_eje || '2026',
+      r.certif,
+      r.sec_func,
+      r.rubro,
+      r.clasif,
+      n(r.certificado),
+      n(r.compromiso),
+      n(r.saldo)
+    ]);
+  });
+
+  const lastDataRowNumber = 6 + rows.length;
+  const totalRow = Array(8).fill('');
+  totalRow[5] = { f: `SUBTOTAL(9,F7:F${lastDataRowNumber})` };
+  totalRow[6] = { f: `SUBTOTAL(9,G7:G${lastDataRowNumber})` };
+  totalRow[7] = { f: `SUBTOTAL(9,H7:H${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols'] = [
+    { wch: 8.00 },  // AñoEje
+    { wch: 14.00 }, // Número
+    { wch: 8.00 },  // Meta
+    { wch: 8.00 },  // Rubro
+    { wch: 50.00 }, // Clasificador
+    { wch: 16.00 }, // Certificado
+    { wch: 16.00 }, // Compromiso
+    { wch: 16.00 }  // Saldo
+  ];
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+    { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } }
+  ];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      cell.s = { font: { name: 'Arial Narrow', sz: 10 } };
+      if (r === 0 || r === 2) {
+        cell.s.font.bold = true;
+        cell.s.font.sz = 11;
+      } else if (r === 5) {
+        cell.s.font.bold = true;
+        cell.s.border = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+      } else if (r === range.e.r) {
+        cell.s.font.bold = true;
+        cell.s.border = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c >= 5 && c <= 7) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+          cell.s.alignment = { horizontal: 'right', vertical: 'center' };
+        }
+      } else if (r >= 6) {
+        cell.s.alignment = { horizontal: c >= 5 ? 'right' : 'center', vertical: 'center' };
+        if (c === 4) cell.s.alignment.horizontal = 'left';
+        if (c >= 5 && c <= 7) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Datos');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportRawDevengados(rows: Record<string, unknown>[], filename = 'data-devengados.xlsx') {
+  const wsData: unknown[][] = [];
+  wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+  wsData.push(Array(24).fill(''));
+  wsData.push(['DETALLE DE REGISTROS - DEVENGADOS']);
+  wsData.push(Array(24).fill(''));
+  wsData.push(['ANO_EJE', 'MES_EJE', 'SEC_FUNC', 'EXPEDIENTE', 'OPER', 'MOD', 'CICLO', 'FASE', 'SECUEN', 'CORR', 'RB', 'COD', 'NUM_DOC', 'FECHA_DOC', 'TP', 'TR', 'TC', 'PROVEEDOR', 'CLASIFICAD', 'MONTO', 'FEC_APROB', 'EST', 'CERTIF', 'CERTIF_SEC']);
+
+  rows.forEach(r => {
+    wsData.push([
+      r.ano_eje || '2026',
+      r.mes_eje,
+      r.sec_func,
+      r.expediente,
+      r.oper,
+      r.mod,
+      r.ciclo,
+      r.fase,
+      r.secuen,
+      r.corr,
+      r.rb,
+      r.cod,
+      r.num_doc,
+      formatDate(r.fecha_doc),
+      r.tp,
+      r.tr,
+      r.tc,
+      r.proveedor,
+      r.clasificad,
+      n(r.monto),
+      formatDate(r.fec_aprob),
+      r.est ? String(r.est).substring(0, 1) : 'A',
+      r.certif,
+      r.certif_sec
+    ]);
+  });
+
+  const lastDataRowNumber = 5 + rows.length;
+  const totalRow = Array(24).fill('');
+  totalRow[18] = 'T O T A L E S';
+  totalRow[19] = { f: `SUBTOTAL(9,T6:T${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols'] = Array(24).fill({ wch: 10 });
+  ws['!cols'][17] = { wch: 45 }; // PROVEEDOR
+  ws['!cols'][18] = { wch: 18 }; // CLASIFICAD
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+    { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } }
+  ];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      cell.s = { font: { name: 'Calibri', sz: 9 } };
+      if (r === 0 || r === 2) {
+        cell.s.font.bold = true;
+        cell.s.font.sz = 11;
+      } else if (r === 4) {
+        cell.s.font.bold = true;
+        cell.s.fill = { patternType: 'solid', fgColor: { rgb: 'FFFFFF00' } };
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+        cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+      } else if (r === range.e.r) {
+        cell.s.font.bold = true;
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+        if (c === 18) cell.s.alignment = { horizontal: 'center' };
+        if (c === 19) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+          cell.s.alignment = { horizontal: 'right' };
+        }
+      } else if (r >= 5) {
+        cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        if (c === 17) cell.s.alignment.horizontal = 'left'; // PROVEEDOR left-aligned
+        if (c === 19) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+          cell.s.alignment.horizontal = 'right';
+        }
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'expedientes');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportRawGirados(rows: Record<string, unknown>[], filename = 'data-girados.xlsx') {
+  const wsData: unknown[][] = [];
+  wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+  wsData.push(['DETALLE DE GIROS']);
+  wsData.push(Array(31).fill(''));
+  wsData.push(['ANO', 'MES', 'EXPEDIENTE', 'TIPO', 'C', 'F', 'SECUEN', 'CORR', 'RB', 'TR', 'COD', 'NUM_DOC', 'FECHA_DOC', 'TP', 'TC', 'ANO_BANCO', 'BANCO', 'CTA_CTE', 'BENEFICIARIO', 'CLASIFICAD', 'SEC_FUNC', 'TIPO_GIR', 'COD_B', 'NUM_DOC_B', 'FEC_DOC_B', 'MONTO', 'FEC_APROB', 'SEC_EST', 'EST_REG', 'CERTIF', 'CERTIF_SEC']);
+
+  rows.forEach(r => {
+    wsData.push([
+      r.ano || '2026',
+      r.mes,
+      r.expediente,
+      r.tipo,
+      r.c,
+      r.f,
+      r.secuen,
+      r.corr,
+      r.rb,
+      r.tr,
+      r.cod,
+      r.num_doc,
+      formatDate(r.fecha_doc),
+      r.tp,
+      r.tc,
+      r.ano_banco,
+      r.banco,
+      r.cta_cte,
+      r.beneficiario,
+      r.clasificad,
+      r.sec_func,
+      r.tipo_gir,
+      r.cod_b,
+      r.num_doc_b,
+      formatDate(r.fec_doc_b),
+      n(r.monto),
+      formatDate(r.fec_aprob),
+      r.sec_est,
+      r.est_reg,
+      r.certif,
+      r.certif_sec
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+  const totalRow = Array(31).fill('');
+  totalRow[24] = 'T O T A L E S';
+  totalRow[25] = { f: `SUBTOTAL(9,Z5:Z${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols'] = Array(31).fill({ wch: 10 });
+  ws['!cols'][18] = { wch: 45 }; // BENEFICIARIO
+  ws['!cols'][20] = { wch: 35 }; // SEC_FUNC
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 4 } }
+  ];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      cell.s = { font: { name: 'Calibri', sz: 9 } };
+      if (r === 0 || r === 1) {
+        cell.s.font.bold = true;
+        cell.s.font.sz = 11;
+      } else if (r === 3) {
+        cell.s.font.bold = true;
+        cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+      } else if (r === range.e.r) {
+        cell.s.font.bold = true;
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+        if (c === 24) cell.s.alignment = { horizontal: 'center' };
+        if (c === 25) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+          cell.s.alignment = { horizontal: 'right' };
+        }
+      } else if (r >= 4) {
+        cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        if (c === 18 || c === 20) cell.s.alignment.horizontal = 'left';
+        if (c === 25) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+          cell.s.alignment.horizontal = 'right';
+        }
+        cell.s.border = {
+          top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+          right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+        };
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'expedientes');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportMetaCertificados(rows: Record<string, unknown>[], filename = 'meta_certificados.xlsx') {
+  // Group rows by sec_func
+  const groups = new Map<string, Record<string, unknown>[]>();
+  rows.forEach(r => {
+    const key = String(r.sec_func || '0000');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(r);
+  });
+
+  const wb = XLSX.utils.book_new();
+
+  for (const [metaCode, groupRows] of Array.from(groups.entries()).sort()) {
+    const wsData: unknown[][] = [];
+    wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+    wsData.push(Array(15).fill(''));
+    wsData.push(['DETALLE DE MOVIMENTOS DE CERTICACIONES Y COMPROMISOS ANUALES']);
+    wsData.push(Array(15).fill(''));
+    const metaName = groupRows[0]?.meta_nombre || 'Sin Meta';
+    wsData.push(['Meta:', `${metaCode} ${metaName}`]);
+    wsData.push(Array(15).fill(''));
+    wsData.push(['ANO_EJE', 'SEC_EJEC', 'CERTIFICADO', 'SECUEN', 'CORRE', 'RUBRO', 'COD_DOC', 'NUM_DOC', 'FECHA_DOC', 'Gen', 'CLASIF', 'MONTO', 'FEC_PROC', 'TIPO_REG', 'EST']);
+
+    groupRows.forEach(r => {
+      wsData.push([
+        r.ano_eje || '2026',
+        r.sec_ejec || '301548',
+        r.certif,
+        r.secuencia,
+        r.correlat,
+        r.rubro,
+        r.cod_doc,
+        r.num_doc,
+        formatDate(r.fecha_doc),
+        r.clasif ? String(r.clasif).substring(0, 3) : '',
+        `${r.clasif || ''}   ${r.clasif_nombre || ''}`.trim(),
+        n(r.monto),
+        formatDate(r.fec_proc),
+        r.tipo_reg,
+        String(r.est_env || r.est_reg || 'A').substring(0, 1)
+      ]);
+    });
+
+    const lastDataRowNumber = 7 + groupRows.length;
+    const totalRow = Array(15).fill('');
+    totalRow[10] = 'T O T A L E S ';
+    totalRow[11] = { f: `SUBTOTAL(9,L8:L${lastDataRowNumber})` };
+    wsData.push(totalRow);
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = Array(15).fill({ wch: 10 });
+    ws['!cols'][10] = { wch: 45 }; // CLASIF
+    ws['!cols'][7] = { wch: 18 };  // NUM_DOC
+
+    ws['!merges'] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+      { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } },
+      { s: { r: 4, c: 1 }, e: { r: 4, c: 8 } }
+    ];
+
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+    for (let r = range.s.r; r <= range.e.r; r++) {
+      for (let c = range.s.c; c <= range.e.c; c++) {
+        const cellRef = XLSX.utils.encode_cell({c, r});
+        const cell = ws[cellRef];
+        if (!cell) continue;
+
+        cell.s = { font: { name: 'Calibri', sz: 9 } };
+        if (r === 0 || r === 2 || r === 4) {
+          cell.s.font.bold = true;
+          if (r === 0 || r === 2) cell.s.font.sz = 11;
+        } else if (r === 6) {
+          cell.s.font.bold = true;
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        } else if (r === range.e.r) {
+          cell.s.font.bold = true;
+          if (c === 10) cell.s.alignment = { horizontal: 'center' };
+          if (c === 11) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment = { horizontal: 'right' };
+          }
+        } else if (r >= 7) {
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+          if (c === 10) cell.s.alignment.horizontal = 'left';
+          if (c === 11) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment.horizontal = 'right';
+          }
+        }
+      }
+    }
+
+    XLSX.utils.book_append_sheet(wb, ws, metaCode);
+  }
+
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportMetaDevengados(rows: Record<string, unknown>[], filename = 'meta_devengados.xlsx') {
+  const groups = new Map<string, Record<string, unknown>[]>();
+  rows.forEach(r => {
+    const key = String(r.group_key || '0000');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(r);
+  });
+
+  const wb = XLSX.utils.book_new();
+
+  for (const [metaCode, groupRows] of Array.from(groups.entries()).sort()) {
+    const wsData: unknown[][] = [];
+    wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['DETALLE DE REGISTROS - DEVENGADOS']);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['META:', metaCode]);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['ANO_EJE', 'MES_EJE', 'EXPEDIENTE', 'TO', 'SECUEN', 'CORR', 'RB', 'TR', 'COD', 'NUM_DOC', 'FECHA_DOC', 'PROVEEDOR', 'CLASIFICAD', 'MONTO', 'FEC_APROB', 'EST', 'CERTIF', 'CERTIF_SEC']);
+
+    groupRows.forEach(r => {
+      wsData.push([
+        r.ano_eje || '2026',
+        r.mes_eje,
+        r.expediente,
+        r.tipo_op,
+        r.sec_reg,
+        r.corr,
+        r.rb,
+        r.tr,
+        r.cod_doc,
+        r.num_doc,
+        formatDate(r.fecha_doc),
+        `${r.proveedor_ruc || ''} ${r.proveedor_nombre || ''}`.trim(),
+        `${r.clasificad || ''}   ${r.clasif_nombre || ''}`.trim(),
+        n(r.monto),
+        formatDate(r.fec_aprob),
+        r.estado ? String(r.estado).substring(0, 1) : 'A',
+        r.certif,
+        r.certif_sec
+      ]);
+    });
+
+    const lastDataRowNumber = 7 + groupRows.length;
+    const totalRow = Array(18).fill('');
+    totalRow[12] = 'T O T A L E S';
+    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    wsData.push(totalRow);
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = Array(18).fill({ wch: 10 });
+    ws['!cols'][11] = { wch: 45 }; // PROVEEDOR
+    ws['!cols'][12] = { wch: 35 }; // CLASIFICAD
+
+    ws['!merges'] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+      { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } }
+    ];
+
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+    for (let r = range.s.r; r <= range.e.r; r++) {
+      for (let c = range.s.c; c <= range.e.c; c++) {
+        const cellRef = XLSX.utils.encode_cell({c, r});
+        const cell = ws[cellRef];
+        if (!cell) continue;
+
+        cell.s = { font: { name: 'Calibri', sz: 9 } };
+        if (r === 0 || r === 2 || r === 4) {
+          cell.s.font.bold = true;
+          if (r === 0 || r === 2) cell.s.font.sz = 11;
+        } else if (r === 6) {
+          cell.s.font.bold = true;
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        } else if (r === range.e.r) {
+          cell.s.font.bold = true;
+          if (c === 12) cell.s.alignment = { horizontal: 'center' };
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment = { horizontal: 'right' };
+          }
+        } else if (r >= 7) {
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+          if (c === 11 || c === 12) cell.s.alignment.horizontal = 'left';
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment.horizontal = 'right';
+          }
+        }
+      }
+    }
+
+    XLSX.utils.book_append_sheet(wb, ws, metaCode);
+  }
+
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportProgramaDevengados(rows: Record<string, unknown>[], filename = 'programa_devengados.xlsx') {
+  const groups = new Map<string, Record<string, unknown>[]>();
+  rows.forEach(r => {
+    const key = String(r.group_key || '0000');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(r);
+  });
+
+  const wb = XLSX.utils.book_new();
+
+  for (const [programCode, groupRows] of Array.from(groups.entries()).sort()) {
+    const wsData: unknown[][] = [];
+    wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['DETALLE DE REGISTROS - DEVENGADOS']);
+    wsData.push(Array(18).fill(''));
+    const programName = groupRows[0]?.prog_nombre || 'Programa';
+    wsData.push(['PROGRAMA PPTO:', '', `${programCode} ${programName}`]);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['ANO_EJE', 'MES_EJE', 'Proyecto', 'EXPEDIENTE', 'SECUEN', 'CORR', 'RB', 'TR', 'COD', 'NUM_DOC', 'FECHA_DOC', 'PROVEEDOR', 'CLASIFICAD', 'MONTO', 'FEC_APROB', 'EST', 'CERTIF', 'CERTIF_SEC']);
+
+    groupRows.forEach(r => {
+      wsData.push([
+        r.ano_eje || '2026',
+        r.mes_eje,
+        r.proyecto,
+        r.expediente,
+        r.sec_reg,
+        r.corr,
+        r.rb,
+        r.tr,
+        r.cod_doc,
+        r.num_doc,
+        formatDate(r.fecha_doc),
+        `${r.proveedor_ruc || ''} ${r.proveedor_nombre || ''}`.trim(),
+        `${r.clasificad || ''}   ${r.clasif_nombre || ''}`.trim(),
+        n(r.monto),
+        formatDate(r.fec_aprob),
+        r.estado ? String(r.estado).substring(0, 1) : 'A',
+        r.certif,
+        r.certif_sec
+      ]);
+    });
+
+    const lastDataRowNumber = 7 + groupRows.length;
+    const totalRow = Array(18).fill('');
+    totalRow[12] = 'T O T A L E S';
+    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    wsData.push(totalRow);
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = Array(18).fill({ wch: 10 });
+    ws['!cols'][11] = { wch: 45 }; // PROVEEDOR
+    ws['!cols'][12] = { wch: 35 }; // CLASIFICAD
+
+    ws['!merges'] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+      { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } },
+      { s: { r: 4, c: 2 }, e: { r: 4, c: 8 } }
+    ];
+
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+    for (let r = range.s.r; r <= range.e.r; r++) {
+      for (let c = range.s.c; c <= range.e.c; c++) {
+        const cellRef = XLSX.utils.encode_cell({c, r});
+        const cell = ws[cellRef];
+        if (!cell) continue;
+
+        cell.s = { font: { name: 'Calibri', sz: 9 } };
+        if (r === 0 || r === 2 || r === 4) {
+          cell.s.font.bold = true;
+          if (r === 0 || r === 2) cell.s.font.sz = 11;
+        } else if (r === 6) {
+          cell.s.font.bold = true;
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        } else if (r === range.e.r) {
+          cell.s.font.bold = true;
+          if (c === 12) cell.s.alignment = { horizontal: 'center' };
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment = { horizontal: 'right' };
+          }
+        } else if (r >= 7) {
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+          if (c === 11 || c === 12) cell.s.alignment.horizontal = 'left';
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment.horizontal = 'right';
+          }
+        }
+      }
+    }
+
+    XLSX.utils.book_append_sheet(wb, ws, programCode);
+  }
+
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportProgramaAccionInversion(rows: Record<string, unknown>[], filename = 'programa_accion_inversion.xlsx') {
+  const groups = new Map<string, Record<string, unknown>[]>();
+  rows.forEach(r => {
+    const key = String(r.group_key || '0000000');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(r);
+  });
+
+  const wb = XLSX.utils.book_new();
+
+  for (const [projectCode, groupRows] of Array.from(groups.entries()).sort()) {
+    const wsData: unknown[][] = [];
+    wsData.push(['301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA']);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['DETALLE DE REGISTROS - DEVENGADOS']);
+    wsData.push(Array(18).fill(''));
+    const projectName = groupRows[0]?.meta_nombre || 'Proyecto';
+    wsData.push(['ACT_OBRA_ACCINV:', '', '', `${projectCode}  ${projectName}`]);
+    wsData.push(Array(18).fill(''));
+    wsData.push(['ANO_EJE', 'MES_EJE', 'Proyecto', 'EXPEDIENTE', 'SECUEN', 'CORR', 'RB', 'TR', 'COD', 'NUM_DOC', 'FECHA_DOC', 'PROVEEDOR', 'CLASIFICAD', 'MONTO', 'FEC_APROB', 'EST', 'CERTIF', 'CERTIF_SEC']);
+
+    groupRows.forEach(r => {
+      wsData.push([
+        r.ano_eje || '2026',
+        r.mes_eje,
+        r.proyecto,
+        r.expediente,
+        r.sec_reg,
+        r.corr,
+        r.rb,
+        r.tr,
+        r.cod_doc,
+        r.num_doc,
+        formatDate(r.fecha_doc),
+        `${r.proveedor_ruc || ''} ${r.proveedor_nombre || ''}`.trim(),
+        `${r.clasificad || ''}   ${r.clasif_nombre || ''}`.trim(),
+        n(r.monto),
+        formatDate(r.fec_aprob),
+        r.estado ? String(r.estado).substring(0, 1) : 'A',
+        r.certif,
+        r.certif_sec
+      ]);
+    });
+
+    const lastDataRowNumber = 7 + groupRows.length;
+    const totalRow = Array(18).fill('');
+    totalRow[12] = 'T O T A L E S';
+    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    wsData.push(totalRow);
+
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws['!cols'] = Array(18).fill({ wch: 10 });
+    ws['!cols'][11] = { wch: 45 }; // PROVEEDOR
+    ws['!cols'][12] = { wch: 35 }; // CLASIFICAD
+
+    ws['!merges'] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+      { s: { r: 2, c: 0 }, e: { r: 2, c: 4 } },
+      { s: { r: 4, c: 3 }, e: { r: 4, c: 8 } }
+    ];
+
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+    for (let r = range.s.r; r <= range.e.r; r++) {
+      for (let c = range.s.c; c <= range.e.c; c++) {
+        const cellRef = XLSX.utils.encode_cell({c, r});
+        const cell = ws[cellRef];
+        if (!cell) continue;
+
+        cell.s = { font: { name: 'Calibri', sz: 9 } };
+        if (r === 0 || r === 2 || r === 4) {
+          cell.s.font.bold = true;
+          if (r === 0 || r === 2) cell.s.font.sz = 11;
+        } else if (r === 6) {
+          cell.s.font.bold = true;
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+        } else if (r === range.e.r) {
+          cell.s.font.bold = true;
+          if (c === 12) cell.s.alignment = { horizontal: 'center' };
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment = { horizontal: 'right' };
+          }
+        } else if (r >= 7) {
+          cell.s.alignment = { horizontal: 'center', vertical: 'center' };
+          if (c === 11 || c === 12) cell.s.alignment.horizontal = 'left';
+          if (c === 13) {
+            cell.t = 'n';
+            cell.z = '#,##0.00';
+            cell.s.alignment.horizontal = 'right';
+          }
+        }
+      }
+    }
+
+    XLSX.utils.book_append_sheet(wb, ws, projectCode);
+  }
+
+  XLSX.writeFile(wb, filename);
+}
+
 
 
