@@ -53,16 +53,16 @@ export async function GET(request: Request) {
       WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
       UNION ALL
       SELECT 'ejecucion_ppto' as type, COUNT(DISTINCT p.progppto) as cnt FROM [meta] m 
-      INNER JOIN [programa_pptal] p ON RIGHT('0000' + m.programa, 4) = p.progppto AND m.ano_eje = p.ano_eje
+      INNER JOIN [programa_pptal] p ON m.ppto = p.progppto AND m.ano_eje = p.ano_eje
       WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
       UNION ALL
       SELECT 'ejecucion_metas_clasificador' as type, COUNT(*) as cnt FROM [ejecucion_gasto] WHERE sec_ejec = @sec_ejec AND ano_eje = @year
       UNION ALL
       SELECT 'ejecucion_ppto_meta' as type, COUNT(*) as cnt FROM (
-        SELECT m.programa, m.sec_func FROM [ejecucion_gasto] eg 
+        SELECT m.ppto, m.sec_func FROM [ejecucion_gasto] eg 
         INNER JOIN [meta] m ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
         WHERE eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year 
-        GROUP BY m.programa, m.sec_func
+        GROUP BY m.ppto, m.sec_func
       ) y
       UNION ALL
       SELECT 'programa_accion_inversion' as type, COUNT(*) as cnt FROM [expedientes_gastos_2026] eg
@@ -149,7 +149,7 @@ export async function GET(request: Request) {
       ejecFiltered.forEach(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
         if (m) {
-          const progCode = str(m['PROGRAMA']).padStart(4, '0');
+          const progCode = str(m['PPTO'] ?? m['ppto']);
           if (progCodes.has(progCode)) {
             progSet.add(progCode);
           }
@@ -164,7 +164,7 @@ export async function GET(request: Request) {
       ejecFiltered.forEach(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
         if (m) {
-          pptoMetaSet.add(`${str(m['PROGRAMA']).padStart(4, '0')}-${str(m['SEC_FUNC'])}`);
+          pptoMetaSet.add(`${str(m['PPTO'] ?? m['ppto'])}-${str(m['SEC_FUNC'])}`);
         }
       });
       counts.ejecucion_ppto_meta = pptoMetaSet.size;

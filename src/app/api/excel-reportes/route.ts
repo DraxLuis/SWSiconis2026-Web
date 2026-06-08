@@ -88,7 +88,7 @@ export async function GET(request: Request) {
 
     else if (type === 'data_devengados' || type === 'meta_devengados' || type === 'programa_devengados' || type === 'programa_accion_inversion') {
       const groupKeyCol = type === 'programa_devengados' 
-        ? "RIGHT('0000' + m.programa, 4)" 
+        ? "m.ppto" 
         : type === 'programa_accion_inversion' 
           ? 'm.componente' 
           : 'm.sec_func';
@@ -102,7 +102,7 @@ export async function GET(request: Request) {
           eg.ANO_EJE as ano_eje,
           eg.MES_EJE as mes_eje,
           ${groupKeyCol} as group_key,
-          m.programa as prog_key,
+          m.ppto as prog_key,
           m.act_proy as proyecto,
           pp.nombre as prog_nombre,
           eg.EXPEDIENTE as expediente,
@@ -135,7 +135,7 @@ export async function GET(request: Request) {
           eg.PROVEEDOR as proveedor
         FROM [expedientes_gastos_2026] eg
         INNER JOIN [meta] m ON eg.SEC_FUNC = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
-        LEFT JOIN [programa_pptal] pp ON RIGHT('0000' + m.programa, 4) = pp.progppto AND m.ano_eje = pp.ano_eje
+        LEFT JOIN [programa_pptal] pp ON m.ppto = pp.progppto AND m.ano_eje = pp.ano_eje
         LEFT JOIN [clasificador] cl ON eg.CLASIFICAD = cl.codigo AND eg.ano_eje = cl.ano_eje
         LEFT JOIN [proveedor] p ON eg.PROVEEDOR = p.ruc
         LEFT JOIN [nota_pago] np ON eg.EXPEDIENTE = np.EXPEDIENTE AND eg.NUM_DOC = np.NUM_DOC
@@ -245,7 +245,7 @@ export async function GET(request: Request) {
           SUM(ISNULL(eg.mto_dev_01,0)+ISNULL(eg.mto_dev_02,0)+ISNULL(eg.mto_dev_03,0)+ISNULL(eg.mto_dev_04,0)+ISNULL(eg.mto_dev_05,0)+ISNULL(eg.mto_dev_06,0)+ISNULL(eg.mto_dev_07,0)+ISNULL(eg.mto_dev_08,0)+ISNULL(eg.mto_dev_09,0)+ISNULL(eg.mto_dev_10,0)+ISNULL(eg.mto_dev_11,0)+ISNULL(eg.mto_dev_12,0)) as devengado,
           SUM(ISNULL(eg.mto_gir_01,0)+ISNULL(eg.mto_gir_02,0)+ISNULL(eg.mto_gir_03,0)+ISNULL(eg.mto_gir_04,0)+ISNULL(eg.mto_gir_05,0)+ISNULL(eg.mto_gir_06,0)+ISNULL(eg.mto_gir_07,0)+ISNULL(eg.mto_gir_08,0)+ISNULL(eg.mto_gir_09,0)+ISNULL(eg.mto_gir_10,0)+ISNULL(eg.mto_gir_11,0)+ISNULL(eg.mto_gir_12,0)) as girado
         FROM [meta] m
-        INNER JOIN [programa_pptal] p ON RIGHT('0000' + m.programa, 4) = p.progppto AND m.ano_eje = p.ano_eje
+        INNER JOIN [programa_pptal] p ON m.ppto = p.progppto AND m.ano_eje = p.ano_eje
         LEFT JOIN [ejecucion_gasto] eg ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
         WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
         GROUP BY p.progppto, p.nombre
@@ -297,7 +297,7 @@ export async function GET(request: Request) {
           SUM(ISNULL(eg.mto_gir_01,0)+ISNULL(eg.mto_gir_02,0)+ISNULL(eg.mto_gir_03,0)+ISNULL(eg.mto_gir_04,0)+ISNULL(eg.mto_gir_05,0)+ISNULL(eg.mto_gir_06,0)+ISNULL(eg.mto_gir_07,0)+ISNULL(eg.mto_gir_08,0)+ISNULL(eg.mto_gir_09,0)+ISNULL(eg.mto_gir_10,0)+ISNULL(eg.mto_gir_11,0)+ISNULL(eg.mto_gir_12,0)) as girado
         FROM [ejecucion_gasto] eg
         INNER JOIN [meta] m ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
-        INNER JOIN [programa_pptal] pp ON RIGHT('0000' + m.programa, 4) = pp.progppto AND m.ano_eje = pp.ano_eje
+        INNER JOIN [programa_pptal] pp ON m.ppto = pp.progppto AND m.ano_eje = pp.ano_eje
         WHERE eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year
         GROUP BY pp.progppto, pp.nombre, m.sec_func, m.nombre
         ORDER BY pp.progppto, m.sec_func
@@ -463,7 +463,7 @@ export async function GET(request: Request) {
             const npBenefici = npMap.get(`${str(eg['EXPEDIENTE'])}-${str(eg['NUM_DOC'])}`);
             const fallbackBenef = ruc === '0' ? 'CARRASCO MARTINEZ MARIA HERLINDA' : (provMap.get(ruc) || ruc);
             const beneficiario = npBenefici || fallbackBenef;
-            const prog = m ? str(m['PROGRAMA']) : '';
+            const prog = m ? str(m['PPTO'] ?? m['ppto']) : '';
             const ppMatch = programa.find(p => str(p['PROGPPTO']) === prog && str(p['ANO_EJE']) === year);
 
             let groupKey = secFunc;
@@ -672,7 +672,7 @@ export async function GET(request: Request) {
           const secFunc = str(eg['SEC_FUNC']);
           const m = metaMap.get(secFunc);
           if (!m) return;
-          const progCode = str(m['PROGRAMA']).padStart(4, '0');
+          const progCode = str(m['PPTO'] ?? m['ppto']);
           if (!progMap.has(progCode)) return;
 
           if (!grouped.has(progCode)) {
@@ -768,7 +768,7 @@ export async function GET(request: Request) {
           const secFunc = str(eg['SEC_FUNC']);
           const m = metaMap.get(secFunc);
           if (!m) return;
-          const progCode = str(m['PROGRAMA']).padStart(4, '0');
+          const progCode = str(m['PPTO'] ?? m['ppto']);
           const metaCode = str(m['SEC_FUNC']);
           const key = `${progCode}-${metaCode}`;
 
