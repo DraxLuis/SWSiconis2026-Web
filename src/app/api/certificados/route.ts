@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,6 +7,10 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
+    const filterPrograma = searchParams.get('programa') || '';
+
+    // Preload tables from SQL Server
+    await preloadTables(['meta', 'certificado', 'proveedor', 'clasificador', 'rubro']);
 
     const certificados = loadTable('certificado');
     const proveedores = loadTable('proveedor');
@@ -26,6 +30,10 @@ export async function GET(request: Request) {
     metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaMap.set(str(m['SEC_FUNC']), str(m['NOMBRE'])));
 
+    const metaProgramMap = new Map<string, string>();
+    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+      .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
+
     // Filter certificates
     const filtered = certificados.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
@@ -33,6 +41,11 @@ export async function GET(request: Request) {
       if (ano !== AÑO && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
+      if (filterPrograma) {
+        const secFunc = str(r['SEC_FUNC']);
+        const progCode = metaProgramMap.get(secFunc) || '';
+        if (progCode !== filterPrograma) return false;
+      }
       return true;
     });
 

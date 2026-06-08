@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ClipboardCheck, Search, FileSpreadsheet, RefreshCw, SlidersHorizontal, AlertTriangle, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import * as XLSX from 'xlsx';
@@ -16,19 +17,29 @@ interface CertifRow {
   est_env: string; est_reg: string;
 }
 
-export default function CertificadosPage() {
+function CertificadosContent() {
+  const searchParams = useSearchParams();
+  const initialPrograma = searchParams.get('programa') || '';
+
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<CertifRow[]>([]);
   const [, setTotalMonto] = useState(0);
   const [rubros, setRubros] = useState<{ codigo: string; nombre: string }[]>([]);
   const [filterRubro, setFilterRubro] = useState('');
+  const [filterPrograma, setFilterPrograma] = useState(initialPrograma);
   const [search, setSearch] = useState('');
+
+  // Handle URL change for programa
+  useEffect(() => {
+    setFilterPrograma(searchParams.get('programa') || '');
+  }, [searchParams]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
       if (filterRubro) params.append('rubro', filterRubro);
+      if (filterPrograma) params.append('programa', filterPrograma);
       const res = await fetch(`/api/certificados?${params}`);
       const data = await res.json();
       if (data.success) {
@@ -38,7 +49,7 @@ export default function CertificadosPage() {
       }
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
-  }, [filterRubro]);
+  }, [filterRubro, filterPrograma]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
@@ -107,8 +118,16 @@ export default function CertificadosPage() {
 
       {/* Filters */}
       <div className="p-5 rounded-2xl border border-slate-800/70 bg-[#091122]/40 backdrop-blur-md shadow-lg">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider mb-4">
-          <SlidersHorizontal className="h-4 w-4 text-[#d40000]" /> Filtros
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <SlidersHorizontal className="h-4 w-4 text-[#d40000]" /> Filtros
+          </div>
+          {filterPrograma && (
+            <span className="flex items-center gap-1.5 text-[10px] bg-[#d40000]/15 text-[#d40000] border border-[#d40000]/30 font-bold px-2.5 py-1 rounded-lg animate-fade-in">
+              Programa: {filterPrograma}
+              <button onClick={() => setFilterPrograma('')} className="hover:text-white transition-colors font-black ml-1 text-xs">×</button>
+            </span>
+          )}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
@@ -226,5 +245,13 @@ export default function CertificadosPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CertificadosPage() {
+  return (
+    <Suspense fallback={null}>
+      <CertificadosContent />
+    </Suspense>
   );
 }

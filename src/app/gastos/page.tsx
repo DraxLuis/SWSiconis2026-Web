@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, Fragment } from 'react';
+import { useState, useEffect, useCallback, Fragment, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   TrendingDown,
   Search,
@@ -40,17 +41,26 @@ const formatMoney = (val: number) =>
 
 const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 
-export default function GastosPage() {
+function GastosContent() {
+  const searchParams = useSearchParams();
+  const initialPrograma = searchParams.get('programa') || '';
+
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<GastoRow[]>([]);
   const [rubrosList, setRubrosList] = useState<RubroOption[]>([]);
   const [filterRubro, setFilterRubro] = useState('');
   const [filterClasificador, setFilterClasificador] = useState('');
+  const [filterPrograma, setFilterPrograma] = useState(initialPrograma);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [filterOpen, setFilterOpen] = useState(true);
+
+  // Sync filterPrograma when URL changes
+  useEffect(() => {
+    setFilterPrograma(searchParams.get('programa') || '');
+  }, [searchParams]);
 
   const fetchGastos = useCallback(async () => {
     setLoading(true);
@@ -59,6 +69,7 @@ export default function GastosPage() {
       const params = new URLSearchParams();
       if (filterRubro) params.append('rubro', filterRubro);
       if (filterClasificador) params.append('clasificador', filterClasificador);
+      if (filterPrograma) params.append('programa', filterPrograma);
       if (params.toString()) url += `?${params.toString()}`;
       const res = await fetch(url);
       const data = await res.json();
@@ -71,7 +82,7 @@ export default function GastosPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterRubro, filterClasificador, rubrosList.length]);
+  }, [filterRubro, filterClasificador, filterPrograma, rubrosList.length]);
 
   useEffect(() => { fetchGastos(); setCurrentPage(1); }, [fetchGastos]);
 
@@ -156,49 +167,60 @@ export default function GastosPage() {
 
       {/* Filter Panel */}
       {filterOpen && (
-        <div className="filter-panel animate-fade-in grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
-              <Layers className="h-3 w-3" /> Rubro
-            </label>
-            <select
-              value={filterRubro}
-              onChange={(e) => setFilterRubro(e.target.value)}
-              className="form-select"
-            >
-              <option value="">Todos los Rubros</option>
-              {rubrosList.map((r) => (
-                <option key={r.codigo} value={r.codigo}>
-                  {r.codigo} — {r.nombre}
-                </option>
-              ))}
-            </select>
+        <div className="filter-panel animate-fade-in space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.04] pb-2">
+            <span className="text-[10px] font-800 uppercase tracking-widest text-[#4A6080]">Criterios de Selección</span>
+            {filterPrograma && (
+              <span className="flex items-center gap-1.5 text-[10px] bg-[#d40000]/15 text-[#d40000] border border-[#d40000]/30 font-bold px-2.5 py-1 rounded-lg">
+                Programa: {filterPrograma}
+                <button onClick={() => setFilterPrograma('')} className="hover:text-white transition-colors font-black ml-1 text-xs">×</button>
+              </span>
+            )}
           </div>
-          <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
-              <Layers className="h-3 w-3" /> Clasificador (Prefijo)
-            </label>
-            <input
-              type="text"
-              placeholder="Ej: 2.6 o 2.3..."
-              value={filterClasificador}
-              onChange={(e) => setFilterClasificador(e.target.value)}
-              className="form-input"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
-              <Search className="h-3 w-3" /> Búsqueda por Nombre
-            </label>
-            <div className="relative">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+                <Layers className="h-3 w-3" /> Rubro
+              </label>
+              <select
+                value={filterRubro}
+                onChange={(e) => setFilterRubro(e.target.value)}
+                className="form-select"
+              >
+                <option value="">Todos los Rubros</option>
+                {rubrosList.map((r) => (
+                  <option key={r.codigo} value={r.codigo}>
+                    {r.codigo} — {r.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+                <Layers className="h-3 w-3" /> Clasificador (Prefijo)
+              </label>
               <input
                 type="text"
-                placeholder="Buscar clasificador o descripción..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="form-input pl-8"
+                placeholder="Ej: 2.6 o 2.3..."
+                value={filterClasificador}
+                onChange={(e) => setFilterClasificador(e.target.value)}
+                className="form-input"
               />
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#4A6080]" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-1.5 text-[10px] font-700 uppercase tracking-widest text-[#4A6080]">
+                <Search className="h-3 w-3" /> Búsqueda por Nombre
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Buscar clasificador o descripción..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="form-input pl-8"
+                />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#4A6080]" />
+              </div>
             </div>
           </div>
         </div>
@@ -509,5 +531,13 @@ export default function GastosPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function GastosPage() {
+  return (
+    <Suspense fallback={null}>
+      <GastosContent />
+    </Suspense>
   );
 }
