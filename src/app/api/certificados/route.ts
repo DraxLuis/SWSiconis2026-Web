@@ -8,6 +8,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
     const filterPrograma = searchParams.get('programa') || '';
+    const filterProyecto = searchParams.get('proyecto') || '';
 
     // Preload tables from SQL Server
     await preloadTables(['meta', 'certificado', 'proveedor', 'clasificador', 'rubro']);
@@ -34,6 +35,10 @@ export async function GET(request: Request) {
     metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
 
+    const metaProyectoMap = new Map<string, string>();
+    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+      .forEach(m => metaProyectoMap.set(str(m['SEC_FUNC']), str(m['ACT_PROY'])));
+
     // Filter certificates
     const filtered = certificados.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
@@ -45,6 +50,11 @@ export async function GET(request: Request) {
         const secFunc = str(r['SEC_FUNC']);
         const progCode = metaProgramMap.get(secFunc) || '';
         if (progCode !== filterPrograma) return false;
+      }
+      if (filterProyecto) {
+        const secFunc = str(r['SEC_FUNC']);
+        const proyCode = metaProyectoMap.get(secFunc) || '';
+        if (proyCode !== filterProyecto) return false;
       }
       return true;
     });

@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
+    const onlyProjects = searchParams.get('onlyProjects') === 'true';
 
     const gastos = loadTable('presupuesto_ejecucion_gasto');
     const metas = loadTable('meta');
@@ -44,7 +45,7 @@ export async function GET(request: Request) {
       act_proy: string; act_proy_nombre: string;
       tipo: string;  // A = Actividad, P = Proyecto, O = Obra
       pia: number; pim: number; certif: number; comprometido: number;
-      devengado: number; girado: number;
+      atcp: number; devengado: number; girado: number;
       metas_count: number;
     }>();
 
@@ -53,14 +54,16 @@ export async function GET(request: Request) {
       const actProy = metaActProyMap.get(secFunc) ?? '';
       if (!actProy) continue;
 
-      const tipo = actProy.startsWith('5') ? 'P' : actProy.startsWith('3') ? 'A' : 'O';
+      // In Peru-SIAF, ACT_PROY codes starting with '2' are Projects (P).
+      // Codes starting with '3' are Activities (A).
+      const tipo = actProy.startsWith('2') ? 'P' : actProy.startsWith('3') ? 'A' : 'O';
 
       if (!grouped.has(actProy)) {
         grouped.set(actProy, {
           act_proy: actProy,
           act_proy_nombre: nombreMap.get(actProy) ?? actProy,
           tipo,
-          pia: 0, pim: 0, certif: 0, comprometido: 0, devengado: 0, girado: 0,
+          pia: 0, pim: 0, certif: 0, comprometido: 0, atcp: 0, devengado: 0, girado: 0,
           metas_count: 0,
         });
       }
@@ -70,11 +73,12 @@ export async function GET(request: Request) {
       g.pim += num(row['MTO_PIM']);
       g.certif += num(row['MTO_CERTIF']);
       g.comprometido += num(row['MTO_CPANUA']);
-      // Sum all devengado months
+      // Sum all devengado/girado/atcp months
       for (let m = 1; m <= 12; m++) {
         const mk = m.toString().padStart(2, '0');
         g.devengado += num(row[`MTO_DEV_${mk}`]);
         g.girado += num(row[`MTO_GIR_${mk}`]);
+        g.atcp += num(row[`MTO_ATCP${mk}`]);
       }
     }
 
@@ -87,8 +91,12 @@ export async function GET(request: Request) {
         }
       });
 
-    const rows = Array.from(grouped.values())
+    let rows = Array.from(grouped.values())
       .sort((a, b) => a.act_proy.localeCompare(b.act_proy));
+
+    if (onlyProjects) {
+      rows = rows.filter(r => r.tipo === 'P');
+    }
 
     const rubrosList = rubros
       .filter(r => str(r['ANO_EJE']) === AÑO)
