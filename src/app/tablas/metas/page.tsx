@@ -44,11 +44,6 @@ export default function MetasCatalogPage() {
   const [search, setSearch] = useState('');
   const [selectedMeta, setSelectedMeta] = useState<Meta | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [expandedFields, setExpandedFields] = useState<Record<string, boolean>>({});
-
-  const toggleField = (fieldKey: string) => {
-    setExpandedFields(prev => ({ ...prev, [fieldKey]: !prev[fieldKey] }));
-  };
   
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 14;
@@ -281,22 +276,11 @@ export default function MetasCatalogPage() {
                       <BookOpen className="h-3.5 w-3.5 text-[#d40000]" /> Finalidad
                     </label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-[#d40000] text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-[#d40000] text-center select-none shrink-0 self-start">
                         {selectedMeta.finalidad_cod.slice(0, 5)}
                       </div>
-                      <div 
-                        onClick={() => toggleField('finalidad')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-200 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['finalidad'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.finalidad_nombre}
-                        </span>
-                        {selectedMeta.finalidad_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['finalidad'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-200 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.finalidad_nombre}
                       </div>
                     </div>
                   </div>
@@ -385,22 +369,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Programa</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.programa_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('programa')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['programa'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.programa_nombre}
-                        </span>
-                        {selectedMeta.programa_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['programa'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.programa_nombre}
                       </div>
                     </div>
                   </div>
@@ -409,22 +382,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Prod./Proy.</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.producto_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('producto')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['producto'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.producto_nombre || '—'}
-                        </span>
-                        {selectedMeta.producto_nombre && selectedMeta.producto_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['producto'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.producto_nombre || '—'}
                       </div>
                     </div>
                   </div>
@@ -433,22 +395,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Act./Al./Obra</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.actividad_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('actividad')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['actividad'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.actividad_nombre}
-                        </span>
-                        {selectedMeta.actividad_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['actividad'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.actividad_nombre}
                       </div>
                     </div>
                   </div>
@@ -457,22 +408,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Función</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.funcion_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('funcion')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['funcion'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.funcion_nombre}
-                        </span>
-                        {selectedMeta.funcion_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['funcion'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.funcion_nombre}
                       </div>
                     </div>
                   </div>
@@ -481,22 +421,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Programa (Div)</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.division_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('division')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['division'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.division_nombre}
-                        </span>
-                        {selectedMeta.division_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['division'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.division_nombre}
                       </div>
                     </div>
                   </div>
@@ -505,22 +434,11 @@ export default function MetasCatalogPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                     <label className="sm:col-span-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Grupo Func.</label>
                     <div className="sm:col-span-9 flex gap-2">
-                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none">
+                      <div className="w-20 font-mono text-xs font-bold bg-[#030812] border border-slate-800/80 rounded-lg px-2.5 py-1.5 text-slate-400 text-center select-none shrink-0 self-start">
                         {selectedMeta.grupo_cod}
                       </div>
-                      <div 
-                        onClick={() => toggleField('grupo')}
-                        className="flex-1 flex justify-between items-center text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-1.5 text-slate-300 cursor-pointer transition-all hover:border-[#d40000]/40"
-                        title="Haga clic para expandir/contraer"
-                      >
-                        <span className={cn("flex-1", expandedFields['grupo'] ? "whitespace-normal break-words" : "truncate")}>
-                          {selectedMeta.grupo_nombre}
-                        </span>
-                        {selectedMeta.grupo_nombre.length > 40 && (
-                          <span className="text-[9px] text-[#d40000] font-extrabold ml-2 shrink-0 select-none bg-[#d40000]/10 px-1.5 py-0.5 rounded border border-[#d40000]/15">
-                            {expandedFields['grupo'] ? 'Menos' : 'Ver'}
-                          </span>
-                        )}
+                      <div className="flex-1 text-xs font-semibold bg-[#030812] border border-slate-800/80 rounded-lg px-3 py-2 text-slate-300 whitespace-normal break-words leading-relaxed">
+                        {selectedMeta.grupo_nombre}
                       </div>
                     </div>
                   </div>
