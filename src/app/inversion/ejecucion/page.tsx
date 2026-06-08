@@ -244,8 +244,10 @@ export default function EjecucionProyectosPage() {
                       key={row.act_proy}
                       onClick={() => setSelectedRow(row)}
                       className={cn(
-                        "cursor-pointer hover:bg-slate-800/20 transition-all select-none",
-                        isSelected ? "bg-[#f59e0b] text-[#070e1b] font-bold" : "even:bg-[#070e1a]/50"
+                        "cursor-pointer transition-all select-none",
+                        isSelected 
+                          ? "bg-[#f59e0b] text-[#070e1b] font-bold" 
+                          : "even:bg-[#070e1a]/50 text-slate-300 hover:bg-slate-800/20"
                       )}
                     >
                       {/* Triangulito indicator ▶ */}
