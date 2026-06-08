@@ -5,11 +5,14 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get('siconis_session');
   const { pathname } = request.nextUrl;
 
-  // Evitar interceptar estáticos, APIs, favicon y archivos con extensión
+  // Evitar interceptar estáticos, APIs, favicon, páginas de error del sistema y archivos con extensión
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/favicon.ico') ||
+    pathname === '/_not-found' ||
+    pathname === '/404' ||
+    pathname === '/500' ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
