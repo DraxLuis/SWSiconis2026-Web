@@ -97,7 +97,7 @@ export interface ExpedienteRow {
  * Font: Arial Narrow
  * SheetName: Registros
  */
-export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion presupuestal.xlsx') {
+export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion_ppto.xlsx') {
   const wsData: unknown[][] = [];
   
   // Row 1: Entity Name & Current Date (NOW)
@@ -123,7 +123,7 @@ export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion 
     'Nombre Ppto',
     'Pia',
     'Mod',
-    'Pïm',
+    'Pím',
     'Certicado',
     'CompromisoA',
     'CompromisoM',
@@ -152,8 +152,6 @@ export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion 
   });
 
   const lastDataRowNumber = 4 + rows.length; // Row number of the last data row (1-indexed)
-
-  // Totals Row
   const totalsRowNumber = lastDataRowNumber + 1; // 1-indexed totals row
   const hasRows = rows.length > 0;
   wsData.push([
@@ -204,6 +202,8 @@ export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion 
     { s: { r: 0, c: 10 }, e: { r: 0, c: 11 } }, // Merge DATE info
     { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } }  // Merge banner across L columns
   ];
+
+  ws['!views'] = [{ showGridLines: false }];
 
   // Apply Styling Cell by Cell
   const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
@@ -315,6 +315,702 @@ export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion 
           cell.t = 'n';
           cell.z = '#,##0.00';
         } else if (c === 11) {
+          cell.t = 'n';
+          cell.z = '0.00%';
+        } else {
+          cell.t = 's';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Registros');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportEjecucionMetas(rows: EjecucionRow[], filename = 'ejecucion-metas.xlsx', year = '2026') {
+  const wsData: unknown[][] = [];
+  
+  // Row 1: Entity Name & Current Date (NOW)
+  wsData.push([
+    '301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA',
+    '', '', '', '', '', '', '', '', '',
+    { f: 'NOW()' },
+    ''
+  ]);
+  
+  // Row 2: Banner (merged A2:L2)
+  wsData.push([
+    `Ejecución Presupuestal  - Período ${year}`,
+    '', '', '', '', '', '', '', '', '', '', ''
+  ]);
+  
+  // Row 3: Blank Row
+  wsData.push(Array(12).fill(''));
+  
+  // Row 4: Cabeceras
+  wsData.push([
+    'Codigo',
+    'Nombre Meta',
+    'Pia',
+    'Mod',
+    'Pím',
+    'Certicado',
+    'CompromisoA',
+    'CompromisoM',
+    'Devengado',
+    'Girado',
+    'Saldo',
+    'Avan'
+  ]);
+
+  // Data Rows (Starting at row 5, which is index 4 in wsData)
+  rows.forEach(r => {
+    wsData.push([
+      r.codigo,
+      r.nombre,
+      n(r.pia),
+      n(r.modif),
+      n(r.pim),
+      n(r.certif),
+      n(r.cpanua),
+      n(r.atcp),
+      n(r.devengado),
+      n(r.girado),
+      n(r.saldo),
+      n(r.avance)
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+  const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = rows.length > 0;
+  wsData.push([
+    '',
+    'T O T A L E S',
+    hasRows ? { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `I${totalsRowNumber}/E${totalsRowNumber}` } : 0
+  ]);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  
+  // Layout properties
+  ws['!cols'] = [
+    { wch: 6.33 },   // Codigo
+    { wch: 65.11 },  // Nombre Meta
+    { wch: 11.44 },  // Pia
+    { wch: 11.44 },  // Mod
+    { wch: 11.44 },  // Pim
+    { wch: 11.44 },  // Certificado
+    { wch: 14.11 },  // CompromisoA
+    { wch: 14.00 },  // CompromisoM
+    { wch: 11.44 },  // Devengado
+    { wch: 11.44 },  // Girado
+    { wch: 11.44 },  // Saldo
+    { wch: 6.89 }    // Avan
+  ];
+
+  ws['!rows'] = [
+    { hpt: 14.40 },  // Row 1
+    { hpt: 22.50 },  // Row 2 (banner)
+    { hpt: 14.40 },  // Row 3
+    { hpt: 15.00 }   // Row 4 (headers)
+  ];
+  for (let r = 4; r < 4 + rows.length; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 15.00 });
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 10 }, e: { r: 0, c: 11 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } }
+  ];
+
+  ws['!views'] = [{ showGridLines: false }];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 0) {
+        if (c === 10) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' }
+          };
+          cell.z = 'm/d/yy h:mm';
+        } else if (c === 0) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'left', vertical: 'center' }
+          };
+        }
+      } else if (r === 1) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: '44546A' } },
+          font: { name: 'Arial Narrow', sz: 14, bold: true, color: { rgb: 'FFFFFF' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        const borderH: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderH.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderH.right = { style: 'medium', color: { rgb: '000000' } };
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderH
+        };
+      } else if (r === range.e.r) {
+        const borderTot: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderTot.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderTot.right = { style: 'medium', color: { rgb: '000000' } };
+
+        if (c === 1) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: true, color: { rgb: '000000' } },
+            alignment: { horizontal: 'center', vertical: 'center' },
+            border: borderTot
+          };
+        } else if (c >= 2 && c <= 11) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' },
+            border: borderTot
+          };
+          if (c === 11) {
+            cell.z = '0.00%';
+          } else if (c >= 2 && c <= 4) {
+            cell.z = '#,##0';
+          } else {
+            cell.z = '#,##0.00';
+          }
+        } else {
+          cell.s = { border: borderTot };
+        }
+      } else if (r > 3) {
+        let cellAlign = 'right';
+        if (c === 0) cellAlign = 'center';
+        if (c === 1) cellAlign = 'left';
+
+        const borderD: Record<string, { style: string; color?: { rgb: string } }> = {};
+        if (c === 0) borderD.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderD.right = { style: 'medium', color: { rgb: '000000' } };
+        
+        if (r === 4) {
+          borderD.top = { style: 'medium', color: { rgb: '000000' } };
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        } else if (r === lastDataRowNumber - 1) {
+          borderD.top = { style: 'hair', color: { rgb: 'A0A0A0' } };
+          borderD.bottom = { style: 'medium', color: { rgb: '000000' } };
+        } else {
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        }
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+          border: borderD,
+          alignment: { horizontal: cellAlign, vertical: 'center' }
+        };
+
+        if (c >= 2 && c <= 4) {
+          cell.t = 'n';
+          cell.z = '#,##0';
+        } else if (c >= 5 && c <= 10) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        } else if (c === 11) {
+          cell.t = 'n';
+          cell.z = '0.00%';
+        } else {
+          cell.t = 's';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Registros');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportEjecucionPPTOMeta(rows: Record<string, unknown>[], filename = 'ejecucion_ppto_meta.xlsx') {
+  const wsData: unknown[][] = [];
+  
+  // Row 1: Entity Name & Current Date (NOW)
+  wsData.push([
+    '301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA',
+    '', '', '', '', '', '', '', '', '',
+    { f: 'NOW()' },
+    ''
+  ]);
+  
+  // Row 2: Banner (merged A2:L2)
+  wsData.push([
+    'Ejecución Presupuestal  - Programa Presupuestal',
+    '', '', '', '', '', '', '', '', '', '', ''
+  ]);
+  
+  // Row 3: Blank Row
+  wsData.push(Array(12).fill(''));
+  
+  // Row 4: Cabeceras
+  wsData.push([
+    'Codigo',
+    'Nombre Ppto',
+    'Pia',
+    'Mod',
+    'Pím',
+    'Certicado',
+    'CompromisoA',
+    'CompromisoM',
+    'Devengado',
+    'Girado',
+    'Saldo',
+    'Avan'
+  ]);
+
+  // Data Rows (Starting at row 5, which is index 4 in wsData)
+  rows.forEach((r, idx) => {
+    const rowNum = 5 + idx;
+    const code = String(r.codigo ?? r.act_proy ?? '');
+    
+    // In original ppto_meta, Saldo equals Girado
+    const giradoVal = n(r.girado);
+    
+    wsData.push([
+      code,
+      String(r.nombre ?? r.act_proy_nombre ?? ''),
+      n(r.pia),
+      n(r.modif),
+      n(r.pim),
+      n(r.certif),
+      n(r.cpanua),
+      n(r.atcp),
+      n(r.devengado),
+      giradoVal,
+      giradoVal, // Saldo = Girado
+      { f: `IF(E${rowNum}>0,I${rowNum}/E${rowNum},0)` } // Avan = Devengado / PIM
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+  const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = rows.length > 0;
+  wsData.push([
+    '',
+    'T O T A L E S',
+    hasRows ? { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `I${totalsRowNumber}/E${totalsRowNumber}` } : 0
+  ]);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  
+  // Layout properties
+  ws['!cols'] = [
+    { wch: 6.33 },   // Codigo
+    { wch: 65.11 },  // Nombre Ppto
+    { wch: 11.44 },  // Pia
+    { wch: 11.44 },  // Mod
+    { wch: 11.44 },  // Pim
+    { wch: 11.44 },  // Certificado
+    { wch: 14.11 },  // CompromisoA
+    { wch: 14.00 },  // CompromisoM
+    { wch: 11.44 },  // Devengado
+    { wch: 11.44 },  // Girado
+    { wch: 11.44 },  // Saldo
+    { wch: 6.89 }    // Avan
+  ];
+
+  ws['!rows'] = [
+    { hpt: 14.40 },  // Row 1
+    { hpt: 22.50 },  // Row 2 (banner)
+    { hpt: 14.40 },  // Row 3
+    { hpt: 15.00 }   // Row 4 (headers)
+  ];
+  for (let r = 4; r < 4 + rows.length; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 15.00 });
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 10 }, e: { r: 0, c: 11 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } }
+  ];
+
+  ws['!views'] = [{ showGridLines: false }];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 0) {
+        if (c === 10) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' }
+          };
+          cell.z = 'm/d/yy h:mm';
+        } else if (c === 0) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'left', vertical: 'center' }
+          };
+        }
+      } else if (r === 1) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: '44546A' } },
+          font: { name: 'Arial Narrow', sz: 14, bold: true, color: { rgb: 'FFFFFF' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        const borderH: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderH.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderH.right = { style: 'medium', color: { rgb: '000000' } };
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderH
+        };
+      } else if (r === range.e.r) {
+        const borderTot: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderTot.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderTot.right = { style: 'medium', color: { rgb: '000000' } };
+
+        if (c === 1) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: true, color: { rgb: '000000' } },
+            alignment: { horizontal: 'center', vertical: 'center' },
+            border: borderTot
+          };
+        } else if (c >= 2 && c <= 11) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' },
+            border: borderTot
+          };
+          if (c === 11) {
+            cell.z = '0.00%';
+          } else if (c >= 2 && c <= 4) {
+            cell.z = '#,##0';
+          } else {
+            cell.z = '#,##0.00';
+          }
+        } else {
+          cell.s = { border: borderTot };
+        }
+      } else if (r > 3) {
+        const dataRowIdx = r - 4;
+        const rowData = rows[dataRowIdx];
+        const isProgram = String(rowData.codigo ?? rowData.act_proy ?? '').trim() !== '';
+
+        let cellAlign = 'right';
+        if (c === 0) cellAlign = 'center';
+        if (c === 1) cellAlign = 'left';
+
+        const borderD: Record<string, { style: string; color?: { rgb: string } }> = {};
+        if (c === 0) borderD.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 11) borderD.right = { style: 'medium', color: { rgb: '000000' } };
+        
+        if (r === 4) {
+          borderD.top = { style: 'medium', color: { rgb: '000000' } };
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        } else if (r === lastDataRowNumber - 1) {
+          borderD.top = { style: 'hair', color: { rgb: 'A0A0A0' } };
+          borderD.bottom = { style: 'medium', color: { rgb: '000000' } };
+        } else {
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        }
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: isProgram, color: { rgb: '000000' } },
+          border: borderD,
+          alignment: { horizontal: cellAlign, vertical: 'center' }
+        };
+
+        if (c >= 2 && c <= 4) {
+          cell.t = 'n';
+          cell.z = '#,##0';
+        } else if (c >= 5 && c <= 10) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        } else if (c === 11) {
+          cell.t = 'n';
+          cell.z = '0.00%';
+        } else {
+          cell.t = 's';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Registros');
+  XLSX.writeFile(wb, filename);
+}
+
+export function exportEjecucionMetasClasificador(rows: Record<string, unknown>[], filename = 'ejecucion_metas_clasificador.xlsx', year = '2026') {
+  const wsData: unknown[][] = [];
+  
+  // Row 1: Entity Name & Current Date (NOW)
+  wsData.push([
+    '301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA',
+    '', '', '', '', '', '', '', '', '', '',
+    { f: 'NOW()' },
+    ''
+  ]);
+  
+  // Row 2: Banner (merged A2:M2)
+  wsData.push([
+    `Ejecución Presupuestal  - Período ${year}`,
+    '', '', '', '', '', '', '', '', '', '', '', ''
+  ]);
+  
+  // Row 3: Blank Row
+  wsData.push(Array(13).fill(''));
+  
+  // Row 4: Cabeceras
+  wsData.push([
+    'Codigo',
+    'Nombre Meta',
+    '', // Column C is empty
+    'Pia',
+    'Mod',
+    'Pím',
+    'Certicado',
+    'CompromisoA',
+    'CompromisoM',
+    'Devengado',
+    'Girado',
+    'Saldo',
+    'Avan'
+  ]);
+
+  // Data Rows (Starting at row 5, which is index 4 in wsData)
+  rows.forEach((r, idx) => {
+    const rowNum = 5 + idx;
+    const code = String(r.codigo ?? r.meta_codigo ?? '');
+    const giradoVal = n(r.girado);
+    
+    wsData.push([
+      code,
+      String(r.nombre ?? r.meta_nombre ?? ''),
+      '', // Column C is empty
+      n(r.pia),
+      n(r.modif),
+      n(r.pim),
+      n(r.certif),
+      n(r.cpanua),
+      n(r.atcp),
+      n(r.devengado),
+      giradoVal,
+      giradoVal, // Saldo = Girado
+      { f: `IF(G${rowNum}>0,J${rowNum}/G${rowNum},0)` } // Avan = Devengado / Certificado (J / G)
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+  const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = rows.length > 0;
+  wsData.push([
+    '',
+    'T O T A L E S',
+    '', // Column C is empty
+    hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,L5:L${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `J${totalsRowNumber}/G${totalsRowNumber}` } : 0 // Devengado/Certificado (J/G)
+  ]);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  
+  // Layout properties
+  ws['!cols'] = [
+    { wch: 6.33 },   // A: Codigo
+    { wch: 7.33 },   // B: Nombre Meta (narrow)
+    { wch: 34.66 },  // C: (Empty)
+    { wch: 11.44 },  // D: Pia
+    { wch: 13.00 },  // E: Mod
+    { wch: 13.00 },  // F: Pim
+    { wch: 13.00 },  // G: Certificado
+    { wch: 14.11 },  // H: CompromisoA
+    { wch: 14.00 },  // I: CompromisoM
+    { wch: 11.44 },  // J: Devengado
+    { wch: 13.00 },  // K: Girado
+    { wch: 13.00 },  // L: Saldo
+    { wch: 6.89 }    // M: Avan
+  ];
+
+  ws['!rows'] = [
+    { hpt: 14.40 },  // Row 1
+    { hpt: 22.50 },  // Row 2 (banner)
+    { hpt: 14.40 },  // Row 3
+    { hpt: 15.00 }   // Row 4 (headers)
+  ];
+  for (let r = 4; r < 4 + rows.length; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 15.00 });
+
+  ws['!merges'] = [
+    { s: { r: 0, c: 11 }, e: { r: 0, c: 12 } }, // Merge DATE info (L1:M1)
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } }  // Merge banner across M columns (A2:M2)
+  ];
+
+  ws['!views'] = [{ showGridLines: false }];
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 0) {
+        if (c === 11) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' }
+          };
+          cell.z = 'm/d/yy h:mm';
+        } else if (c === 0) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'left', vertical: 'center' }
+          };
+        }
+      } else if (r === 1) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: '44546A' } },
+          font: { name: 'Arial Narrow', sz: 14, bold: true, color: { rgb: 'FFFFFF' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        const borderH: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderH.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 12) borderH.right = { style: 'medium', color: { rgb: '000000' } };
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderH
+        };
+      } else if (r === range.e.r) {
+        const borderTot: Record<string, { style: string; color?: { rgb: string } }> = {
+          top: { style: 'medium', color: { rgb: '000000' } },
+          bottom: { style: 'medium', color: { rgb: '000000' } }
+        };
+        if (c === 0) borderTot.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 12) borderTot.right = { style: 'medium', color: { rgb: '000000' } };
+
+        if (c === 1) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 11, bold: true, color: { rgb: '000000' } },
+            alignment: { horizontal: 'center', vertical: 'center' },
+            border: borderTot
+          };
+        } else if (c >= 3 && c <= 12) {
+          cell.s = {
+            font: { name: 'Arial Narrow', sz: 10, bold: false, color: { rgb: '000000' } },
+            alignment: { horizontal: 'right', vertical: 'center' },
+            border: borderTot
+          };
+          if (c === 12) {
+            cell.z = '0.00%';
+          } else if (c >= 3 && c <= 5) {
+            cell.z = '#,##0';
+          } else {
+            cell.z = '#,##0.00';
+          }
+        } else {
+          cell.s = { border: borderTot };
+        }
+      } else if (r > 3) {
+        const dataRowIdx = r - 4;
+        const rowData = rows[dataRowIdx];
+        const code = String(rowData.codigo ?? rowData.meta_codigo ?? '').trim();
+        const nameStr = String(rowData.nombre ?? rowData.meta_nombre ?? '');
+        
+        const isMeta = code !== '';
+        const isRubro = code === '' && !nameStr.startsWith('2.');
+        const isBold = isMeta || isRubro;
+
+        let cellAlign = 'right';
+        if (c === 0) cellAlign = 'center';
+        if (c === 1) cellAlign = 'left';
+
+        const borderD: Record<string, { style: string; color?: { rgb: string } }> = {};
+        if (c === 0) borderD.left = { style: 'medium', color: { rgb: '000000' } };
+        if (c === 12) borderD.right = { style: 'medium', color: { rgb: '000000' } };
+        
+        if (r === 4) {
+          borderD.top = { style: 'medium', color: { rgb: '000000' } };
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        } else if (r === lastDataRowNumber - 1) {
+          borderD.top = { style: 'hair', color: { rgb: 'A0A0A0' } };
+          borderD.bottom = { style: 'medium', color: { rgb: '000000' } };
+        } else {
+          borderD.bottom = { style: 'hair', color: { rgb: 'A0A0A0' } };
+        }
+
+        cell.s = {
+          font: { name: 'Arial Narrow', sz: 10, bold: isBold, color: { rgb: '000000' } },
+          border: borderD,
+          alignment: { horizontal: cellAlign, vertical: 'center' }
+        };
+
+        if (c >= 3 && c <= 5) {
+          cell.t = 'n';
+          cell.z = '#,##0';
+        } else if (c >= 6 && c <= 11) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        } else if (c === 12) {
           cell.t = 'n';
           cell.z = '0.00%';
         } else {
@@ -1765,7 +2461,7 @@ export function exportEjecucionActProy(rows: {
   atcp: number;
   devengado: number;
   girado: number;
-}[], filename = 'ejecucion-actproy.xlsx') {
+}[], filename = 'ejecucion-actproy.xlsx', title = 'Ejecución Presupuestal  - Actividad / Proyecto') {
   const wsData: unknown[][] = [];
 
   // Row 1: Entity Name & Current Date
@@ -1778,7 +2474,7 @@ export function exportEjecucionActProy(rows: {
 
   // Row 2: Banner (merged A2:L2)
   wsData.push([
-    'Ejecución Presupuestal  - Actividad / Proyecto',
+    title,
     '', '', '', '', '', '', '', '', '', '', ''
   ]);
 

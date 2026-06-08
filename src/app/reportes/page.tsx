@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { FileSpreadsheet, Loader2, HelpCircle, Calendar } from 'lucide-react';
 import {
   exportEjecucionPPTO,
+  exportEjecucionMetas,
+  exportEjecucionPPTOMeta,
+  exportEjecucionMetasClasificador,
   exportCertificados,
   exportEjecucionActProy,
   exportCertificadoResumen,
@@ -49,19 +52,21 @@ const PROG_CODE = '301548';
 const PROG_NAME = 'MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA';
 
 function mapEjecucion(r: Record<string, unknown>): EjecucionRow {
+  const pim = Number(r.pim ?? 0);
+  const devengado = Number(r.devengado ?? 0);
   return {
     codigo:    String(r.codigo    ?? r.act_proy    ?? ''),
     nombre:    String(r.nombre    ?? r.act_proy_nombre ?? ''),
     pia:       Number(r.pia       ?? 0),
     modif:     Number(r.modif     ?? 0),
-    pim:       Number(r.pim       ?? 0),
+    pim:       pim,
     certif:    Number(r.certif    ?? 0),
     cpanua:    Number(r.cpanua    ?? r.comprometido ?? 0),
     atcp:      Number(r.atcp      ?? 0),
-    devengado: Number(r.devengado ?? 0),
+    devengado: devengado,
     girado:    Number(r.girado    ?? 0),
-    saldo:     Number(r.saldo     ?? 0),
-    avance:    Number(r.avance    ?? 0),
+    saldo:     pim - devengado,
+    avance:    pim > 0 ? devengado / pim : 0,
   };
 }
 
@@ -129,16 +134,16 @@ export default function ReportesPage() {
       // Dispatch to the correct export function
       switch (btn.id) {
         case 'ejecucion_metas':
-          exportEjecucionPPTO(rows.map(mapEjecucion), 'ejecucion-metas.xlsx');
+          exportEjecucionMetas(rows.map(mapEjecucion), 'ejecucion-metas.xlsx', selectedYear);
           break;
         case 'ejecucion_metas_clasificador':
-          exportEjecucionPPTO(rows.map(mapEjecucion), 'ejecucion_metas_clasificador.xlsx');
+          exportEjecucionMetasClasificador(rows, 'ejecucion_metas_clasificador.xlsx', selectedYear);
           break;
         case 'ejecucion_ppto':
           exportEjecucionPPTO(rows.map(mapEjecucion), 'ejecucion_ppto.xlsx');
           break;
         case 'ejecucion_ppto_meta':
-          exportEjecucionPPTO(rows.map(mapEjecucion), 'ejecucion_ppto_meta.xlsx');
+          exportEjecucionPPTOMeta(rows, 'ejecucion_ppto_meta.xlsx');
           break;
 
         case 'certificado':
@@ -176,7 +181,7 @@ export default function ReportesPage() {
             atcp:           Number(r.atcp      ?? 0),
             devengado:      Number(r.devengado ?? 0),
             girado:         Number(r.girado    ?? 0),
-          })), 'ejecucion_activ_obra_accinv.xlsx');
+          })), 'ejecucion_activ_obra_accinv.xlsx', 'Ejecución Presupuestal  activ_obra_accinv');
           break;
 
         case 'ejecucion_actproy':
