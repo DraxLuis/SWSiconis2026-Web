@@ -35,7 +35,16 @@ export async function GET() {
       });
 
     // Group and aggregate gastos by program (PPTO)
-    const grouped = new Map<string, { pim: number; devengado: number; girado: number }>();
+    const grouped = new Map<string, {
+      pia: number;
+      modif: number;
+      pim: number;
+      certif: number;
+      cpanua: number;
+      atcp: number;
+      devengado: number;
+      girado: number;
+    }>();
     
     // Filter gastos
     const filteredGastos = gastos.filter(r => {
@@ -50,21 +59,33 @@ export async function GET() {
       const secFunc = str(row['SEC_FUNC']);
       const progCode = metaMap.get(secFunc) || '9002'; // default fallback if not matched
       
+      const pia = num(row['MTO_PIA']);
+      const modif = num(row['MTO_MODIF']);
       const pim = num(row['MTO_PIM']);
+      const certif = num(row['MTO_CERTIF']);
+      const cpanua = num(row['MTO_CPANUA']);
+      
       let dev = 0;
       let gir = 0;
+      let atcp = 0;
       
       for (let m = 1; m <= 12; m++) {
         const mk = m.toString().padStart(2, '0');
         dev += num(row[`MTO_DEV_${mk}`]);
         gir += num(row[`MTO_GIR_${mk}`]);
+        atcp += num(row[`MTO_ATCP${mk}`]);
       }
 
       if (!grouped.has(progCode)) {
-        grouped.set(progCode, { pim: 0, devengado: 0, girado: 0 });
+        grouped.set(progCode, { pia: 0, modif: 0, pim: 0, certif: 0, cpanua: 0, atcp: 0, devengado: 0, girado: 0 });
       }
       const g = grouped.get(progCode)!;
+      g.pia += pia;
+      g.modif += modif;
       g.pim += pim;
+      g.certif += certif;
+      g.cpanua += cpanua;
+      g.atcp += atcp;
       g.devengado += dev;
       g.girado += gir;
     }
@@ -75,24 +96,36 @@ export async function GET() {
       return {
         codigo,
         nombre,
+        pia: vals.pia,
+        modif: vals.modif,
         pim: vals.pim,
+        certif: vals.certif,
+        cpanua: vals.cpanua,
+        atcp: vals.atcp,
         devengado: vals.devengado,
         girado: vals.girado,
-        saldo: vals.pim - vals.devengado
+        saldo: vals.pim - vals.devengado,
+        avance: vals.pim > 0 ? vals.devengado / vals.pim : 0
       };
     }).sort((a, b) => a.codigo.localeCompare(b.codigo));
 
     // Calculate overall totals
     const totals = rows.reduce(
       (acc, r) => {
+        acc.pia += r.pia;
+        acc.modif += r.modif;
         acc.pim += r.pim;
+        acc.certif += r.certif;
+        acc.cpanua += r.cpanua;
+        acc.atcp += r.atcp;
         acc.devengado += r.devengado;
         acc.girado += r.girado;
         acc.saldo += r.saldo;
         return acc;
       },
-      { pim: 0, devengado: 0, girado: 0, saldo: 0 }
+      { pia: 0, modif: 0, pim: 0, certif: 0, cpanua: 0, atcp: 0, devengado: 0, girado: 0, saldo: 0, avance: 0 }
     );
+    totals.avance = totals.pim > 0 ? totals.devengado / totals.pim : 0;
 
     return NextResponse.json({ success: true, rows, totals });
   } catch (error) {

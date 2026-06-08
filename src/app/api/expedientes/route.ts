@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,6 +10,9 @@ interface ExpedienteEnriched {
   ciclo: string;
   fase: string;
   sec_reg: string;
+  corr: string;
+  rb: string;
+  tr: string;
   cod_doc: string;
   num_doc: string;
   fecha_doc: string;
@@ -24,8 +27,10 @@ interface ExpedienteEnriched {
   monto_orig: number;
   monto: number;
   fec_proc: string;
+  fec_aprob: string;
   estado: string;
   certif: string;
+  certif_sec: string;
 }
 
 export async function GET(request: Request) {
@@ -34,14 +39,20 @@ export async function GET(request: Request) {
     const filterFase = searchParams.get('fase') || '';
     const filterMes = searchParams.get('mes') || '';
     const filterProveedor = searchParams.get('proveedor') || '';
-    const page = parseInt(searchParams.get('page') || '1');
+    const filterPrograma = searchParams.get('programa') || '';
+    const pageParam = searchParams.get('page');
+    const page = pageParam ? parseInt(pageParam) : null;
     const pageSize = parseInt(searchParams.get('pageSize') || '50');
+
+    // Preload tables from SQL Server
+    await preloadTables(['meta', 'expedientes_gastos_2026', 'expedientes_glosa', 'expedientes_nombre_prov', 'clasificador', 'proveedor']);
 
     const expedientes = loadTable('expedientes_gastos_2026');
     const glosas = loadTable('expedientes_glosa');
     const nombres = loadTable('expedientes_nombre_prov');
     const clasificadores = loadTable('clasificador');
     const metas = loadTable('meta');
+    const proveedores = loadTable('proveedor');
 
     // Build lookup maps
     const glosaMap = new Map<string, string>();
@@ -56,6 +67,11 @@ export async function GET(request: Request) {
       proveedorMap.set(key, { nombre: str(n['NOMBRE']), ruc: str(n['RUC']) });
     });
 
+    const provCatalogMap = new Map<string, string>();
+    proveedores.forEach(p => {
+      provCatalogMap.set(str(p['RUC']), str(p['NOMBRE']));
+    });
+
     const clasifMap = new Map<string, string>();
     clasificadores.filter(c => str(c['ANO_EJE']) === AÑO)
       .forEach(c => clasifMap.set(str(c['CLASIFIC']), str(c['NOMBRE'])));
@@ -63,6 +79,10 @@ export async function GET(request: Request) {
     const metaMap = new Map<string, string>();
     metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaMap.set(str(m['SEC_FUNC']), str(m['NOMBRE'])));
+
+    const metaProgramMap = new Map<string, string>();
+    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+      .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
 
     // Filter expedientes
     const rows = expedientes.filter(r => {
@@ -72,19 +92,30 @@ export async function GET(request: Request) {
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterFase && str(r['FASE']) !== filterFase) return false;
       if (filterMes && str(r['MES_EJE']) !== filterMes) return false;
+      
+      if (filterPrograma) {
+        const secFunc = str(r['SEC_FUNC']);
+        const progCode = metaProgramMap.get(secFunc) || '';
+        if (progCode !== filterPrograma) return false;
+      }
+      
       return true;
     });
 
     // Enrich rows
     const enriched = rows.map(r => {
       const key = `${str(r['EXPEDIENTE'])}-${str(r['CICLO'])}-${str(r['FASE'])}-${str(r['CORR'])}`;
-      const prov = proveedorMap.get(key) ?? { nombre: str(r['PROVEEDOR']), ruc: '' };
+      const prov = proveedorMap.get(key) ?? { nombre: '', ruc: '' };
+      
+      const ruc = prov.ruc || str(r['PROVEEDOR']);
+      const nombre = prov.nombre || provCatalogMap.get(ruc) || ruc;
+      
       const glosa = glosaMap.get(key) ?? '';
       const clasif = str(r['CLASIFICAD']);
       const secFunc = str(r['SEC_FUNC']);
 
       // Filter by provider name search
-      if (filterProveedor && !prov.nombre.toLowerCase().includes(filterProveedor.toLowerCase())) {
+      if (filterProveedor && !nombre.toLowerCase().includes(filterProveedor.toLowerCase())) {
         return null;
       }
 
@@ -94,7 +125,10 @@ export async function GET(request: Request) {
         tipo_op: str(r['TIPO_OP']),
         ciclo: str(r['CICLO']),
         fase: str(r['FASE']),
-        sec_reg: str(r['CORR']),
+        sec_reg: str(r['SEC_REG']),
+        corr: str(r['CORR']),
+        rb: str(r['RB']),
+        tr: str(r['TR']),
         cod_doc: str(r['COD_DOC']),
         num_doc: str(r['NUM_DOC']),
         fecha_doc: str(r['FECHA_DOC']),
@@ -102,15 +136,17 @@ export async function GET(request: Request) {
         clasif_nombre: clasifMap.get(clasif) ?? '',
         sec_func: secFunc,
         meta_nombre: metaMap.get(secFunc) ?? secFunc,
-        proveedor_ruc: prov.ruc,
-        proveedor_nombre: prov.nombre,
+        proveedor_ruc: ruc,
+        proveedor_nombre: nombre,
         glosa,
         moneda: str(r['MONEDA']),
         monto_orig: num(r['MONTO_ORIG']),
         monto: num(r['MONTO']),
         fec_proc: str(r['FEC_PROC']),
-        estado: str(r['EST_REG']),
+        fec_aprob: str(r['FEC_APROB']),
+        estado: str(r['EST_REG'] || r['SEC_EST']),
         certif: str(r['CERTIF']),
+        certif_sec: str(r['CERTIF_SEC']),
       };
     }).filter(Boolean) as ExpedienteEnriched[];
 
@@ -118,7 +154,7 @@ export async function GET(request: Request) {
     enriched.sort((a, b) => b.expediente.localeCompare(a.expediente));
 
     const total = enriched.length;
-    const paginated = enriched.slice((page - 1) * pageSize, page * pageSize);
+    const paginated = page ? enriched.slice((page - 1) * pageSize, page * pageSize) : enriched;
 
     // Distinct fases
     const fasesList = expedientes.map(r => str(r['FASE'])).filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).sort();
