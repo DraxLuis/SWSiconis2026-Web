@@ -52,9 +52,9 @@ export async function GET() {
       .filter(p => str(p['ANO_EJE']) === AÑO && str(p['SEC_EJEC']) === SEC_EJEC)
       .forEach(p => {
         const codigo = str(p['ACT_PROY']);
-        let nombre = PRODUCT_NAMES_FALLBACK[codigo];
-        if (!nombre) {
-          nombre = metaProjMap.get(codigo) || str(p['NOMBRE']);
+        let nombre = str(p['NOMBRE']);
+        if (!nombre || nombre === 'null') {
+          nombre = PRODUCT_NAMES_FALLBACK[codigo] || metaProjMap.get(codigo) || '';
         }
         list.push({
           codigo,
@@ -67,7 +67,10 @@ export async function GET() {
       .filter(a => str(a['ANO_EJE']) === AÑO && str(a['SEC_EJEC']) === SEC_EJEC)
       .forEach(a => {
         const codigo = str(a['ACTOBRACIN']);
-        const nombre = metaCompMap.get(codigo) || str(a['NOMBRE']);
+        let nombre = str(a['NOMBRE']);
+        if (!nombre || nombre === 'null') {
+          nombre = metaCompMap.get(codigo) || '';
+        }
         list.push({
           codigo,
           nombre: nombre || 'Actividad / Obra ' + codigo,
