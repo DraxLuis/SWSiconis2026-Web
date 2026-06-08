@@ -88,10 +88,14 @@ export async function GET(request: Request) {
 
     else if (type === 'data_devengados' || type === 'meta_devengados' || type === 'programa_devengados' || type === 'programa_accion_inversion') {
       const groupKeyCol = type === 'programa_devengados' 
-        ? 'm.programa' 
+        ? "RIGHT('0000' + m.programa, 4)" 
         : type === 'programa_accion_inversion' 
-          ? 'm.act_proy' 
+          ? 'm.componente' 
           : 'm.sec_func';
+
+      const extraFilter = type === 'programa_accion_inversion'
+        ? "AND (m.componente LIKE '4%' OR m.componente LIKE '5%')"
+        : "";
 
       sqlResult = await trySQL(`
         SELECT 
@@ -131,11 +135,11 @@ export async function GET(request: Request) {
           eg.PROVEEDOR as proveedor
         FROM [expedientes_gastos_2026] eg
         INNER JOIN [meta] m ON eg.SEC_FUNC = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
-        LEFT JOIN [programa_pptal] pp ON m.programa = pp.progppto AND m.ano_eje = pp.ano_eje
+        LEFT JOIN [programa_pptal] pp ON RIGHT('0000' + m.programa, 4) = pp.progppto AND m.ano_eje = pp.ano_eje
         LEFT JOIN [clasificador] cl ON eg.CLASIFICAD = cl.codigo AND eg.ano_eje = cl.ano_eje
         LEFT JOIN [proveedor] p ON eg.PROVEEDOR = p.ruc
         LEFT JOIN [nota_pago] np ON eg.EXPEDIENTE = np.EXPEDIENTE AND eg.NUM_DOC = np.NUM_DOC
-        WHERE eg.FASE = 'D' AND eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year
+        WHERE eg.FASE = 'D' AND eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year ${extraFilter}
         ORDER BY eg.MES_EJE, eg.EXPEDIENTE, eg.SEC_REG
       `, { sec_ejec: SEC_EJEC, year });
     }
@@ -197,7 +201,7 @@ export async function GET(request: Request) {
           SUM(ISNULL(eg.mto_dev_01,0)+ISNULL(eg.mto_dev_02,0)+ISNULL(eg.mto_dev_03,0)+ISNULL(eg.mto_dev_04,0)+ISNULL(eg.mto_dev_05,0)+ISNULL(eg.mto_dev_06,0)+ISNULL(eg.mto_dev_07,0)+ISNULL(eg.mto_dev_08,0)+ISNULL(eg.mto_dev_09,0)+ISNULL(eg.mto_dev_10,0)+ISNULL(eg.mto_dev_11,0)+ISNULL(eg.mto_dev_12,0)) as devengado,
           SUM(ISNULL(eg.mto_gir_01,0)+ISNULL(eg.mto_gir_02,0)+ISNULL(eg.mto_gir_03,0)+ISNULL(eg.mto_gir_04,0)+ISNULL(eg.mto_gir_05,0)+ISNULL(eg.mto_gir_06,0)+ISNULL(eg.mto_gir_07,0)+ISNULL(eg.mto_gir_08,0)+ISNULL(eg.mto_gir_09,0)+ISNULL(eg.mto_gir_10,0)+ISNULL(eg.mto_gir_11,0)+ISNULL(eg.mto_gir_12,0)) as girado
         FROM [meta] m
-        INNER JOIN [activ_obra_accinv] ao ON m.act_proy = ao.actobracin AND m.ano_eje = ao.ano_eje AND m.sec_ejec = ao.sec_ejec
+        INNER JOIN [activ_obra_accinv] ao ON m.componente = ao.actobracin AND m.ano_eje = ao.ano_eje AND m.sec_ejec = ao.sec_ejec
         LEFT JOIN [ejecucion_gasto] eg ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
         WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
         GROUP BY ao.actobracin, ao.nombre
@@ -241,7 +245,7 @@ export async function GET(request: Request) {
           SUM(ISNULL(eg.mto_dev_01,0)+ISNULL(eg.mto_dev_02,0)+ISNULL(eg.mto_dev_03,0)+ISNULL(eg.mto_dev_04,0)+ISNULL(eg.mto_dev_05,0)+ISNULL(eg.mto_dev_06,0)+ISNULL(eg.mto_dev_07,0)+ISNULL(eg.mto_dev_08,0)+ISNULL(eg.mto_dev_09,0)+ISNULL(eg.mto_dev_10,0)+ISNULL(eg.mto_dev_11,0)+ISNULL(eg.mto_dev_12,0)) as devengado,
           SUM(ISNULL(eg.mto_gir_01,0)+ISNULL(eg.mto_gir_02,0)+ISNULL(eg.mto_gir_03,0)+ISNULL(eg.mto_gir_04,0)+ISNULL(eg.mto_gir_05,0)+ISNULL(eg.mto_gir_06,0)+ISNULL(eg.mto_gir_07,0)+ISNULL(eg.mto_gir_08,0)+ISNULL(eg.mto_gir_09,0)+ISNULL(eg.mto_gir_10,0)+ISNULL(eg.mto_gir_11,0)+ISNULL(eg.mto_gir_12,0)) as girado
         FROM [meta] m
-        INNER JOIN [programa_pptal] p ON m.programa = p.progppto AND m.ano_eje = p.ano_eje
+        INNER JOIN [programa_pptal] p ON RIGHT('0000' + m.programa, 4) = p.progppto AND m.ano_eje = p.ano_eje
         LEFT JOIN [ejecucion_gasto] eg ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
         WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
         GROUP BY p.progppto, p.nombre
@@ -293,7 +297,7 @@ export async function GET(request: Request) {
           SUM(ISNULL(eg.mto_gir_01,0)+ISNULL(eg.mto_gir_02,0)+ISNULL(eg.mto_gir_03,0)+ISNULL(eg.mto_gir_04,0)+ISNULL(eg.mto_gir_05,0)+ISNULL(eg.mto_gir_06,0)+ISNULL(eg.mto_gir_07,0)+ISNULL(eg.mto_gir_08,0)+ISNULL(eg.mto_gir_09,0)+ISNULL(eg.mto_gir_10,0)+ISNULL(eg.mto_gir_11,0)+ISNULL(eg.mto_gir_12,0)) as girado
         FROM [ejecucion_gasto] eg
         INNER JOIN [meta] m ON eg.sec_func = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
-        INNER JOIN [programa_pptal] pp ON m.programa = pp.progppto AND m.ano_eje = pp.ano_eje
+        INNER JOIN [programa_pptal] pp ON RIGHT('0000' + m.programa, 4) = pp.progppto AND m.ano_eje = pp.ano_eje
         WHERE eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year
         GROUP BY pp.progppto, pp.nombre, m.sec_func, m.nombre
         ORDER BY pp.progppto, m.sec_func
@@ -464,9 +468,9 @@ export async function GET(request: Request) {
 
             let groupKey = secFunc;
             if (type === 'programa_devengados') {
-              groupKey = m ? str(m['PROGRAMA']) : '';
+              groupKey = m ? str(m['PROGRAMA']).padStart(4, '0') : '';
             } else if (type === 'programa_accion_inversion') {
-              groupKey = m ? str(m['ACT_PROY']) : '';
+              groupKey = m ? str(m['COMPONENTE']) : '';
             }
 
             return {
@@ -508,7 +512,7 @@ export async function GET(request: Request) {
           }).sort((a, b) => a.mes_eje.localeCompare(b.mes_eje) || a.expediente.localeCompare(b.expediente) || a.sec_reg.localeCompare(b.sec_reg));
 
         if (type === 'programa_accion_inversion') {
-          rows = rows.filter(r => str(r.proyecto).startsWith('4'));
+          rows = rows.filter(r => str(r.group_key).startsWith('4') || str(r.group_key).startsWith('5'));
         }
       }
 
@@ -580,17 +584,17 @@ export async function GET(request: Request) {
           const secFunc = str(eg['SEC_FUNC']);
           const m = metaMap.get(secFunc);
           if (!m) return;
-          const actProy = str(m['ACT_PROY']);
-          if (!actObraMap.has(actProy)) return;
+          const compCode = str(m['COMPONENTE']);
+          if (!actObraMap.has(compCode)) return;
           
-          if (!grouped.has(actProy)) {
-            grouped.set(actProy, {
-              codigo: actProy,
-              nombre: actObraMap.get(actProy) || '',
+          if (!grouped.has(compCode)) {
+            grouped.set(compCode, {
+              codigo: compCode,
+              nombre: actObraMap.get(compCode) || '',
               pia: 0, modif: 0, pim: 0, certif: 0, cpanua: 0, atcp: 0, devengado: 0, girado: 0
             });
           }
-          const item = grouped.get(actProy)!;
+          const item = grouped.get(compCode)!;
           item.pia += num(eg['MTO_PIA']);
           item.modif += num(eg['MTO_MODIF']);
           item.pim += num(eg['MTO_PIM']);
@@ -668,7 +672,7 @@ export async function GET(request: Request) {
           const secFunc = str(eg['SEC_FUNC']);
           const m = metaMap.get(secFunc);
           if (!m) return;
-          const progCode = str(m['PROGRAMA']);
+          const progCode = str(m['PROGRAMA']).padStart(4, '0');
           if (!progMap.has(progCode)) return;
 
           if (!grouped.has(progCode)) {
@@ -764,7 +768,7 @@ export async function GET(request: Request) {
           const secFunc = str(eg['SEC_FUNC']);
           const m = metaMap.get(secFunc);
           if (!m) return;
-          const progCode = str(m['PROGRAMA']);
+          const progCode = str(m['PROGRAMA']).padStart(4, '0');
           const metaCode = str(m['SEC_FUNC']);
           const key = `${progCode}-${metaCode}`;
 

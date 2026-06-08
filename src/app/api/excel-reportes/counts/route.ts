@@ -44,16 +44,16 @@ export async function GET(request: Request) {
       UNION ALL
       SELECT 'data_girados' as type, COUNT(*) as cnt FROM [expedientes_gastos_2026] WHERE FASE = 'G' AND sec_ejec = @sec_ejec AND ano_eje = @year
       UNION ALL
-      SELECT 'ejecucion_activ_obra_accinv' as type, COUNT(DISTINCT m.act_proy) as cnt FROM [meta] m 
-      INNER JOIN [activ_obra_accinv] ao ON m.act_proy = ao.actobracin AND m.ano_eje = ao.ano_eje AND m.sec_ejec = ao.sec_ejec
+      SELECT 'ejecucion_activ_obra_accinv' as type, COUNT(DISTINCT ao.actobracin) as cnt FROM [meta] m 
+      INNER JOIN [activ_obra_accinv] ao ON m.componente = ao.actobracin AND m.ano_eje = ao.ano_eje AND m.sec_ejec = ao.sec_ejec
       WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
       UNION ALL
       SELECT 'ejecucion_actproy' as type, COUNT(DISTINCT m.act_proy) as cnt FROM [meta] m 
       INNER JOIN [producto_proyecto] pp ON m.act_proy = pp.act_proy AND m.ano_eje = pp.ano_eje AND m.sec_ejec = pp.sec_ejec
       WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
       UNION ALL
-      SELECT 'ejecucion_ppto' as type, COUNT(DISTINCT m.programa) as cnt FROM [meta] m 
-      INNER JOIN [programa_pptal] p ON m.programa = p.progppto AND m.ano_eje = p.ano_eje
+      SELECT 'ejecucion_ppto' as type, COUNT(DISTINCT p.progppto) as cnt FROM [meta] m 
+      INNER JOIN [programa_pptal] p ON RIGHT('0000' + m.programa, 4) = p.progppto AND m.ano_eje = p.ano_eje
       WHERE m.sec_ejec = @sec_ejec AND m.ano_eje = @year
       UNION ALL
       SELECT 'ejecucion_metas_clasificador' as type, COUNT(*) as cnt FROM [ejecucion_gasto] WHERE sec_ejec = @sec_ejec AND ano_eje = @year
@@ -67,7 +67,7 @@ export async function GET(request: Request) {
       UNION ALL
       SELECT 'programa_accion_inversion' as type, COUNT(*) as cnt FROM [expedientes_gastos_2026] eg
       INNER JOIN [meta] m ON eg.SEC_FUNC = m.sec_func AND eg.sec_ejec = m.sec_ejec AND eg.ano_eje = m.ano_eje
-      WHERE eg.FASE = 'D' AND eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year AND m.act_proy LIKE '4%'
+      WHERE eg.FASE = 'D' AND eg.sec_ejec = @sec_ejec AND eg.ano_eje = @year AND (m.componente LIKE '4%' OR m.componente LIKE '5%')
     `, { sec_ejec: SEC_EJEC, year });
 
     if (resSql) {
@@ -123,8 +123,11 @@ export async function GET(request: Request) {
       const actObraSet = new Set<string>();
       ejecFiltered.forEach(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
-        if (m && actObraCodes.has(str(m['ACT_PROY']))) {
-          actObraSet.add(str(m['ACT_PROY']));
+        if (m) {
+          const comp = str(m['COMPONENTE']);
+          if (actObraCodes.has(comp)) {
+            actObraSet.add(comp);
+          }
         }
       });
       counts.ejecucion_activ_obra_accinv = actObraSet.size;
@@ -145,8 +148,11 @@ export async function GET(request: Request) {
       const progSet = new Set<string>();
       ejecFiltered.forEach(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
-        if (m && progCodes.has(str(m['PROGRAMA']))) {
-          progSet.add(str(m['PROGRAMA']));
+        if (m) {
+          const progCode = str(m['PROGRAMA']).padStart(4, '0');
+          if (progCodes.has(progCode)) {
+            progSet.add(progCode);
+          }
         }
       });
       counts.ejecucion_ppto = progSet.size;
@@ -158,14 +164,16 @@ export async function GET(request: Request) {
       ejecFiltered.forEach(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
         if (m) {
-          pptoMetaSet.add(`${str(m['PROGRAMA'])}-${str(m['SEC_FUNC'])}`);
+          pptoMetaSet.add(`${str(m['PROGRAMA']).padStart(4, '0')}-${str(m['SEC_FUNC'])}`);
         }
       });
       counts.ejecucion_ppto_meta = pptoMetaSet.size;
 
       counts.programa_accion_inversion = devengadosList.filter(eg => {
         const m = metaMap.get(str(eg['SEC_FUNC']));
-        return m && str(m['ACT_PROY']).startsWith('4');
+        if (!m) return false;
+        const comp = str(m['COMPONENTE']);
+        return comp.startsWith('4') || comp.startsWith('5');
       }).length;
     }
 

@@ -155,19 +155,20 @@ export function exportEjecucionPPTO(rows: EjecucionRow[], filename = 'ejecucion 
 
   // Totals Row
   const totalsRowNumber = lastDataRowNumber + 1; // 1-indexed totals row
+  const hasRows = rows.length > 0;
   wsData.push([
     '',
     'T O T A L E S',
-    { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` },
-    { f: `I${totalsRowNumber}/E${totalsRowNumber}` } // Devengado/PIM
+    hasRows ? { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `I${totalsRowNumber}/E${totalsRowNumber}` } : 0 // Devengado/PIM
   ]);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -418,11 +419,13 @@ export function exportCertificados(programCode: string, programName: string, row
   
   const totalsRowIdx = lastDataRowNumber + 3; // 1-indexed totals row
 
+  const hasRows = rows.length > 0;
+
   // Push Totals Row
   const totalRow: unknown[] = Array(18).fill('');
   totalRow[7] = 'T O T A L E S '; // Put text in H (col index 7)
-  totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` }; // SUBTOTAL in N
-  totalRow[14] = { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` }; // SUBTOTAL in O
+  totalRow[13] = hasRows ? { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` } : 0; // SUBTOTAL in N
+  totalRow[14] = hasRows ? { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` } : 0; // SUBTOTAL in O
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -661,10 +664,12 @@ export function exportDevengados(programCode: string, programName: string, rows:
   
   const totalsRowIdx = lastDataRowNumber + 3; // 1-indexed totals row
 
+  const hasRows = rows.length > 0;
+
   // Push Totals Row
   const totalRow: unknown[] = Array(19).fill('');
   totalRow[10] = 'T O T A L E S'; // Put text in K (col index 10)
-  totalRow[14] = { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` }; // SUBTOTAL in O
+  totalRow[14] = hasRows ? { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` } : 0; // SUBTOTAL in O
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -904,10 +909,12 @@ export function exportGiros(programCode: string, programName: string, rows: Expe
   
   const totalsRowIdx = lastDataRowNumber + 3; // 1-indexed totals row
 
+  const hasRows = rows.length > 0;
+
   // Push Totals Row
   const totalRow: unknown[] = Array(19).fill('');
   totalRow[10] = 'T O T A L E S'; // Put text in K (col index 10)
-  totalRow[14] = { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` }; // SUBTOTAL in O
+  totalRow[14] = hasRows ? { f: `SUBTOTAL(9,O8:O${lastDataRowNumber})` } : 0; // SUBTOTAL in O
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -1149,10 +1156,12 @@ export function exportGirosConGlosa(programCode: string, programName: string, ro
   
   const totalsRowIdx = lastDataRowNumber + 3; // 1-indexed totals row
 
+  const hasRows = rows.length > 0;
+
   // Push Totals Row
   const totalRow: unknown[] = Array(20).fill('');
   totalRow[10] = 'T O T A L E S'; // Put text in K (col index 10)
-  totalRow[15] = { f: `SUBTOTAL(9,P8:P${lastDataRowNumber})` }; // SUBTOTAL in P (col index 15)
+  totalRow[15] = hasRows ? { f: `SUBTOTAL(9,P8:P${lastDataRowNumber})` } : 0; // SUBTOTAL in P (col index 15)
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -1388,16 +1397,17 @@ export function exportFichaProyecto(projectInfo: {
 
   const lastDataRowNumber = 11 + classifiers.length;
   const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = classifiers.length > 0;
 
   // Totals Row
   wsData.push([
     'TOTALES RESUMEN',
     '',
-    { f: `SUBTOTAL(9,C12:C${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,D12:D${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,E12:E${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,F12:F${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,G12:G${lastDataRowNumber})` }
+    hasRows ? { f: `SUBTOTAL(9,C12:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,D12:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E12:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F12:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G12:G${lastDataRowNumber})` } : 0
   ]);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -1607,20 +1617,21 @@ export function exportResumenInversion(projects: {
 
   const lastDataRowNumber = 5 + projects.length;
   const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = projects.length > 0;
 
   // Totals row
   wsData.push([
     'TOTALES',
     '',
-    { f: `SUM(C6:C${lastDataRowNumber})` },
-    { f: `SUM(D6:D${lastDataRowNumber})` },
-    { f: `SUM(E6:E${lastDataRowNumber})` },
-    { f: `SUM(F6:F${lastDataRowNumber})` },
-    { f: `SUM(G6:G${lastDataRowNumber})` },
-    { f: `SUM(H6:H${lastDataRowNumber})` },
-    { f: `SUM(I6:I${lastDataRowNumber})` },
-    { f: `SUM(J6:J${lastDataRowNumber})` },
-    { f: `IF(E${totalsRowNumber}>0,I${totalsRowNumber}/E${totalsRowNumber},0)` }
+    hasRows ? { f: `SUM(C6:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(D6:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(E6:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(F6:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(G6:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(H6:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(I6:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUM(J6:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `IF(E${totalsRowNumber}>0,I${totalsRowNumber}/E${totalsRowNumber},0)` } : 0
   ]);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -1811,21 +1822,22 @@ export function exportEjecucionActProy(rows: {
 
   const lastDataRowNumber = 4 + rows.length;
   const totalsRowNumber = lastDataRowNumber + 1;
+  const hasRows = rows.length > 0;
 
   // Totals Row
   wsData.push([
     '',
     'T O T A L E S',
-    { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` },
-    { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` },
-    { f: `I${totalsRowNumber}/E${totalsRowNumber}` } // Devengado/PIM
+    hasRows ? { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,F5:F${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,G5:G${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,H5:H${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,I5:I${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,J5:J${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `SUBTOTAL(9,K5:K${lastDataRowNumber})` } : 0,
+    hasRows ? { f: `I${totalsRowNumber}/E${totalsRowNumber}` } : 0 // Devengado/PIM
   ]);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2023,11 +2035,12 @@ export function exportComprobantesPago(rows: PagoExportRow[]) {
   });
 
   const lastDataRowNumber = 4 + rows.length; // 1-indexed
+  const hasRows = rows.length > 0;
 
   // Totals Row
   const totalRow: unknown[] = Array(13).fill('');
   totalRow[10] = 'T O T A L E S';
-  totalRow[11] = { f: `SUBTOTAL(9,L5:L${lastDataRowNumber})` };
+  totalRow[11] = hasRows ? { f: `SUBTOTAL(9,L5:L${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2202,11 +2215,12 @@ export function exportChequesGirados(rows: GiroExportRow[]) {
   });
 
   const lastDataRowNumber = 4 + rows.length;
+  const hasRows = rows.length > 0;
 
   // Totals Row
   const totalRow: unknown[] = Array(14).fill('');
   totalRow[11] = 'T O T A L E S';
-  totalRow[12] = { f: `SUBTOTAL(9,M5:M${lastDataRowNumber})` };
+  totalRow[12] = hasRows ? { f: `SUBTOTAL(9,M5:M${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2350,14 +2364,15 @@ export function exportViaticos(rows: ViaticoExportRow[]) {
   });
 
   const lastDataRowNumber = 4 + rows.length;
+  const hasRows = rows.length > 0;
 
   // Totals Row
   const totalRow: unknown[] = Array(5).fill('');
   totalRow[0] = 'TOTAL GENERAL';
-  totalRow[1] = { f: `SUBTOTAL(9,B5:B${lastDataRowNumber})` };
-  totalRow[2] = { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` };
-  totalRow[3] = { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` };
-  totalRow[4] = { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` };
+  totalRow[1] = hasRows ? { f: `SUBTOTAL(9,B5:B${lastDataRowNumber})` } : 0;
+  totalRow[2] = hasRows ? { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` } : 0;
+  totalRow[3] = hasRows ? { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` } : 0;
+  totalRow[4] = hasRows ? { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2470,10 +2485,11 @@ export function exportCertificadoResumen(rows: Record<string, unknown>[], filena
   });
 
   const lastDataRowNumber = 6 + rows.length;
+  const hasRows = rows.length > 0;
   const totalRow = Array(8).fill('');
-  totalRow[5] = { f: `SUBTOTAL(9,F7:F${lastDataRowNumber})` };
-  totalRow[6] = { f: `SUBTOTAL(9,G7:G${lastDataRowNumber})` };
-  totalRow[7] = { f: `SUBTOTAL(9,H7:H${lastDataRowNumber})` };
+  totalRow[5] = hasRows ? { f: `SUBTOTAL(9,F7:F${lastDataRowNumber})` } : 0;
+  totalRow[6] = hasRows ? { f: `SUBTOTAL(9,G7:G${lastDataRowNumber})` } : 0;
+  totalRow[7] = hasRows ? { f: `SUBTOTAL(9,H7:H${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2576,9 +2592,10 @@ export function exportRawDevengados(rows: Record<string, unknown>[], filename = 
   });
 
   const lastDataRowNumber = 5 + rows.length;
+  const hasRows = rows.length > 0;
   const totalRow = Array(24).fill('');
   totalRow[18] = 'T O T A L E S';
-  totalRow[19] = { f: `SUBTOTAL(9,T6:T${lastDataRowNumber})` };
+  totalRow[19] = hasRows ? { f: `SUBTOTAL(9,T6:T${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2691,9 +2708,10 @@ export function exportRawGirados(rows: Record<string, unknown>[], filename = 'da
   });
 
   const lastDataRowNumber = 4 + rows.length;
+  const hasRows = rows.length > 0;
   const totalRow = Array(31).fill('');
   totalRow[24] = 'T O T A L E S';
-  totalRow[25] = { f: `SUBTOTAL(9,Z5:Z${lastDataRowNumber})` };
+  totalRow[25] = hasRows ? { f: `SUBTOTAL(9,Z5:Z${lastDataRowNumber})` } : 0;
   wsData.push(totalRow);
 
   const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2762,6 +2780,15 @@ export function exportRawGirados(rows: Record<string, unknown>[], filename = 'da
 }
 
 export function exportMetaCertificados(rows: Record<string, unknown>[], filename = 'meta_certificados.xlsx') {
+  const wb = XLSX.utils.book_new();
+
+  if (rows.length === 0) {
+    const ws = XLSX.utils.aoa_to_sheet([['No hay registros para exportar']]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sin Datos');
+    XLSX.writeFile(wb, filename);
+    return;
+  }
+
   // Group rows by sec_func
   const groups = new Map<string, Record<string, unknown>[]>();
   rows.forEach(r => {
@@ -2769,8 +2796,6 @@ export function exportMetaCertificados(rows: Record<string, unknown>[], filename
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(r);
   });
-
-  const wb = XLSX.utils.book_new();
 
   for (const [metaCode, groupRows] of Array.from(groups.entries()).sort()) {
     const wsData: unknown[][] = [];
@@ -2804,9 +2829,10 @@ export function exportMetaCertificados(rows: Record<string, unknown>[], filename
     });
 
     const lastDataRowNumber = 7 + groupRows.length;
+    const hasRows = groupRows.length > 0;
     const totalRow = Array(15).fill('');
     totalRow[10] = 'T O T A L E S ';
-    totalRow[11] = { f: `SUBTOTAL(9,L8:L${lastDataRowNumber})` };
+    totalRow[11] = hasRows ? { f: `SUBTOTAL(9,L8:L${lastDataRowNumber})` } : 0;
     wsData.push(totalRow);
 
     const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2861,14 +2887,21 @@ export function exportMetaCertificados(rows: Record<string, unknown>[], filename
 }
 
 export function exportMetaDevengados(rows: Record<string, unknown>[], filename = 'meta_devengados.xlsx') {
+  const wb = XLSX.utils.book_new();
+
+  if (rows.length === 0) {
+    const ws = XLSX.utils.aoa_to_sheet([['No hay registros para exportar']]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sin Datos');
+    XLSX.writeFile(wb, filename);
+    return;
+  }
+
   const groups = new Map<string, Record<string, unknown>[]>();
   rows.forEach(r => {
     const key = String(r.group_key || '0000');
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(r);
   });
-
-  const wb = XLSX.utils.book_new();
 
   for (const [metaCode, groupRows] of Array.from(groups.entries()).sort()) {
     const wsData: unknown[][] = [];
@@ -2904,9 +2937,10 @@ export function exportMetaDevengados(rows: Record<string, unknown>[], filename =
     });
 
     const lastDataRowNumber = 7 + groupRows.length;
+    const hasRows = groupRows.length > 0;
     const totalRow = Array(18).fill('');
     totalRow[12] = 'T O T A L E S';
-    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    totalRow[13] = hasRows ? { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` } : 0;
     wsData.push(totalRow);
 
     const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -2960,14 +2994,21 @@ export function exportMetaDevengados(rows: Record<string, unknown>[], filename =
 }
 
 export function exportProgramaDevengados(rows: Record<string, unknown>[], filename = 'programa_devengados.xlsx') {
+  const wb = XLSX.utils.book_new();
+
+  if (rows.length === 0) {
+    const ws = XLSX.utils.aoa_to_sheet([['No hay registros para exportar']]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sin Datos');
+    XLSX.writeFile(wb, filename);
+    return;
+  }
+
   const groups = new Map<string, Record<string, unknown>[]>();
   rows.forEach(r => {
     const key = String(r.group_key || '0000');
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(r);
   });
-
-  const wb = XLSX.utils.book_new();
 
   for (const [programCode, groupRows] of Array.from(groups.entries()).sort()) {
     const wsData: unknown[][] = [];
@@ -3004,9 +3045,10 @@ export function exportProgramaDevengados(rows: Record<string, unknown>[], filena
     });
 
     const lastDataRowNumber = 7 + groupRows.length;
+    const hasRows = groupRows.length > 0;
     const totalRow = Array(18).fill('');
     totalRow[12] = 'T O T A L E S';
-    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    totalRow[13] = hasRows ? { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` } : 0;
     wsData.push(totalRow);
 
     const ws = XLSX.utils.aoa_to_sheet(wsData);
@@ -3061,14 +3103,21 @@ export function exportProgramaDevengados(rows: Record<string, unknown>[], filena
 }
 
 export function exportProgramaAccionInversion(rows: Record<string, unknown>[], filename = 'programa_accion_inversion.xlsx') {
+  const wb = XLSX.utils.book_new();
+
+  if (rows.length === 0) {
+    const ws = XLSX.utils.aoa_to_sheet([['No hay registros para exportar']]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sin Datos');
+    XLSX.writeFile(wb, filename);
+    return;
+  }
+
   const groups = new Map<string, Record<string, unknown>[]>();
   rows.forEach(r => {
     const key = String(r.group_key || '0000000');
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(r);
   });
-
-  const wb = XLSX.utils.book_new();
 
   for (const [projectCode, groupRows] of Array.from(groups.entries()).sort()) {
     const wsData: unknown[][] = [];
@@ -3105,9 +3154,10 @@ export function exportProgramaAccionInversion(rows: Record<string, unknown>[], f
     });
 
     const lastDataRowNumber = 7 + groupRows.length;
+    const hasRows = groupRows.length > 0;
     const totalRow = Array(18).fill('');
     totalRow[12] = 'T O T A L E S';
-    totalRow[13] = { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` };
+    totalRow[13] = hasRows ? { f: `SUBTOTAL(9,N8:N${lastDataRowNumber})` } : 0;
     wsData.push(totalRow);
 
     const ws = XLSX.utils.aoa_to_sheet(wsData);
