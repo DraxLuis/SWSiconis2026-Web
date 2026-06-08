@@ -18,6 +18,13 @@ interface DBFJson {
 /** Cache to avoid re-reading files on every request */
 const cache: Map<string, Record<string, unknown>[]> = new Map();
 
+// Map from application/JSON table names to actual SQL Server table names
+const TABLE_NAME_MAP: Record<string, string> = {
+  'presupuesto_ejecucion_gasto': 'ejecucion_gasto',
+  'presupuesto_ejecucion_ingreso': 'ejecucion_ingreso',
+  'nota_pago_2026': 'nota_pago'
+};
+
 /** Preload specific tables from SQL Server into the in-memory cache if DB is configured */
 export async function preloadTables(tableNames: string[], forceRefresh = false) {
   if (!process.env.DB_SERVER) return;
@@ -39,12 +46,14 @@ export async function preloadTables(tableNames: string[], forceRefresh = false) 
       const key = name.toLowerCase();
       if (cache.has(key) && !forceRefresh) continue;
 
+      const sqlTableName = TABLE_NAME_MAP[name] || name;
+
       try {
         const request = pool.request();
-        const result = await request.query(`SELECT * FROM [${name}]`);
+        const result = await request.query(`SELECT * FROM [${sqlTableName}]`);
         cache.set(key, result.recordset || []);
       } catch (err) {
-        console.error(`Error precargando tabla "${name}" desde SQL Server:`, err);
+        console.error(`Error precargando tabla "${name}" (as [${sqlTableName}]) desde SQL Server:`, err);
         // No guardamos en caché si falla la consulta (ej. tabla inexistente), para dar opción al fallback JSON
       }
     }
