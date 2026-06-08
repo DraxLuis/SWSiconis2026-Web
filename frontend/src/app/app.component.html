@@ -1,0 +1,12 @@
+<div class="flex h-screen overflow-hidden">
+  <!-- Fixed Sidebar Component -->
+  <app-sidebar></app-sidebar>
+  
+  <!-- Scrollable Content Wrapper -->
+  <div class="flex-1 pl-64 overflow-y-auto bg-gradient-to-br from-[#040a15] via-[#081326] to-[#040a15] min-h-screen">
+    <main class="p-8">
+      <!-- Routing Views Outlet -->
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

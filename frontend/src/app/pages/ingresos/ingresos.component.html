@@ -1,0 +1,321 @@
+<div class="space-y-8 animate-in">
+  
+  <!-- Header Area -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
+    <div>
+      <div class="flex items-center gap-2 text-[#d40000] text-xs font-bold uppercase tracking-widest mb-1">
+        <!-- Trending Up Icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+        </svg>
+        Módulo de Presupuesto
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none">
+        Ejecución de Ingresos
+      </h1>
+      <p class="text-slate-400 text-xs mt-1 font-medium">
+        Seguimiento de estimaciones y recaudación mensual por fuente de financiamiento y clasificador.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button 
+        (click)="exportToExcel()"
+        [disabled]="loading() || filteredRows().length === 0"
+        class="flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-lg border border-emerald-800/60 bg-emerald-950/40 hover:bg-emerald-900/40 text-emerald-400 hover:text-emerald-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-emerald-950/20"
+      >
+        <!-- FileSpreadsheet Icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+        Exportar Excel
+      </button>
+      
+      <button 
+        (click)="fetchIngresos()"
+        class="flex items-center justify-center p-2.5 rounded-lg border border-slate-800 bg-[#0b1329]/40 hover:bg-slate-800/40 text-slate-300 hover:text-white transition-all duration-300 backdrop-blur-sm"
+        title="Actualizar datos"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4" [ngClass]="{'animate-spin': loading()}">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Filters Panel -->
+  <div class="p-5 rounded-2xl border border-slate-800/70 bg-[#091122]/40 backdrop-blur-md shadow-lg shadow-black/20 flex flex-col gap-4">
+    <div class="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+      <!-- Sliders Icon SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-[#d40000]">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+      </svg>
+      Filtros y Búsqueda
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- Rubro Selector -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
+          <!-- Layers Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m11.142 0L21.75 12l-4.179-2.25m-11.142 0L10.5 7.5 12 6.75l1.5.75 4.179 2.25m-11.142 0L12 12l5.571-2.25M6.429 14.25L12 16.5l5.571-2.25M12 16.5v4.5m-3.75-2.25h7.5" />
+          </svg>
+          Rubro (Fuente Financiamiento)
+        </label>
+        <select
+          [ngModel]="filterRubro()"
+          (ngModelChange)="filterRubro.set($event)"
+          class="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+        >
+          <option value="">Todos los Rubros</option>
+          @for (r of rubrosList(); track r.codigo) {
+            <option [value]="r.codigo">{{ r.codigo }} - {{ r.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Clasificador Filter -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
+          <!-- Calendar Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          Nivel Clasificador (Prefijo)
+        </label>
+        <input
+          type="text"
+          placeholder="Ej: 1.1 o 1.3..."
+          [ngModel]="filterClasificador()"
+          (ngModelChange)="filterClasificador.set($event)"
+          class="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+        />
+      </div>
+
+      <!-- Text Search Filter -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5">
+          <!-- Search Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          Búsqueda por Nombre / Clasificador
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Buscar coincidencia..."
+            [ngModel]="searchQuery()"
+            (ngModelChange)="searchQuery.set($event)"
+            class="w-full text-xs bg-[#0b1428] border border-slate-800/80 rounded-xl pl-9 pr-3.5 py-2.5 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-[#d40000]/60 transition-all duration-300"
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="absolute left-3.5 top-3.5 h-3.5 w-3.5 text-slate-600">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Mini Cards -->
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
+      <p class="text-[9px] uppercase font-bold text-slate-500 tracking-widest mb-1">PIM Total Filtrado</p>
+      <p class="text-base font-extrabold text-white">{{ formatMoney(totals().pim) }}</p>
+    </div>
+    <div class="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
+      <p class="text-[9px] uppercase font-bold text-emerald-400 tracking-widest mb-1">Recaudado Total</p>
+      <p class="text-base font-extrabold text-emerald-400">{{ formatMoney(totals().recaudado_total) }}</p>
+    </div>
+    <div class="p-4 rounded-xl border border-slate-800/50 bg-[#091224]/20 backdrop-blur-md">
+      <p class="text-[9px] uppercase font-bold text-slate-500 tracking-widest mb-1">% Avance (Recaudado/PIM)</p>
+      <div class="flex items-center gap-2">
+        <p class="text-base font-extrabold text-white">
+          {{ (totals().pim > 0 ? (totals().recaudado_total / totals().pim * 100) : 0).toFixed(1) }}%
+        </p>
+        <div class="flex-1 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+          <div 
+            class="bg-emerald-600 h-full rounded-full" 
+            [style.width.%]="totals().pim > 0 ? (totals().recaudado_total / totals().pim * 100) : 0"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Table Container -->
+  <div class="rounded-2xl border border-slate-800/80 bg-[#081020]/60 backdrop-blur-md shadow-2xl overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-slate-800 bg-slate-900/35 text-slate-400 text-[10px] uppercase font-bold tracking-wider">
+            <th class="py-4 px-5 w-12 text-center">
+              <button 
+                (click)="toggleAllRows()"
+                class="p-1 rounded bg-slate-800/60 hover:bg-slate-700/60 transition-colors"
+                title="Expandir/Contraer todos"
+              >
+                <!-- Chevron Down Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-3.5 w-3.5 text-slate-300">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+            </th>
+            <th class="py-4 px-4 w-16 text-center">Rubro</th>
+            <th class="py-4 px-4 w-32">Clasificador</th>
+            <th class="py-4 px-4">Descripción</th>
+            <th class="py-4 px-4 text-right">PIA</th>
+            <th class="py-4 px-4 text-right">PIM</th>
+            <th class="py-4 px-4 text-right">Recaudado</th>
+            <th class="py-4 px-4 text-center w-28">% Avance</th>
+          </tr>
+        </thead>
+        
+        <tbody class="divide-y divide-slate-800/40 text-xs font-medium text-slate-300">
+          @if (loading()) {
+            @for (skele of [1,2,3,4,5]; track skele) {
+              <tr class="animate-pulse">
+                <td class="py-5 px-5"><div class="h-4 w-4 bg-slate-800 rounded mx-auto" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-8 bg-slate-800 rounded mx-auto" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-20 bg-slate-800 rounded" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-44 bg-slate-800 rounded" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-16 bg-slate-800 rounded ml-auto" /></td>
+                <td class="py-5 px-4"><div class="h-4 w-12 bg-slate-800 rounded mx-auto" /></td>
+              </tr>
+            }
+          } @else {
+            @for (row of paginatedRows(); track row.rubro + '-' + row.clasificador) {
+              <tr class="hover:bg-slate-900/40 transition-colors duration-200">
+                <td class="py-4 px-5 text-center">
+                  <button 
+                    (click)="toggleRow(row.rubro, row.clasificador)"
+                    class="p-1 rounded bg-slate-950/60 hover:bg-slate-800 border border-slate-800 transition-colors"
+                  >
+                    @if (isExpanded(row.rubro, row.clasificador)) {
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-3.5 w-3.5 text-[#d40000]">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                      </svg>
+                    } @else {
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-3.5 w-3.5 text-slate-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                      </svg>
+                    }
+                  </button>
+                </td>
+                <td class="py-4 px-4 text-center font-bold text-slate-400">{{ row.rubro }}</td>
+                <td class="py-4 px-4 font-mono font-bold text-[#d40000]">{{ row.clasificador }}</td>
+                <td class="py-4 px-4 font-semibold text-slate-200">{{ row.clasificador_nombre || 'Sin descripción en clasificador' }}</td>
+                <td class="py-4 px-4 text-right">{{ formatMoney(row.pia) }}</td>
+                <td class="py-4 px-4 text-right text-slate-200 font-bold">{{ formatMoney(row.pim) }}</td>
+                <td class="py-4 px-4 text-right text-emerald-400 font-bold">{{ formatMoney(row.recaudado_total) }}</td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center justify-center gap-2">
+                    <span class="font-bold text-white">
+                      {{ (row.pim > 0 ? (row.recaudado_total / row.pim * 100) : 0).toFixed(1) }}%
+                    </span>
+                    <div class="w-12 bg-slate-800 rounded-full h-1 overflow-hidden hidden sm:block">
+                      <div 
+                        class="bg-gradient-to-r from-emerald-600 to-emerald-450 h-full" 
+                        [style.width.%]="row.pim > 0 ? (row.recaudado_total / row.pim * 100) : 0"
+                      ></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Expanded Row Details for Monthly Breakdown -->
+              @if (isExpanded(row.rubro, row.clasificador)) {
+                <tr class="bg-[#050b16]/70 border-l-2 border-[#d40000]">
+                  <td colspan="8" class="p-6">
+                    <div class="space-y-4">
+                      <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <!-- Calendar Icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-[#d40000]">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        Distribución Mensual de la Recaudación — Año 2026
+                      </div>
+                      
+                      <div class="overflow-x-auto rounded-xl border border-slate-800/40 bg-slate-950/40">
+                        <table class="w-full text-center border-collapse">
+                          <thead>
+                            <tr class="border-b border-slate-800 text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-black/15">
+                              <th class="py-3 px-2 text-left pl-4 w-28">Etapa Ingreso</th>
+                              @for (month of monthsHeader; track month) {
+                                <th class="py-3 px-2">{{ month }}</th>
+                              }
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-slate-800/20 text-[11px] font-semibold">
+                            <!-- Recaudado monthly values -->
+                            <tr class="hover:bg-slate-900/10">
+                              <td class="py-3 px-2 text-left pl-4 font-bold text-emerald-400">Recaudado</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_01) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_02) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_03) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_04) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_05) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_06) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_07) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_08) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_09) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_10) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_11) }}</td>
+                              <td class="py-3 px-2">{{ formatMoney(row.recaud_12) }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table Footer / Pagination -->
+    <div class="p-4 border-t border-slate-800 bg-slate-900/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold text-slate-400">
+      <div>
+        Mostrando registros del 
+        <span class="text-white">{{ filteredRows().length === 0 ? 0 : (currentPage() - 1) * pageSize() + 1 }}</span> al 
+        <span class="text-white">{{ Math.min(currentPage() * pageSize(), filteredRows().length) }}</span> de 
+        <span class="text-white">{{ filteredRows().length }}</span> totales
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button 
+          (click)="changePage(-1)" 
+          [disabled]="currentPage() === 1 || loading()"
+          class="p-2 rounded bg-slate-850 hover:bg-slate-800 border border-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          <!-- Chevron Left Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-3.5 w-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        
+        <div class="px-3 py-1 bg-[#0b1329]/65 border border-slate-800 rounded text-slate-300 font-bold">
+          Página {{ currentPage() }} de {{ totalPages() }}
+        </div>
+        
+        <button 
+          (click)="changePage(1)" 
+          [disabled]="currentPage() === totalPages() || loading()"
+          class="p-2 rounded bg-slate-850 hover:bg-slate-800 border border-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          <!-- Chevron Right Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-3.5 w-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
