@@ -88,7 +88,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           }}
         />
 
-        <main className="relative z-10 p-6 md:p-8 max-w-[1600px] mx-auto">
+        <main className="relative z-10 p-6 md:p-8 max-w-[1600px] mx-auto w-full min-w-0">
           {children}
         </main>
       </div>

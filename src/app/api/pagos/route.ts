@@ -1,112 +1,129 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { trySQL, str, num } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
-
-interface PagoEnriched {
-  expediente: string;
-  secuencia: string;
-  num_doc: string;
-  ruc: string;
-  benefici: string;
-  proveedor_nombre: string;
-  rubro: string;
-  glosa: string;
-  cod_doc: string;
-  fecha_doc: string;
-  cod_doc_b: string;
-  nom_doc_b: string;
-  fec_doc_b: string;
-  const_pago: string;
-  confor_doc: string;
-  confor_des: string;
-  confor_fec: string;
-  monto: number;
-  estado: string;
-}
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
+    const filterAno = searchParams.get('ano') || '';
+    const filterMes = searchParams.get('mes') || '';
+    const filterTipoOp = searchParams.get('tipo_op') || '';
     const filterRubro = searchParams.get('rubro') || '';
     const search = searchParams.get('search') || '';
     const page = parseInt(searchParams.get('page') || '1');
-    const pageSize = parseInt(searchParams.get('pageSize') || '25');
+    const pageSize = parseInt(searchParams.get('pageSize') || '50');
 
-    const pagos = loadTable('nota_pago_2026');
-    const proveedores = loadTable('proveedor');
-    const rubros = loadTable('rubro');
-    const glosas = loadTable('expedientes_glosa');
+    // 1. Build dynamic query for paginated rows
+    let query = `
+      SELECT eg.ANO_EJE, eg.MES_EJE, eg.TIPO_OP, eg.EXPEDIENTE, eg.SEC_REG, eg.CORR, eg.RB, eg.COD_DOC, eg.NUM_DOC, eg.FECHA_DOC, eg.MONTO, eg.SEC_EST,
+             COALESCE(
+               NULLIF(np.BENEFICI, ''),
+               CASE WHEN eg.PROVEEDOR = '0' THEN 'DIRECCION GENERAL DEL TESORO PUBLICO' ELSE p.nombre END,
+               ''
+             ) as BENEFICIARIO,
+             eg.PROVEEDOR as RUC
+      FROM [expedientes_gastos_2026] eg
+      LEFT JOIN [nota_pago] np ON eg.EXPEDIENTE = np.EXPEDIENTE AND eg.NUM_DOC = np.NUM_DOC
+      LEFT JOIN [proveedor] p ON eg.PROVEEDOR = p.ruc
+      WHERE eg.FASE = 'G' AND eg.SEC_EJEC = '301548'
+    `;
 
-    // Build lookups
-    const provMap = new Map<string, string>();
-    proveedores.forEach(p => provMap.set(str(p['RUC']), str(p['NOMBRE'])));
+    const params: Record<string, unknown> = {};
 
-    const glosaMap = new Map<string, string>();
-    glosas.forEach(g => {
-      const key = `${str(g['EXPEDIENTE'])}-${str(g['CICLO'])}-${str(g['FASE'])}-${str(g['SEC_REG'])}`;
-      glosaMap.set(key, str(g['GLOSA']));
-    });
+    if (filterAno) {
+      query += ` AND eg.ANO_EJE = @ano`;
+      params.ano = filterAno;
+    }
+    if (filterMes) {
+      query += ` AND eg.MES_EJE = @mes`;
+      params.mes = filterMes;
+    }
+    if (filterTipoOp) {
+      query += ` AND eg.TIPO_OP = @tipoOp`;
+      params.tipoOp = filterTipoOp;
+    }
+    if (filterRubro) {
+      query += ` AND eg.RB = @rubro`;
+      params.rubro = filterRubro;
+    }
+    if (search) {
+      query += ` AND (eg.EXPEDIENTE LIKE @search OR eg.NUM_DOC LIKE @search OR eg.PROVEEDOR LIKE @search OR np.BENEFICI LIKE @search OR p.nombre LIKE @search)`;
+      params.search = `%${search}%`;
+    }
 
-    // Filter
-    const rows = pagos.filter(r => {
-      const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
-      const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
-      if (ejec && ejec !== SEC_EJEC) return false;
-      if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
-      return true;
-    });
+    query += ` ORDER BY eg.ANO_EJE ASC, eg.MES_EJE ASC, eg.EXPEDIENTE ASC, eg.SEC_REG ASC, eg.CORR ASC`;
 
-    const enriched = rows.map(r => {
-      const ruc = str(r['RUC']);
-      const glosa = str(r['GLOSA']) || glosaMap.get(`${str(r['EXPEDIENTE'])}-C-D-0`) || '';
-      const provNombre = str(r['BENEFICI']) || provMap.get(ruc) || ruc;
+    const allRows = await trySQL(query, params);
+    if (!allRows) {
+      throw new Error('Database query returned null.');
+    }
 
-      if (search && !provNombre.toLowerCase().includes(search.toLowerCase()) &&
-          !ruc.includes(search) && !str(r['NUM_DOC']).includes(search)) {
-        return null;
-      }
+    const total = allRows.length;
+    const totalMonto = allRows.reduce((sum, r) => sum + num(r.MONTO), 0);
 
-      return {
-        expediente: str(r['EXPEDIENTE']),
-        secuencia: str(r['SECUENCIA']),
-        num_doc: str(r['NUM_DOC']),
-        ruc,
-        benefici: provNombre,
-        proveedor_nombre: provMap.get(ruc) || provNombre,
-        rubro: str(r['RUBRO']),
-        glosa: glosa || str(r['GLOSA']),
-        cod_doc: str(r['COD_DOC']),
-        fecha_doc: str(r['FECHA_DOC']),
-        cod_doc_b: str(r['COD_DOC_B']),
-        nom_doc_b: str(r['NOM_DOC_B']),
-        fec_doc_b: str(r['FEC_DOC_B']),
-        const_pago: str(r['CONST_PAGO']),
-        confor_doc: str(r['CONFOR_DOC']),
-        confor_des: str(r['CONFOR_DES']),
-        confor_fec: str(r['CONFOR_FEC']),
-        monto: num(r['MONTO']),
-        estado: str(r['ESTADO']),
-      };
-    }).filter(Boolean) as PagoEnriched[];
+    // Pagination
+    const startIndex = (page - 1) * pageSize;
+    const paginatedRows = allRows.slice(startIndex, startIndex + pageSize).map((r, idx) => ({
+      index: startIndex + idx + 1,
+      ano_eje: str(r.ANO_EJE),
+      mes_eje: str(r.MES_EJE),
+      tipo_op: str(r.TIPO_OP),
+      expediente: str(r.EXPEDIENTE),
+      sec_reg: str(r.SEC_REG),
+      corr: str(r.CORR),
+      rb: str(r.RB),
+      cod_doc: str(r.COD_DOC),
+      num_doc: str(r.NUM_DOC),
+      fecha_doc: str(r.FECHA_DOC),
+      beneficiario: str(r.BENEFICIARIO),
+      monto: num(r.MONTO),
+      estado: str(r.SEC_EST)
+    }));
 
-    enriched.sort((a, b) => b.expediente.localeCompare(a.expediente));
+    // Fetch catalog filters for dropdowns
+    const rubros = await trySQL(
+      `SELECT DISTINCT FUENTE_FIN as codigo, NOMBRE as nombre 
+       FROM [rubro] 
+       WHERE SEC_EJEC = '301548'
+       ORDER BY FUENTE_FIN`
+    ) || [];
 
-    const total = enriched.length;
-    const totalMonto = enriched.reduce((s, r) => s + r.monto, 0);
-    const paginated = enriched.slice((page - 1) * pageSize, page * pageSize);
+    const tiposOperacion = await trySQL(
+      `SELECT DISTINCT TIPO_OP 
+       FROM [expedientes_gastos_2026] 
+       WHERE FASE = 'G' AND SEC_EJEC = '301548' AND TIPO_OP IS NOT NULL AND TIPO_OP != ''
+       ORDER BY TIPO_OP`
+    ) || [];
 
-    const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
-      .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
-      .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
+    const meses = await trySQL(
+      `SELECT DISTINCT MES_EJE 
+       FROM [expedientes_gastos_2026] 
+       WHERE FASE = 'G' AND SEC_EJEC = '301548' AND MES_EJE IS NOT NULL AND MES_EJE != ''
+       ORDER BY MES_EJE`
+    ) || [];
+
+    const anos = await trySQL(
+      `SELECT DISTINCT ANO_EJE 
+       FROM [expedientes_gastos_2026] 
+       WHERE FASE = 'G' AND SEC_EJEC = '301548' AND ANO_EJE IS NOT NULL AND ANO_EJE != ''
+       ORDER BY ANO_EJE`
+    ) || [];
 
     return NextResponse.json({
-      success: true, rows: paginated, total, totalMonto, page, pageSize, rubros: rubrosList
+      success: true,
+      rows: paginatedRows,
+      total,
+      totalMonto,
+      rubros: rubros.map(r => ({ codigo: str(r.codigo), nombre: str(r.nombre) })),
+      tiposOperacion: tiposOperacion.map(t => str(t.TIPO_OP)),
+      meses: meses.map(m => str(m.MES_EJE)),
+      anos: anos.map(a => str(a.ANO_EJE)),
+      page,
+      pageSize
     });
   } catch (error) {
-    console.error('Error en /api/pagos:', error);
+    console.error('Error in /api/pagos:', error);
     return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }

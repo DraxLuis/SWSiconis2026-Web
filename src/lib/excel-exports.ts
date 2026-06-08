@@ -1955,3 +1955,492 @@ export function exportEjecucionActProy(rows: {
   XLSX.writeFile(wb, 'ejecucion-actproy.xlsx');
 }
 
+export interface PagoExportRow {
+  ano_eje: string;
+  mes_eje: string;
+  tipo_op: string;
+  expediente: string;
+  sec_reg: string;
+  corr: string;
+  rb: string;
+  cod_doc: string;
+  num_doc: string;
+  fecha_doc: string;
+  beneficiario: string;
+  monto: number;
+  estado: string;
+}
+
+export function exportComprobantesPago(rows: PagoExportRow[]) {
+  const wsData: unknown[][] = [];
+
+  // Row 1: blank
+  wsData.push(Array(13).fill(''));
+
+  // Row 2: Title Banner (merged A2:M2)
+  wsData.push([
+    'COMPROBANTES DE PAGO',
+    '', '', '', '', '', '', '', '', '', '', '', ''
+  ]);
+
+  // Row 3: Blank Row
+  wsData.push(Array(13).fill(''));
+
+  // Row 4: Cabeceras
+  wsData.push([
+    'ANO',
+    'MES',
+    'TIPO',
+    'EXPEDIENTE',
+    'SECUEN',
+    'CORR',
+    'RB',
+    'COD',
+    'NUM_DOC',
+    'FECHA_DOC',
+    'BENEFICIARIO',
+    'MONTO',
+    'Est.Reg'
+  ]);
+
+  // Data rows
+  rows.forEach(r => {
+    wsData.push([
+      r.ano_eje,
+      r.mes_eje,
+      r.tipo_op,
+      r.expediente,
+      r.sec_reg,
+      r.corr,
+      r.rb,
+      r.cod_doc,
+      r.num_doc,
+      formatDate(r.fecha_doc),
+      r.beneficiario,
+      n(r.monto),
+      r.estado
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length; // 1-indexed
+
+  // Totals Row
+  const totalRow: unknown[] = Array(13).fill('');
+  totalRow[10] = 'T O T A L E S';
+  totalRow[11] = { f: `SUBTOTAL(9,L5:L${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Layout Widths
+  ws['!cols'] = [
+    { wch: 6.14 },  // ANO
+    { wch: 7.29 },  // MES
+    { wch: 8.00 },  // TIPO
+    { wch: 10.71 }, // EXPEDIENTE
+    { wch: 6.57 },  // SECUEN
+    { wch: 7.29 },  // CORR
+    { wch: 4.71 },  // RB
+    { wch: 6.43 },  // COD
+    { wch: 14.71 }, // NUM_DOC
+    { wch: 12.00 }, // FECHA_DOC
+    { wch: 46.71 }, // BENEFICIARIO
+    { wch: 14.43 }, // MONTO
+    { wch: 7.00 }   // Est.Reg
+  ];
+
+  ws['!rows'] = [
+    { hpt: 12.00 }, // Row 1
+    { hpt: 18.75 }, // Row 2 (Title)
+    { hpt: 12.00 }, // Row 3
+    { hpt: 18.00 }  // Row 4 (Headers)
+  ];
+  for (let r = 4; r < lastDataRowNumber; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 15.00 }); // Totals row
+
+  ws['!merges'] = [
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } } // Title banner
+  ];
+
+  // Styles
+  const borderHair = {
+    top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+  };
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 1) {
+        // Row 2 (Title Banner)
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'E7E6E6' } }, // Theme 3 Silver
+          font: { name: 'Calibri', sz: 14, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        // Row 4 (Headers)
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'FFFFFF00' } }, // Yellow
+          font: { name: 'Calibri', sz: 9, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderHair
+        };
+      } else if (r === range.e.r) {
+        // Totals Row
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: c === 10 ? 'center' : 'right', vertical: 'center' },
+          border: {
+            top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+            bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+            left: c === 10 || c === 12 ? { style: 'hair', color: { rgb: 'B0B0B0' } } : undefined,
+            right: c === 11 || c === 12 ? { style: 'hair', color: { rgb: 'B0B0B0' } } : undefined
+          }
+        };
+        if (c === 11) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      } else if (r >= 4) {
+        // Data Rows
+        const cellAlign = c === 10 ? 'left' : c === 11 ? 'right' : 'center';
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: cellAlign, vertical: 'center' },
+          border: borderHair
+        };
+        if (c === 11) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'expedientes');
+  XLSX.writeFile(wb, 'comprobantes_pago.xlsx');
+}
+
+export interface GiroExportRow {
+  ano_eje: string;
+  mes_eje: string;
+  expediente: string;
+  sec_reg: string;
+  corr: string;
+  rb: string;
+  tr: string;
+  ctacte: string;
+  cod_doc: string;
+  num_doc: string;
+  fecha_doc: string;
+  beneficiario: string;
+  monto: number;
+  estado: string;
+}
+
+export function exportChequesGirados(rows: GiroExportRow[]) {
+  const wsData: unknown[][] = [];
+
+  // Row 1: blank
+  wsData.push(Array(14).fill(''));
+
+  // Row 2: Title Banner
+  wsData.push([
+    'CHEQUES GIRADOS',
+    '', '', '', '', '', '', '', '', '', '', '', '', ''
+  ]);
+
+  // Row 3: blank
+  wsData.push(Array(14).fill(''));
+
+  // Row 4: Headers
+  wsData.push([
+    'ANO',
+    'MES',
+    'EXPEDIENTE',
+    'SECUEN',
+    'CORR',
+    'RB',
+    'TR',
+    'CTACTE',
+    'COD',
+    'NUM_DOC',
+    'FECHA_DOC',
+    'BENEFICIARIO',
+    'MONTO',
+    'Est'
+  ]);
+
+  // Data rows
+  rows.forEach(r => {
+    wsData.push([
+      r.ano_eje,
+      r.mes_eje,
+      r.expediente,
+      r.sec_reg,
+      r.corr,
+      r.rb,
+      r.tr,
+      r.ctacte,
+      r.cod_doc,
+      r.num_doc,
+      formatDate(r.fecha_doc),
+      r.beneficiario,
+      n(r.monto),
+      r.estado
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+
+  // Totals Row
+  const totalRow: unknown[] = Array(14).fill('');
+  totalRow[11] = 'T O T A L E S';
+  totalRow[12] = { f: `SUBTOTAL(9,M5:M${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Layout Widths
+  ws['!cols'] = [
+    { wch: 6.14 },  // ANO
+    { wch: 7.29 },  // MES
+    { wch: 10.71 }, // EXPEDIENTE
+    { wch: 6.57 },  // SECUEN
+    { wch: 7.29 },  // CORR
+    { wch: 4.71 },  // RB
+    { wch: 3.57 },  // TR
+    { wch: 18.14 }, // CTACTE
+    { wch: 6.43 },  // COD
+    { wch: 14.71 }, // NUM_DOC
+    { wch: 12.00 }, // FECHA_DOC
+    { wch: 46.71 }, // BENEFICIARIO
+    { wch: 14.43 }, // MONTO
+    { wch: 4.71 }   // Est
+  ];
+
+  ws['!rows'] = [
+    { hpt: 12.00 }, // Row 1
+    { hpt: 18.75 }, // Row 2
+    { hpt: 12.00 }, // Row 3
+    { hpt: 18.00 }  // Row 4
+  ];
+  for (let r = 4; r < lastDataRowNumber; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 15.00 });
+
+  ws['!merges'] = [
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 13 } }
+  ];
+
+  const borderHair = {
+    top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+  };
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 1) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'E7E6E6' } },
+          font: { name: 'Calibri', sz: 14, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'FFFFFF00' } },
+          font: { name: 'Calibri', sz: 9, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderHair
+        };
+      } else if (r === range.e.r) {
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: c === 11 ? 'center' : 'right', vertical: 'center' },
+          border: {
+            top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+            bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+            left: c === 11 || c === 13 ? { style: 'hair', color: { rgb: 'B0B0B0' } } : undefined,
+            right: c === 12 || c === 13 ? { style: 'hair', color: { rgb: 'B0B0B0' } } : undefined
+          }
+        };
+        if (c === 12) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      } else if (r >= 4) {
+        const cellAlign = c === 11 ? 'left' : c === 12 ? 'right' : 'center';
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: cellAlign, vertical: 'center' },
+          border: borderHair
+        };
+        if (c === 12) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'expedientes');
+  XLSX.writeFile(wb, 'cheques_girados.xlsx');
+}
+
+export interface ViaticoExportRow {
+  expediente: string;
+  giro: number;
+  devolucion: number;
+  rendicion: number;
+  saldo: number;
+}
+
+export function exportViaticos(rows: ViaticoExportRow[]) {
+  const wsData: unknown[][] = [];
+
+  // Row 1: blank
+  wsData.push(Array(5).fill(''));
+
+  // Row 2: Title
+  wsData.push([
+    'EJECUCIÓN DE VIÁTICOS Y ENCARGOS',
+    '', '', '', ''
+  ]);
+
+  // Row 3: blank
+  wsData.push(Array(5).fill(''));
+
+  // Row 4: Headers
+  wsData.push([
+    'EXPEDIENTE',
+    'MONTO GIRO',
+    'MONTO DEVOLUCIÓN',
+    'MONTO RENDICIÓN',
+    'SALDO'
+  ]);
+
+  // Data rows
+  rows.forEach(r => {
+    wsData.push([
+      r.expediente,
+      n(r.giro),
+      n(r.devolucion),
+      n(r.rendicion),
+      n(r.saldo)
+    ]);
+  });
+
+  const lastDataRowNumber = 4 + rows.length;
+
+  // Totals Row
+  const totalRow: unknown[] = Array(5).fill('');
+  totalRow[0] = 'TOTAL GENERAL';
+  totalRow[1] = { f: `SUBTOTAL(9,B5:B${lastDataRowNumber})` };
+  totalRow[2] = { f: `SUBTOTAL(9,C5:C${lastDataRowNumber})` };
+  totalRow[3] = { f: `SUBTOTAL(9,D5:D${lastDataRowNumber})` };
+  totalRow[4] = { f: `SUBTOTAL(9,E5:E${lastDataRowNumber})` };
+  wsData.push(totalRow);
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Layout Widths
+  ws['!cols'] = [
+    { wch: 15.00 }, // EXPEDIENTE
+    { wch: 18.00 }, // MONTO GIRO
+    { wch: 18.00 }, // MONTO DEVOLUCION
+    { wch: 18.00 }, // MONTO RENDICION
+    { wch: 18.00 }  // SALDO
+  ];
+
+  ws['!rows'] = [
+    { hpt: 12.00 }, // Row 1
+    { hpt: 20.00 }, // Row 2
+    { hpt: 12.00 }, // Row 3
+    { hpt: 18.00 }  // Row 4
+  ];
+  for (let r = 4; r < lastDataRowNumber; r++) {
+    ws['!rows'].push({ hpt: 14.40 });
+  }
+  ws['!rows'].push({ hpt: 16.00 });
+
+  ws['!merges'] = [
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 4 } }
+  ];
+
+  const borderHair = {
+    top: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    bottom: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    left: { style: 'hair', color: { rgb: 'B0B0B0' } },
+    right: { style: 'hair', color: { rgb: 'B0B0B0' } }
+  };
+
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  for (let r = range.s.r; r <= range.e.r; r++) {
+    for (let c = range.s.c; c <= range.e.c; c++) {
+      const cellRef = XLSX.utils.encode_cell({c, r});
+      const cell = ws[cellRef];
+      if (!cell) continue;
+
+      if (r === 1) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'E7E6E6' } }, // Silver
+          font: { name: 'Calibri', sz: 12, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' }
+        };
+      } else if (r === 3) {
+        cell.s = {
+          fill: { patternType: 'solid', fgColor: { rgb: 'FFFFFF00' } },
+          font: { name: 'Calibri', sz: 9, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: 'center', vertical: 'center' },
+          border: borderHair
+        };
+      } else if (r === range.e.r) {
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: true, color: { rgb: '000000' } },
+          alignment: { horizontal: c === 0 ? 'center' : 'right', vertical: 'center' },
+          border: borderHair
+        };
+        if (c >= 1) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      } else if (r >= 4) {
+        const cellAlign = c === 0 ? 'center' : 'right';
+        cell.s = {
+          font: { name: 'Calibri', sz: 9, bold: false, color: { rgb: '000000' } },
+          alignment: { horizontal: cellAlign, vertical: 'center' },
+          border: borderHair
+        };
+        if (c >= 1) {
+          cell.t = 'n';
+          cell.z = '#,##0.00';
+        }
+      }
+    }
+  }
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'resumen');
+  XLSX.writeFile(wb, 'viaticos_y_encargos.xlsx');
+}
+
+
