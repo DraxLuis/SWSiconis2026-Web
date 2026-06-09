@@ -1,14 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Inter, JetBrains_Mono } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Sidebar } from '@/components/sidebar';
 import { Topbar } from '@/components/topbar';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', weight: ['400', '500', '600', '700'] });
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -17,14 +13,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isLoginPage) {
     return (
-      <div className={cn('min-h-screen', inter.variable, jetbrainsMono.variable)}>
+      <div className="min-h-screen">
         {children}
       </div>
     );
   }
 
   return (
-    <div className={cn('min-h-screen', inter.variable, jetbrainsMono.variable)}>
+    <div className="min-h-screen">
       {/* Fixed Topbar — always at top */}
       <Topbar />
 

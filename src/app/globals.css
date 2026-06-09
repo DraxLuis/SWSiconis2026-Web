@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 /* ============================================================
    SICONIS 2026 — PREMIUM DESIGN SYSTEM
    Team Libera Sistemas Informáticos
    ============================================================ */
 
 :root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
+
   /* Brand Colors */
   --siconis-red:        #D40000;
   --siconis-red-light:  #FF2020;
