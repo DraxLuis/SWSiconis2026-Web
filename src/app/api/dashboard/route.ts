@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     const gastos = loadTable('presupuesto_ejecucion_gasto');
     const rubros = loadTable('rubro');
@@ -11,7 +12,7 @@ export async function GET() {
     const filtered = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      return (ano === AÑO || ano === '') && (!ejec || ejec === SEC_EJEC);
+      return (ano === activeAño || ano === '') && (!ejec || ejec === SEC_EJEC);
     });
 
     const cards = filtered.reduce<{
@@ -40,7 +41,7 @@ export async function GET() {
     });
 
     const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
       .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
 

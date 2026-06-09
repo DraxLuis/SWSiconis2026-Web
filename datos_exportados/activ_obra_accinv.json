@@ -1,1 +1,511 @@
-{"table": "activ_obra_accinv", "fields": [{"name": "ANO_EJE", "type": "C"}, {"name": "SEC_EJEC", "type": "C"}, {"name": "ACTOBRACIN", "type": "C"}, {"name": "NOMBRE", "type": "M"}, {"name": "_NullFlags", "type": "0"}], "count": 69, "data": [{"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000053", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000075", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000079", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000129", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000140", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000141", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000153", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000166", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000172", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000179", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000182", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000185", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "4000208", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000001", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000002", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000003", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000004", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000006", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000007", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000014", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000448", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000455", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000470", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000500", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000578", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000619", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000631", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000637", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000840", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000936", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000939", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5000991", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001022", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001059", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001062", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001078", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001090", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001228", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001267", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001275", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5001452", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5004156", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5004167", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5004169", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5004420", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5004422", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005047", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005159", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005387", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005564", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005613", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005941", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5005983", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006064", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006157", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006158", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006159", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006160", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006164", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006299", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006300", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006301", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006304", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006330", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006373", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "5006414", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "6000001", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "6000026", "NOMBRE": null, "_NullFlags": "\u0000"}, {"ANO_EJE": "2026", "SEC_EJEC": "301548", "ACTOBRACIN": "6000032", "NOMBRE": null, "_NullFlags": "\u0000"}]}
+{
+  "table": "activ_obra_accinv",
+  "fields": [
+    {
+      "name": "ANO_EJE",
+      "type": "C"
+    },
+    {
+      "name": "SEC_EJEC",
+      "type": "C"
+    },
+    {
+      "name": "ACTOBRACIN",
+      "type": "C"
+    },
+    {
+      "name": "NOMBRE",
+      "type": "M"
+    },
+    {
+      "name": "_NullFlags",
+      "type": "0"
+    }
+  ],
+  "count": 69,
+  "data": [
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000053",
+      "NOMBRE": "MEJORAMIENTO DEL SISTEMA DE AGUA POTABLE",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000075",
+      "NOMBRE": "CONSTRUCCION DE VIA LOCAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000079",
+      "NOMBRE": "MEJORAMIENTO DE CAMINO VECINAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000129",
+      "NOMBRE": "INSTALACION DE INFRAESTRUCTURA DEPORTIVA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000140",
+      "NOMBRE": "RECUPERACION DE INFRAESTRUCTURA CULTURAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000141",
+      "NOMBRE": "RECUPERACION DE INFRAESTRUCTURA DEPORTIVA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000153",
+      "NOMBRE": "AMPLIACION DE INFRAESTRUCTURA CULTURAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000166",
+      "NOMBRE": "MEJORAMIENTO DE INFRAESTRUCTURA DEPORTIVA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000172",
+      "NOMBRE": "MEJORAMIENTO DE MERCADO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000179",
+      "NOMBRE": "CONSTRUCCION DE PUENTES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000182",
+      "NOMBRE": "CONSTRUCCION DEL SISTEMA DE AGUA POTABLE Y DISPOSICION SANITARIA DE EXCRETA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000185",
+      "NOMBRE": "INSTALACION DE LOCAL COMUNAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "4000208",
+      "NOMBRE": "CONSTRUCCION Y MEJORAMIENTO DE CEMENTERIOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000001",
+      "NOMBRE": "PLANEAMIENTO Y PRESUPUESTO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000002",
+      "NOMBRE": "CONDUCCION Y ORIENTACION SUPERIOR",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000003",
+      "NOMBRE": "GESTION ADMINISTRATIVA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000004",
+      "NOMBRE": "ASESORAMIENTO TECNICO Y JURIDICO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000006",
+      "NOMBRE": "ACCIONES DE CONTROL Y AUDITORIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000007",
+      "NOMBRE": "DEFENSA JUDICIAL DEL ESTADO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000014",
+      "NOMBRE": "FAMILIAS CON NIÑO/AS MENORES DE 36 MESES DESARROLLAN PRACTICAS SALUDABLES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000448",
+      "NOMBRE": "APOYO A LAS BENEFICENCIAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000455",
+      "NOMBRE": "APOYO AL CIUDADANO Y A LA FAMILIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000470",
+      "NOMBRE": "APOYO COMUNAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000500",
+      "NOMBRE": "ATENCION BASICA DE SALUD",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000578",
+      "NOMBRE": "CONDUCCION Y MANEJO DE LOS REGISTROS CIVILES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000619",
+      "NOMBRE": "CONTROL SANITARIO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000631",
+      "NOMBRE": "DEFENSA MUNICIPAL AL NIÑO Y AL ADOLESCENTE (DEMUNA)",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000637",
+      "NOMBRE": "DEPORTE FUNDAMENTAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000840",
+      "NOMBRE": "GESTION EDUCATIVA ORIENTADA AL LOGRO DE APRENDIZAJES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000936",
+      "NOMBRE": "MANTENIMIENTO DE INFRAESTRUCTURA PUBLICA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000939",
+      "NOMBRE": "MANTENIMIENTO DE PARQUES Y JARDINES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5000991",
+      "NOMBRE": "OBLIGACIONES PREVISIONALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001022",
+      "NOMBRE": "PLANEAMIENTO URBANO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001059",
+      "NOMBRE": "PROGRAMA DEL VASO DE LECHE",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001062",
+      "NOMBRE": "PROGRAMAS DE COMPLEMENTACION ALIMENTARIA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001078",
+      "NOMBRE": "PROMOCION DEL COMERCIO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001090",
+      "NOMBRE": "PROMOCION E INCENTIVO DE LAS ACTIVIDADES ARTISTICAS Y CULTURALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001228",
+      "NOMBRE": "SUPERVISION Y CONTROL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001267",
+      "NOMBRE": "TRANSFERENCIAS DE RECURSOS A LOS CENTROS POBLADOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001275",
+      "NOMBRE": "TRANSFERENCIAS FINANCIERAS PARA EL MANTENIMIENTO RUTINARIO DE CAMINOS VECINALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5001452",
+      "NOMBRE": "MANTENIMIENTO RUTINARIO DE CAMINOS VECINALES NO PAVIMENTADOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5004156",
+      "NOMBRE": "PATRULLAJE MUNICIPAL POR SECTOR - SERENAZGO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5004167",
+      "NOMBRE": "COMUNIDAD RECIBE ACCIONES DE PREVENCION EN EL MARCO DEL PLAN DE SEGURIDAD CIUDADANA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5004169",
+      "NOMBRE": "PREVENCION, CONTROL Y ERRADICACION DE ENFERMEDADES EN LOS ANIMALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5004420",
+      "NOMBRE": "RECUPERACION DE AREAS FORESTALES DEGRADADAS O ALTERADAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5004422",
+      "NOMBRE": "SENSIBILIZACION A LA POBLACION SOBRE EL USO ADECUADO DE TIERRAS FORESTALES, BOSQUES NATURALES, ECOSISTEMAS FORESTALES, BUEN MANEJO DE LA FAUNA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005047",
+      "NOMBRE": "CONSERVACION Y PUESTA EN VALOR DE LOS RECURSOS TURISTICOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005159",
+      "NOMBRE": "BRINDAR APOYO NUTRICIONAL A LAS PERSONAS AFECTADAS POR TUBERCULOSIS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005387",
+      "NOMBRE": "MEJORAMIENTO Y ATENCION A LAS PERSONAS CON DISCAPACIDAD",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005564",
+      "NOMBRE": "MANTENIMIENTO DE CAUCES, DRENAJES Y ESTRUCTURAS DE SEGURIDAD FISICA FRENTE A PELIGROS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005613",
+      "NOMBRE": "FORTALECIMIENTO DE CAPACIDADES EN EL SECTOR ARTESANAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005941",
+      "NOMBRE": "SEGUIMIENTO Y VERIFICACION DEL CUMPLIMIENTO DE LAS OBLIGACIONES AMBIENTALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5005983",
+      "NOMBRE": "ACCIONES DE LOS MUNICIPIOS QUE PROMUEVEN EL CUIDADO INFANTIL Y LA ADECUADA ALIMENTACION",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006064",
+      "NOMBRE": "ASISTENCIA TECNICA Y CAPACITACION A PRODUCTORES PARA LA ADOPCION DE PAQUETES TECNOLOGICOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006157",
+      "NOMBRE": "EDUCACION Y SENSIBILIZACION A LA POBLACION EN MATERIA DE RESIDUOS SOLIDOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006158",
+      "NOMBRE": "ALMACENAMIENTO, BARRIDO DE CALLES Y LIMPIEZA DE ESPACIOS PUBLICOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006159",
+      "NOMBRE": "RECOLECCION Y TRANSPORTE DE RESIDUOS SOLIDOS MUNICIPALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006160",
+      "NOMBRE": "VALORIZACION DE RESIDUOS SOLIDOS MUNICIPALES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006164",
+      "NOMBRE": "FISCALIZACION DE LA GESTION DE LOS RESIDUOS SOLIDOS DEL AMBITO MUNICIPAL",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006299",
+      "NOMBRE": "POTABILIZACION  Y OTRAS FORMAS DE DESINFECCION Y TRATAMIENTO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006300",
+      "NOMBRE": "OPERACION Y MANTENIMIENTO DE LOS SISTEMAS DE AGUA POTABLE",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006301",
+      "NOMBRE": "OPERACION Y MANTENIMIENTO DE LOS SISTEMAS DE DISPOSICION SANITARIA DE EXCRETAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006304",
+      "NOMBRE": "MONITOREO DE LA PRESTACION DE LOS SERVICIOS DE AGUA POTABLE Y DISPOSICION SANITARIA DE EXCRETAS PARA HOGARES CONCENTRADOS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006330",
+      "NOMBRE": "ATENCION A NIÑAS, NIÑOS Y ADOLESCENTES EN RIESGO A TRAVES DE MEDIDAS DE PROTECCION Y SERVICIOS PARA FORTALECER VINCULOS FAMILIARES",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006373",
+      "NOMBRE": "PROMOCIÓN, IMPLEMENTACIÓN Y EJECUCIÓN DE ACTIVIDADES PARA LA REACTIVACIÓN ECONÓMICA",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "5006414",
+      "NOMBRE": "EMPADRONAMIENTO DE HOGARES PARA SU REGISTRO EN EL PADRÓN GENERAL DE HOGARES (PGH) DEL SISFOH",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "6000001",
+      "NOMBRE": "EXPEDIENTE TECNICO",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "6000026",
+      "NOMBRE": "FORTALECIMIENTO DE CADENAS PRODUCTIVAS",
+      "_NullFlags": "\u0000"
+    },
+    {
+      "ANO_EJE": "2026",
+      "SEC_EJEC": "301548",
+      "ACTOBRACIN": "6000032",
+      "NOMBRE": "ESTUDIOS DE PRE - INVERSION",
+      "_NullFlags": "\u0000"
+    }
+  ]
+}

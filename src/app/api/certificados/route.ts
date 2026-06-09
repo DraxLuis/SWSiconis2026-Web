@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
@@ -24,26 +25,27 @@ export async function GET(request: Request) {
     proveedores.forEach(p => provMap.set(str(p['RUC']), str(p['NOMBRE'])));
 
     const clasifMap = new Map<string, string>();
-    clasificadores.filter(c => str(c['ANO_EJE']) === AÑO)
+    clasificadores.filter(c => str(c['ANO_EJE']) === activeAño)
       .forEach(c => clasifMap.set(str(c['CLASIFIC']), str(c['NOMBRE'])));
 
+    const metaRowMap = new Map<string, Record<string, unknown>>();
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
+      .forEach(m => metaRowMap.set(str(m['SEC_FUNC']), m));
+
     const metaMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
-      .forEach(m => metaMap.set(str(m['SEC_FUNC']), str(m['NOMBRE'])));
+    metaRowMap.forEach((m, sf) => metaMap.set(sf, str(m['NOMBRE'])));
 
     const metaProgramMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
-      .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
+    metaRowMap.forEach((m, sf) => metaProgramMap.set(sf, str(m['PPTO'])));
 
     const metaProyectoMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
-      .forEach(m => metaProyectoMap.set(str(m['SEC_FUNC']), str(m['ACT_PROY'])));
+    metaRowMap.forEach((m, sf) => metaProyectoMap.set(sf, str(m['ACT_PROY'])));
 
     // Filter certificates
     const filtered = certificados.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
       if (filterPrograma) {
@@ -63,6 +65,7 @@ export async function GET(request: Request) {
       const ruc = str(r['PROVEEDOR']);
       const clasif = str(r['CLASIF']);
       const secFunc = str(r['SEC_FUNC']);
+      const metaRow = metaRowMap.get(secFunc);
       return {
         certif: str(r['CERTIF']),
         secuencia: str(r['SECUENCIA']),
@@ -85,13 +88,21 @@ export async function GET(request: Request) {
         tipo_reg: str(r['TIPO_REG']),
         est_env: str(r['EST_ENV']),
         est_reg: str(r['EST_REG']),
+        meta_ppto: metaRow ? str(metaRow['PPTO']) : '',
+        meta_act_proy: metaRow ? str(metaRow['ACT_PROY']) : '',
+        meta_componente: metaRow ? str(metaRow['COMPONENTE']) : '',
+        meta_funcion: metaRow ? str(metaRow['FUNCION']) : '',
+        meta_programa: metaRow ? str(metaRow['PROGRAMA']) : '',
+        meta_subprograma: metaRow ? str(metaRow['SUBPROGRAM']) : '',
+        meta_meta: metaRow ? str(metaRow['META']) : '',
+        meta_finalidad: metaRow ? str(metaRow['FINALIDAD']) : '',
       };
     });
 
     rows.sort((a, b) => b.certif.localeCompare(a.certif));
 
     const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
       .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
 

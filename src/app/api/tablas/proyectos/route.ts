@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +24,7 @@ const PRODUCT_NAMES_FALLBACK: Record<string, string> = {
 };
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     await preloadTables(['meta', 'producto_proyecto']);
     const metas = loadTable('meta');
@@ -43,7 +44,7 @@ export async function GET() {
     });
 
     producto
-      .filter(p => str(p['ANO_EJE']) === AÑO && str(p['SEC_EJEC']) === SEC_EJEC)
+      .filter(p => str(p['ANO_EJE']) === activeAño && str(p['SEC_EJEC']) === SEC_EJEC)
       .forEach(p => {
         const codigo = str(p['ACT_PROY']);
         let nombre = str(p['NOMBRE']);

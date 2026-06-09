@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
     const { searchParams } = new URL(request.url);
     const codigo = searchParams.get('codigo') || '';
@@ -37,7 +38,7 @@ export async function GET(request: Request) {
 
     // Find metas of the project
     const projectMetas = metas.filter(m => 
-      str(m['ANO_EJE']) === AÑO && 
+      str(m['ANO_EJE']) === activeAño && 
       str(m['SEC_EJEC']) === SEC_EJEC && 
       str(m['ACT_PROY']) === codigo
     );
@@ -58,12 +59,12 @@ export async function GET(request: Request) {
     const grupoCode = str(firstMeta['subprograma']);  // GRUPO_FN corresponds to 'subprograma' column in meta
 
     // Lookups
-    const projectName = productoTable.find(p => str(p['ANO_EJE']) === AÑO && str(p['ACT_PROY']) === codigo)?.['NOMBRE'] || 'PROYECTO DE INVERSION';
-    const programName = progNamesTable.find(p => str(p['ANO_EJE']) === AÑO && str(p['PROGPPTO']) === pptoCode)?.['NOMBRE'] || 'SIN PROGRAMA PPTAL';
-    const obraName = actObraTable.find(o => str(o['ANO_EJE']) === AÑO && str(o['ACTOBRACIN']) === componenteCode)?.['NOMBRE'] || 'SIN DETALLE DE OBRA';
-    const funcionName = funcionTable.find(f => str(f['ANO_EJE']) === AÑO && str(f['FUNCION']) === funcionCode)?.['NOMBRE'] || 'SIN DETALLE DE FUNCION';
-    const divisionName = divisionTable.find(d => str(d['ANO_EJE']) === AÑO && str(d['DIVISION_FN']) === divisionCode)?.['NOMBRE'] || 'SIN DIV. FUNCIONAL';
-    const grupoName = grupoTable.find(g => str(g['ANO_EJE']) === AÑO && str(g['GRUPO_FN']) === grupoCode)?.['NOMBRE'] || 'SIN GRUPO FUNCIONAL';
+    const projectName = productoTable.find(p => str(p['ANO_EJE']) === activeAño && str(p['ACT_PROY']) === codigo)?.['NOMBRE'] || 'PROYECTO DE INVERSION';
+    const programName = progNamesTable.find(p => str(p['ANO_EJE']) === activeAño && str(p['PROGPPTO']) === pptoCode)?.['NOMBRE'] || 'SIN PROGRAMA PPTAL';
+    const obraName = actObraTable.find(o => str(o['ANO_EJE']) === activeAño && str(o['ACTOBRACIN']) === componenteCode)?.['NOMBRE'] || 'SIN DETALLE DE OBRA';
+    const funcionName = funcionTable.find(f => str(f['ANO_EJE']) === activeAño && str(f['FUNCION']) === funcionCode)?.['NOMBRE'] || 'SIN DETALLE DE FUNCION';
+    const divisionName = divisionTable.find(d => str(d['ANO_EJE']) === activeAño && str(d['DIVISION_FN']) === divisionCode)?.['NOMBRE'] || 'SIN DIV. FUNCIONAL';
+    const grupoName = grupoTable.find(g => str(g['ANO_EJE']) === activeAño && str(g['GRUPO_FN']) === grupoCode)?.['NOMBRE'] || 'SIN GRUPO FUNCIONAL';
 
     // Group execution by classifier
     const grouped = new Map<string, {
@@ -77,14 +78,14 @@ export async function GET(request: Request) {
     }>();
 
     const clasifNames = new Map<string, string>();
-    clasificadorTable.filter(c => str(c['ANO_EJE']) === AÑO)
+    clasificadorTable.filter(c => str(c['ANO_EJE']) === activeAño)
       .forEach(c => clasifNames.set(str(c['CLASIFIC']), str(c['NOMBRE'])));
 
     // Filter and group gastos
     const projectGastos = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       return secFuncList.includes(str(r['SEC_FUNC']));
     });

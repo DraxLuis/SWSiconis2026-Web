@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
+    await preloadTables(['meta', 'producto_proyecto', 'activ_obra_accinv', 'rubro']);
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
     const onlyProjects = searchParams.get('onlyProjects') === 'true';
@@ -17,9 +19,9 @@ export async function GET(request: Request) {
 
     // Build ACT_PROY name map
     const nombreMap = new Map<string, string>();
-    producto.filter(p => str(p['ANO_EJE']) === AÑO && str(p['SEC_EJEC']) === SEC_EJEC)
+    producto.filter(p => str(p['ANO_EJE']) === activeAño && str(p['SEC_EJEC']) === SEC_EJEC)
       .forEach(p => nombreMap.set(str(p['ACT_PROY']), str(p['NOMBRE'])));
-    actObra.filter(a => str(a['ANO_EJE']) === AÑO && str(a['SEC_EJEC']) === SEC_EJEC)
+    actObra.filter(a => str(a['ANO_EJE']) === activeAño && str(a['SEC_EJEC']) === SEC_EJEC)
       .forEach(a => {
         const key = str(a['ACTOBRACIN']);
         if (!nombreMap.has(key)) nombreMap.set(key, str(a['NOMBRE']));
@@ -27,14 +29,14 @@ export async function GET(request: Request) {
 
     // Map SEC_FUNC → ACT_PROY from meta
     const metaActProyMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaActProyMap.set(str(m['SEC_FUNC']), str(m['ACT_PROY'])));
 
     // Filter gastos
     const filtered = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
       return true;
@@ -83,7 +85,7 @@ export async function GET(request: Request) {
     }
 
     // Count metas per act_proy
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => {
         const ap = str(m['ACT_PROY']);
         if (grouped.has(ap)) {
@@ -99,7 +101,7 @@ export async function GET(request: Request) {
     }
 
     const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
       .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
 

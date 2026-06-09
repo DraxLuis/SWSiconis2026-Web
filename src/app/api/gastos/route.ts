@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
@@ -19,22 +20,22 @@ export async function GET(request: Request) {
     const metas = loadTable('meta');
 
     const clasifMap = new Map<string, string>();
-    clasifTable.filter(c => str(c['ANO_EJE']) === AÑO)
+    clasifTable.filter(c => str(c['ANO_EJE']) === activeAño)
       .forEach(c => clasifMap.set(str(c['CLASIFIC']), str(c['NOMBRE'])));
 
     const rubroMap = new Map<string, string>();
-    rubros.filter(r => str(r['ANO_EJE']) === AÑO)
+    rubros.filter(r => str(r['ANO_EJE']) === activeAño)
       .forEach(r => rubroMap.set(str(r['FUENTE_FIN']), str(r['NOMBRE'])));
 
     const metaProgramMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
 
     // Gasto rows
     const gastoFiltered = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
       if (filterPrograma) {
@@ -75,7 +76,7 @@ export async function GET(request: Request) {
     rows.sort((a, b) => a.rubro.localeCompare(b.rubro) || a.clasificador.localeCompare(b.clasificador));
 
     const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
       .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
 

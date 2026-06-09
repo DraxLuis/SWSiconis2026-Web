@@ -8,10 +8,35 @@ export function Topbar() {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
+  const [activeYear, setActiveYear] = useState('2026');
+  const [activeUser, setActiveUser] = useState('ADMINISTRADOR');
+  const [dbMode, setDbMode] = useState('SQL Server');
 
   useEffect(() => {
     setNow(new Date());
     const timer = setInterval(() => setNow(new Date()), 1000);
+
+    // Read cookies
+    const matchYear = document.cookie.match(/(?:^|; )siconis_year=([^;]*)/);
+    if (matchYear) {
+      setActiveYear(matchYear[1]);
+    }
+    
+    const matchUser = document.cookie.match(/(?:^|; )siconis_session=([^;]*)/);
+    if (matchUser) {
+      setActiveUser(decodeURIComponent(matchUser[1]));
+    }
+
+    // Fetch dbMode dynamically
+    fetch('/api/utilitarios/ruta-siaf')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.dbMode) {
+          setDbMode(data.dbMode);
+        }
+      })
+      .catch(() => {});
+
     return () => clearInterval(timer);
   }, []);
 
@@ -39,7 +64,7 @@ export function Topbar() {
               <h1 className="text-base md:text-[17px] font-black tracking-widest text-white leading-none">
                 SICONIS
               </h1>
-              <span className="text-xs md:text-sm font-black text-[#FF3B30]">2026</span>
+              <span className="text-xs md:text-sm font-black text-[#FF3B30]">{activeYear}</span>
             </div>
             <p className="text-[11px] text-[#5F7A9F] font-extrabold tracking-widest uppercase mt-1.5 leading-none">
               Consultas SIAF®
@@ -67,7 +92,7 @@ export function Topbar() {
           AÑO FISCAL
         </span>
         <span className="text-sm font-black px-3 py-1.5 rounded-lg bg-[#D40000]/12 border border-[#D40000]/30 text-[#FF453A] font-mono leading-none">
-          2026
+          {activeYear}
         </span>
       </div>
 
@@ -98,8 +123,8 @@ export function Topbar() {
               <User className="h-4.5 w-4.5 text-white" />
             </div>
             <div className="hidden md:block text-left">
-              <p className="text-[12px] font-black text-white leading-tight tracking-wider">ADMINISTRADOR</p>
-              <p className="text-[10.5px] text-[#5F7A9F] font-extrabold tracking-widest uppercase leading-none mt-1.5">SQL Server</p>
+              <p className="text-[12px] font-black text-white leading-tight tracking-wider">{activeUser}</p>
+              <p className="text-[10.5px] text-[#5F7A9F] font-extrabold tracking-widest uppercase leading-none mt-1.5">{dbMode}</p>
             </div>
             <ChevronDown className="h-4.5 w-4.5 text-[#5F7A9F] group-hover:text-slate-300 transition-colors hidden md:block" />
           </button>
@@ -114,7 +139,7 @@ export function Topbar() {
               <div className="absolute right-0 mt-2 w-48 rounded-xl bg-[#061526] border border-white/[0.08] shadow-2xl z-50 py-1.5 animate-scale-in">
                 <div className="px-3 py-2 border-b border-white/[0.06]">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SESIÓN ACTIVA</p>
-                  <p className="text-xs font-semibold text-white mt-0.5">Administrador</p>
+                  <p className="text-xs font-semibold text-white mt-0.5">{activeUser}</p>
                 </div>
                 <button 
                   onClick={() => {

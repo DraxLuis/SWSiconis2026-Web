@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, str, num, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, str, num, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +24,7 @@ const PRODUCT_NAMES_FALLBACK: Record<string, string> = {
 };
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     // Preload all catalogs to enrich metas
     await preloadTables([
@@ -84,7 +85,7 @@ export async function GET() {
     dists.forEach(d => distMap.set(`${str(d['DEPARTAMENTO'])}-${str(d['PROVINCIA'])}-${str(d['CODIGO'])}`, str(d['NOMBRE'])));
 
     const filtered = metas
-      .filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+      .filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .map(m => {
         const ppto = str(m['PPTO']);
         const actProy = str(m['ACT_PROY']);

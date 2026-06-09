@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
-import { loadTable, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
+    await preloadTables(['meta', 'producto_proyecto', 'activ_obra_accinv', 'rubro', 'finalidad']);
     const { searchParams } = new URL(request.url);
     const filterRubro = searchParams.get('rubro') || '';
     const filterFuncion = searchParams.get('funcion') || '';
@@ -21,7 +23,7 @@ export async function GET(request: Request) {
     const gastosFiltered = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterRubro && str(r['RUBRO']) !== filterRubro) return false;
       return true;
@@ -29,17 +31,17 @@ export async function GET(request: Request) {
 
     // Build lookup maps
     const metaMap = new Map<string, Record<string, unknown>>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => {
         metaMap.set(str(m['SEC_FUNC']), m);
       });
 
     const productoMap = new Map<string, string>();
-    producto.filter(p => str(p['ANO_EJE']) === AÑO && str(p['SEC_EJEC']) === SEC_EJEC)
+    producto.filter(p => str(p['ANO_EJE']) === activeAño && str(p['SEC_EJEC']) === SEC_EJEC)
       .forEach(p => productoMap.set(str(p['ACT_PROY']), str(p['NOMBRE'])));
 
     // Also add from activ_obra_accinv
-    actObraAcin.filter(a => str(a['ANO_EJE']) === AÑO && str(a['SEC_EJEC']) === SEC_EJEC)
+    actObraAcin.filter(a => str(a['ANO_EJE']) === activeAño && str(a['SEC_EJEC']) === SEC_EJEC)
       .forEach(a => {
         const key = str(a['ACTOBRACIN']);
         if (!productoMap.has(key)) productoMap.set(key, str(a['NOMBRE']));
@@ -125,7 +127,7 @@ export async function GET(request: Request) {
 
     // Distinct rubros for filter
     const rubrosList = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
       .filter((r, i, arr) => arr.findIndex(x => x.codigo === r.codigo) === i);
 

@@ -1,7 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FileSpreadsheet, Loader2, HelpCircle, Calendar } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import {
+  FileSpreadsheet,
+  Loader2,
+  HelpCircle,
+  Calendar,
+  Search,
+  X,
+  ListChecks,
+  FileCheck,
+  TrendingDown,
+  Building2,
+  AlertTriangle
+} from 'lucide-react';
 import {
   exportEjecucionPPTO,
   exportEjecucionMetas,
@@ -24,27 +37,67 @@ import {
 interface ReportBtn {
   id: string;
   label: string;
-  col: 'left' | 'right';
+  category: 'ejecucion' | 'certificaciones' | 'devengados_giros' | 'inversion';
   description: string;
 }
 
 const BUTTONS: ReportBtn[] = [
-  // LEFT COLUMN
-  { id: 'ejecucion_metas',             label: 'Ejecucion-metas',             col: 'left',  description: 'Ejecución presupuestal agrupada por meta' },
-  { id: 'certificado',                 label: 'Certificado',                 col: 'left',  description: 'Detalle de movimientos de certificaciones' },
-  { id: 'data_certificados',           label: 'Data  certificados',          col: 'left',  description: 'Data completa de certificaciones y compromisos' },
-  { id: 'data_devengados',             label: 'Data  Devengados',            col: 'left',  description: 'Detalle de registros devengados' },
-  { id: 'data_girados',                label: 'Data  Girados',               col: 'left',  description: 'Detalle de registros girados (cheques)' },
-  { id: 'ejecucion_activ_obra_accinv', label: 'Ejecucion_activ_obra_accinv', col: 'left',  description: 'Ejecución por actividad/obra/acción de inversión' },
-  { id: 'ejecucion_actproy',           label: 'Ejecucion_actproy',           col: 'left',  description: 'Ejecución presupuestal por actividad/proyecto' },
-  { id: 'ejecucion_ppto',              label: 'Ejecucion_PPTO',              col: 'left',  description: 'Ejecución presupuestal por programa presupuestal' },
-  // RIGHT COLUMN
-  { id: 'ejecucion_metas_clasificador',label: 'Ejecucion_metas_clasificador',col: 'right', description: 'Ejecución por meta y clasificador de gasto' },
-  { id: 'ejecucion_ppto_meta',         label: 'Ejecucion_ppto_meta',         col: 'right', description: 'Ejecución por programa presupuestal y meta' },
-  { id: 'meta_certificados',           label: 'Meta_certificados',           col: 'right', description: 'Certificaciones agrupadas por meta' },
-  { id: 'meta_devengados',             label: 'Meta_devengados',             col: 'right', description: 'Devengados agrupados por meta' },
-  { id: 'programa_accion_inversion',   label: 'Programa_accion_inversion',   col: 'right', description: 'Resumen de proyectos de inversión' },
-  { id: 'programa_devengados',         label: 'Pograma_devengados',          col: 'right', description: 'Detalle de devengados por programa presupuestal' },
+  // Ejecución Presupuestal
+  { id: 'ejecucion_ppto',              label: 'Ejecucion_PPTO',              category: 'ejecucion',  description: 'Ejecución presupuestal por programa presupuestal' },
+  { id: 'ejecucion_metas',             label: 'Ejecucion-metas',             category: 'ejecucion',  description: 'Ejecución presupuestal agrupada por meta' },
+  { id: 'ejecucion_metas_clasificador',label: 'Ejecucion_metas_clasificador',category: 'ejecucion',  description: 'Ejecución por meta y clasificador de gasto' },
+  { id: 'ejecucion_actproy',           label: 'Ejecucion_actproy',           category: 'ejecucion',  description: 'Ejecución presupuestal por actividad/proyecto' },
+  { id: 'ejecucion_activ_obra_accinv', label: 'Ejecucion_activ_obra_accinv', category: 'ejecucion',  description: 'Ejecución por actividad/obra/acción de inversión' },
+  { id: 'ejecucion_ppto_meta',         label: 'Ejecucion_ppto_meta',         category: 'ejecucion',  description: 'Ejecución por programa presupuestal y meta' },
+
+  // Certificaciones
+  { id: 'certificado',                 label: 'Certificado',                 category: 'certificaciones',  description: 'Detalle de movimientos de certificaciones' },
+  { id: 'data_certificados',           label: 'Data  certificados',          category: 'certificaciones',  description: 'Data completa de certificaciones y compromisos' },
+  { id: 'meta_certificados',           label: 'Meta_certificados',           category: 'certificaciones',  description: 'Certificaciones agrupadas por meta' },
+
+  // Devengados y Giros
+  { id: 'data_devengados',             label: 'Data  Devengados',            category: 'devengados_giros',  description: 'Detalle de registros devengados' },
+  { id: 'meta_devengados',             label: 'Meta_devengados',             category: 'devengados_giros',  description: 'Devengados agrupados por meta' },
+  { id: 'programa_devengados',         label: 'Pograma_devengados',          category: 'devengados_giros',  description: 'Detalle de devengados por programa presupuestal' },
+  { id: 'data_girados',                label: 'Data  Girados',               category: 'devengados_giros',  description: 'Detalle de registros girados (cheques)' },
+
+  // Inversión / Proyectos
+  { id: 'programa_accion_inversion',   label: 'Programa_accion_inversion',   category: 'inversion', description: 'Resumen de proyectos de inversión' },
+];
+
+const SECTIONS = [
+  {
+    key: 'ejecucion',
+    title: 'Ejecución Presupuestal',
+    icon: ListChecks,
+    colorClass: 'text-amber-400',
+    borderColor: 'border-amber-950/40',
+    bgColor: 'bg-amber-950/10'
+  },
+  {
+    key: 'certificaciones',
+    title: 'Certificaciones',
+    icon: FileCheck,
+    colorClass: 'text-[#3b82f6]',
+    borderColor: 'border-blue-950/40',
+    bgColor: 'bg-blue-950/10'
+  },
+  {
+    key: 'devengados_giros',
+    title: 'Devengados y Giros',
+    icon: TrendingDown,
+    colorClass: 'text-emerald-400',
+    borderColor: 'border-emerald-950/40',
+    bgColor: 'bg-emerald-950/10'
+  },
+  {
+    key: 'inversion',
+    title: 'Inversión y Proyectos',
+    icon: Building2,
+    colorClass: 'text-purple-400',
+    borderColor: 'border-purple-950/40',
+    bgColor: 'bg-purple-950/10'
+  }
 ];
 
 // ─── helpers ────────────────────────────────────────────────────────────
@@ -93,8 +146,6 @@ function mapCertificado(r: Record<string, unknown>): CertificadoRow {
   };
 }
 
-
-
 // ─── Page ───────────────────────────────────────────────────────────────
 export default function ReportesPage() {
   const [selectedYear, setSelectedYear] = useState<string>('2026');
@@ -102,6 +153,7 @@ export default function ReportesPage() {
   const [lastExported, setLastExported] = useState<string | null>(null);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [loadingCounts, setLoadingCounts] = useState<boolean>(false);
+  const [search, setSearch] = useState('');
 
   // Fetch counts on mount and when year changes
   useEffect(() => {
@@ -215,8 +267,20 @@ export default function ReportesPage() {
     }
   }
 
-  const leftBtns  = BUTTONS.filter(b => b.col === 'left');
-  const rightBtns = BUTTONS.filter(b => b.col === 'right');
+  // Filter & group buttons
+  const filteredButtons = BUTTONS.filter(btn => {
+    if (!search) return true;
+    const q = search.toLowerCase();
+    return (
+      btn.label.toLowerCase().includes(q) ||
+      btn.description.toLowerCase().includes(q)
+    );
+  });
+
+  const sectionsToRender = SECTIONS.map(sec => {
+    const items = filteredButtons.filter(b => b.category === sec.key);
+    return { ...sec, items };
+  }).filter(sec => sec.items.length > 0);
 
   return (
     <div className="w-full animate-in fade-in duration-500">
@@ -233,8 +297,8 @@ export default function ReportesPage() {
           </span>
         </div>
 
-        {/* Period Selector Panel */}
-        <div className="bg-[#0c1938]/40 border-b border-slate-800/70 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        {/* Period Selector Panel & Search Input */}
+        <div className="bg-[#0c1938]/40 border-b border-slate-800/70 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Calendar className="h-5 w-5 text-emerald-400" />
             <div>
@@ -242,16 +306,40 @@ export default function ReportesPage() {
               <p className="text-xs text-slate-400">Seleccione el año de los registros a exportar</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 bg-[#050b14] border border-slate-700 rounded-lg px-3 py-1.5 focus-within:border-emerald-500/50 transition-all">
-            <span className="text-xs font-semibold text-slate-400 uppercase">Período:</span>
-            <select
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className="bg-transparent border-0 text-slate-200 focus:ring-0 text-sm font-bold cursor-pointer pr-8 py-0 focus:outline-none"
-            >
-              <option value="2026" className="bg-[#070e1b] text-slate-200">2026 (Año Actual)</option>
-              <option value="2025" className="bg-[#070e1b] text-slate-200">2025 (Año Anterior)</option>
-            </select>
+          
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            {/* Year Selector */}
+            <div className="flex items-center gap-2 bg-[#050b14] border border-slate-700 rounded-lg px-3 py-1.5 focus-within:border-emerald-500/50 transition-all">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Período:</span>
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className="bg-transparent border-0 text-slate-200 focus:ring-0 text-xs font-bold cursor-pointer pr-8 py-0 focus:outline-none font-mono"
+              >
+                <option value="2026" className="bg-[#070e1b] text-slate-200">2026 (Año Actual)</option>
+                <option value="2025" className="bg-[#070e1b] text-slate-200">2025 (Año Anterior)</option>
+              </select>
+            </div>
+
+            {/* Search Input Bar */}
+            <div className="relative flex-1 sm:w-64 select-text">
+              <input
+                type="text"
+                placeholder="Buscar reportes..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full text-xs bg-[#050b14] border border-slate-700 rounded-lg pl-9 pr-8 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-all font-mono"
+              />
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-500 pointer-events-none" />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute right-2.5 top-2.5 text-slate-500 hover:text-white"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -269,7 +357,7 @@ export default function ReportesPage() {
         </div>
 
         {/* Content Area */}
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-6">
 
           {/* Info Banner */}
           <div className="flex items-start gap-2 p-3.5 rounded-lg bg-blue-950/30 border border-blue-900/30 text-xs text-blue-300">
@@ -279,85 +367,76 @@ export default function ReportesPage() {
             </p>
           </div>
 
-          {/* Button Grid — 2 columns like VFP original */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Left column */}
-            <div className="flex flex-col gap-2.5">
-              {leftBtns.map(btn => {
-                const countVal = counts[btn.id];
-                return (
-                  <button
-                    key={btn.id}
-                    onClick={() => handleExport(btn)}
-                    disabled={loadingId !== null}
-                    title={btn.description}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-800 bg-[#0c1938]/60 hover:bg-[#112240] hover:border-emerald-600/50 text-slate-200 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-[13px] font-medium text-left group shadow-sm hover:shadow-emerald-950/20"
-                  >
-                    {loadingId === btn.id ? (
-                      <Loader2 className="h-4.5 w-4.5 animate-spin text-emerald-400 flex-shrink-0" />
-                    ) : (
-                      <FileSpreadsheet className="h-4.5 w-4.5 text-emerald-500 group-hover:text-emerald-400 flex-shrink-0 transition-transform group-hover:scale-110" />
-                    )}
-                    <span className="flex-1 truncate font-semibold">{btn.label}</span>
-                    
-                    {loadingId === btn.id ? (
-                      <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-800">
-                        Generando...
-                      </span>
-                    ) : (
-                      <span className="text-[10px] text-slate-400 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-slate-800 font-bold group-hover:border-emerald-900/50 group-hover:text-emerald-400 transition-colors">
-                        {loadingCounts ? (
-                          <Loader2 className="h-3 w-3 animate-spin inline text-slate-500" />
-                        ) : countVal !== undefined ? (
-                          `${countVal.toLocaleString()} reg`
-                        ) : (
-                          '0 reg'
-                        )}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+          {/* Sections List */}
+          <div className="space-y-6">
+            {sectionsToRender.map(sec => {
+              const SecIcon = sec.icon;
+              return (
+                <div key={sec.key} className={cn("rounded-xl border bg-slate-950/20 overflow-hidden shadow-sm", sec.borderColor)}>
+                  {/* Section Header */}
+                  <div className={cn("px-4 py-2 border-b font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-2 select-none", sec.borderColor, sec.colorClass, sec.bgColor)}>
+                    <SecIcon className="h-4 w-4" />
+                    <span>{sec.title}</span>
+                    <span className="ml-auto text-[10px] bg-slate-900/60 border border-white/5 text-slate-400 px-2 py-0.5 rounded-full font-mono">
+                      {sec.items.length} {sec.items.length === 1 ? 'reporte' : 'reportes'}
+                    </span>
+                  </div>
 
-            {/* Right column */}
-            <div className="flex flex-col gap-2.5">
-              {rightBtns.map(btn => {
-                const countVal = counts[btn.id];
-                return (
-                  <button
-                    key={btn.id}
-                    onClick={() => handleExport(btn)}
-                    disabled={loadingId !== null}
-                    title={btn.description}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-800 bg-[#0c1938]/60 hover:bg-[#112240] hover:border-emerald-600/50 text-slate-200 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-[13px] font-medium text-left group shadow-sm hover:shadow-emerald-950/20"
-                  >
-                    {loadingId === btn.id ? (
-                      <Loader2 className="h-4.5 w-4.5 animate-spin text-emerald-400 flex-shrink-0" />
-                    ) : (
-                      <FileSpreadsheet className="h-4.5 w-4.5 text-emerald-500 group-hover:text-emerald-400 flex-shrink-0 transition-transform group-hover:scale-110" />
-                    )}
-                    <span className="flex-1 truncate font-semibold">{btn.label}</span>
-                    
-                    {loadingId === btn.id ? (
-                      <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-800">
-                        Generando...
-                      </span>
-                    ) : (
-                      <span className="text-[10px] text-slate-400 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-slate-800 font-bold group-hover:border-emerald-900/50 group-hover:text-emerald-400 transition-colors">
-                        {loadingCounts ? (
-                          <Loader2 className="h-3 w-3 animate-spin inline text-slate-500" />
-                        ) : countVal !== undefined ? (
-                          `${countVal.toLocaleString()} reg`
-                        ) : (
-                          '0 reg'
-                        )}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                  {/* Section Grid */}
+                  <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    {sec.items.map(btn => {
+                      const countVal = counts[btn.id];
+                      return (
+                        <button
+                          key={btn.id}
+                          onClick={() => handleExport(btn)}
+                          disabled={loadingId !== null}
+                          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-800/80 bg-[#0c1938]/60 hover:bg-[#112240] hover:border-emerald-600/50 text-slate-200 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group shadow-sm hover:shadow-emerald-950/20 text-left"
+                        >
+                          {loadingId === btn.id ? (
+                            <Loader2 className="h-4.5 w-4.5 animate-spin text-emerald-400 flex-shrink-0" />
+                          ) : (
+                            <FileSpreadsheet className="h-4.5 w-4.5 text-emerald-500 group-hover:text-emerald-400 flex-shrink-0 transition-transform group-hover:scale-110" />
+                          )}
+                          
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-slate-200 group-hover:text-white truncate text-[12.5px] leading-tight font-mono">
+                              {btn.label}
+                            </p>
+                            <p className="text-[10.5px] text-slate-400 group-hover:text-slate-300 truncate font-semibold mt-0.5">
+                              {btn.description}
+                            </p>
+                          </div>
+                          
+                          {loadingId === btn.id ? (
+                            <span className="text-[9px] text-emerald-400 font-bold bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-800 flex-shrink-0 font-mono">
+                              Generando...
+                            </span>
+                          ) : (
+                            <span className="text-[9px] text-slate-400 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-slate-800 font-bold group-hover:border-emerald-900/50 group-hover:text-emerald-400 transition-colors flex-shrink-0 font-mono">
+                              {loadingCounts ? (
+                                <Loader2 className="h-2.5 w-2.5 animate-spin inline text-slate-500" />
+                              ) : countVal !== undefined ? (
+                                `${countVal.toLocaleString()} reg`
+                              ) : (
+                                '0 reg'
+                              )}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+
+            {sectionsToRender.length === 0 && (
+              <div className="py-16 text-center text-slate-500 border border-dashed border-slate-800 rounded-xl">
+                <AlertTriangle className="h-8 w-8 text-slate-600 mx-auto mb-2" />
+                <span className="font-bold text-sm">No se encontraron reportes que coincidan con la búsqueda.</span>
+              </div>
+            )}
           </div>
 
           {/* Footer note */}

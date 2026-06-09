@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     // Preload tables from SQL Server
     await preloadTables(['meta', 'programa_pptal', 'presupuesto_ejecucion_gasto']);
@@ -14,7 +15,7 @@ export async function GET() {
 
     // Map SEC_FUNC -> PPTO (Program Code)
     const metaMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => {
         const sf = str(m['SEC_FUNC']);
         const ppto = str(m['PPTO']);
@@ -25,7 +26,7 @@ export async function GET() {
 
     // Map Program Code -> Program Name
     const progNames = new Map<string, string>();
-    progNamesTable.filter(p => str(p['ANO_EJE']) === AÑO)
+    progNamesTable.filter(p => str(p['ANO_EJE']) === activeAño)
       .forEach(p => {
         const code = str(p['PROGPPTO']);
         const name = str(p['NOMBRE']);
@@ -50,7 +51,7 @@ export async function GET() {
     const filteredGastos = gastos.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       return true;
     });

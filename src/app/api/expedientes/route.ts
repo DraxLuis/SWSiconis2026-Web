@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +34,7 @@ interface ExpedienteEnriched {
 }
 
 export async function GET(request: Request) {
+    const activeAño = getAño();
   try {
     const { searchParams } = new URL(request.url);
     const filterFase = searchParams.get('fase') || '';
@@ -74,26 +75,26 @@ export async function GET(request: Request) {
     });
 
     const clasifMap = new Map<string, string>();
-    clasificadores.filter(c => str(c['ANO_EJE']) === AÑO)
+    clasificadores.filter(c => str(c['ANO_EJE']) === activeAño)
       .forEach(c => clasifMap.set(str(c['CLASIFIC']), str(c['NOMBRE'])));
 
     const metaMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaMap.set(str(m['SEC_FUNC']), str(m['NOMBRE'])));
 
     const metaProgramMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaProgramMap.set(str(m['SEC_FUNC']), str(m['PPTO'])));
 
     const metaProyectoMap = new Map<string, string>();
-    metas.filter(m => str(m['ANO_EJE']) === AÑO && str(m['SEC_EJEC']) === SEC_EJEC)
+    metas.filter(m => str(m['ANO_EJE']) === activeAño && str(m['SEC_EJEC']) === SEC_EJEC)
       .forEach(m => metaProyectoMap.set(str(m['SEC_FUNC']), str(m['ACT_PROY'])));
 
     // Filter expedientes
     const rows = expedientes.filter(r => {
       const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
       const ejec = str(r['SEC_EJEC']);
-      if (ano !== AÑO && ano !== '') return false;
+      if (ano !== activeAño && ano !== '') return false;
       if (ejec && ejec !== SEC_EJEC) return false;
       if (filterFase && str(r['FASE']) !== filterFase) return false;
       if (filterMes && str(r['MES_EJE']) !== filterMes) return false;

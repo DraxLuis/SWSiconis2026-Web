@@ -22,18 +22,35 @@ export default function LoginPage() {
   const [clave, setClave] = useState('');
   const [conexion, setConexion] = useState('produccion');
   const [rememberMe, setRememberMe] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg('');
 
-    setTimeout(() => {
-      const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
-      document.cookie = `siconis_session=${encodeURIComponent(usuario)}; path=/; max-age=${maxAge}; SameSite=Lax`;
-      
-      // Redirección forzada de página para limpiar la caché del router del cliente de Next.js
-      window.location.href = '/';
-    }, 1000);
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, clave })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
+        document.cookie = `siconis_session=${encodeURIComponent(usuario)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+        
+        // Redirección forzada de página para limpiar la caché del router del cliente de Next.js
+        window.location.href = '/';
+      } else {
+        setErrorMsg(data.message || 'Credenciales inválidas');
+      }
+    } catch {
+      setErrorMsg('Error de conexión con el servidor');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -293,6 +310,11 @@ export default function LoginPage() {
               </div>
 
               <form onSubmit={handleLogin} className="space-y-4">
+                {errorMsg && (
+                  <div className="p-2.5 rounded bg-red-950/45 border border-red-800 text-[11px] text-red-400 font-semibold font-mono">
+                    {errorMsg}
+                  </div>
+                )}
                 
                 {/* Selector de Servidor */}
                 <div className="space-y-1">

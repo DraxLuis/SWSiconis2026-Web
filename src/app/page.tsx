@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
-import { loadTable, preloadTables, num, str, AÑO, SEC_EJEC } from '@/lib/db';
+import { loadTable, preloadTables, num, str, getAño, SEC_EJEC } from '@/lib/db';
 import { DashboardClient } from '@/components/dashboard-client';
 
 // ── Data fetching (server-side) ─────────────────────────────
 async function getDashboardData(rubro?: string, clasificador?: string) {
+  const activeAño = getAño();
   // Precargar las tablas desde SQL Server si la BD está configurada
   await preloadTables(['presupuesto_ejecucion_gasto', 'rubro']);
 
@@ -13,7 +14,7 @@ async function getDashboardData(rubro?: string, clasificador?: string) {
   const filtered = gastos.filter((r) => {
     const ano = str(r['ANO_EJE'] ?? r['ANO_PROC']);
     const ejec = str(r['SEC_EJEC']);
-    if ((ano !== AÑO && ano !== '') || (ejec && ejec !== SEC_EJEC)) return false;
+    if ((ano !== activeAño && ano !== '') || (ejec && ejec !== SEC_EJEC)) return false;
     if (rubro) {
       const fuente = str(r['FUENTE_FIN']);
       if (fuente !== rubro) return false;
@@ -53,7 +54,7 @@ async function getDashboardData(rubro?: string, clasificador?: string) {
   });
 
   const rubros = rubrosTable
-    .filter((r) => str(r['ANO_EJE']) === AÑO)
+    .filter((r) => str(r['ANO_EJE']) === activeAño)
     .map((r) => ({ codigo: str(r['FUENTE_FIN']), nombre: str(r['NOMBRE']) }))
     .filter((r, i, arr) => arr.findIndex((x) => x.codigo === r.codigo) === i);
 

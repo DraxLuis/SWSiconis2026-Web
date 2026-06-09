@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, str, AÑO } from '@/lib/db';
+import { loadTable, preloadTables, str, getAño } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     await preloadTables(['rubro']);
     const rubros = loadTable('rubro');
     const filtered = rubros
-      .filter(r => str(r['ANO_EJE']) === AÑO)
+      .filter(r => str(r['ANO_EJE']) === activeAño)
       .map(r => ({
         fuente_fin: str(r['FUENTE_FIN']),
         nombre: str(r['NOMBRE'])

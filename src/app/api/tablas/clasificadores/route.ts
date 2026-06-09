@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
-import { loadTable, preloadTables, str, AÑO } from '@/lib/db';
+import { loadTable, preloadTables, str, getAño } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const activeAño = getAño();
   try {
     await preloadTables(['clasificador']);
     const clasificadores = loadTable('clasificador');
     
     const filtered = clasificadores
-      .filter(c => str(c['ANO_EJE']) === AÑO)
+      .filter(c => str(c['ANO_EJE']) === activeAño)
       .map(c => {
         const codigo = str(c['CODIGO'] ?? c['CLASIFIC'] ?? '');
         return {
