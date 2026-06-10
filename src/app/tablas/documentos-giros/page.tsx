@@ -21,6 +21,8 @@ import * as XLSX from 'xlsx';
 
 interface GiroDoc {
   id: number;
+  ano_eje: string;
+  sec_ejec: string;
   cod_doc: string;
   num_doc: string;
   nombre: string;
@@ -333,10 +335,12 @@ export default function DocumentosGirosPage() {
 
         {/* Data Grid Table */}
         <div className="w-full overflow-x-auto bg-[#080f1d] min-h-[400px]">
-          <table className="min-w-[800px] w-full text-left border-collapse table-fixed">
+          <table className="min-w-[1000px] w-full text-left border-collapse table-fixed">
             <thead className="sticky top-0 bg-[#0c182e] border-b border-slate-700 text-slate-400 text-[10px] uppercase font-black tracking-wider z-20 select-none">
               <tr>
-                <th className="py-2.5 px-4 w-[120px] text-center">Código Doc.</th>
+                <th className="py-2.5 px-4 w-[80px] text-center">Período</th>
+                <th className="py-2.5 px-4 w-[100px] text-center">Ejecutora</th>
+                <th className="py-2.5 px-4 w-[100px] text-center">Código Doc.</th>
                 <th className="py-2.5 px-4 w-[200px] text-center">Número Doc.</th>
                 <th className="py-2.5 px-4">Nombre de Documento / Chequera</th>
               </tr>
@@ -345,12 +349,12 @@ export default function DocumentosGirosPage() {
               {loading ? (
                 Array.from({ length: 8 }).map((_, idx) => (
                   <tr key={idx} className="animate-pulse">
-                    <td colSpan={3} className="py-3 px-4"><div className="h-4 bg-slate-800 rounded w-full" /></td>
+                    <td colSpan={5} className="py-3 px-4"><div className="h-4 bg-slate-800 rounded w-full" /></td>
                   </tr>
                 ))
               ) : docs.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="py-24 text-center text-slate-500 font-bold">
+                  <td colSpan={5} className="py-24 text-center text-slate-500 font-bold">
                     <div className="flex flex-col items-center justify-center gap-2">
                       <AlertTriangle className="h-8 w-8 text-slate-600" />
                       <span>No se encontraron documentos de giros. Use el botón superior para agregar uno nuevo o importar CSV.</span>
@@ -367,6 +371,8 @@ export default function DocumentosGirosPage() {
                       selectedId === d.id && "bg-[#112240] border-l-2 border-emerald-500"
                     )}
                   >
+                    <td className="py-2.5 px-4 text-center font-mono text-[11px] text-slate-400">{d.ano_eje}</td>
+                    <td className="py-2.5 px-4 text-center font-mono text-[11px] text-slate-400">{d.sec_ejec}</td>
                     <td className="py-2.5 px-4 text-center font-mono text-[11px] font-bold text-white">{d.cod_doc}</td>
                     <td className="py-2.5 px-4 text-center font-mono text-[11px] text-emerald-400 font-bold">{d.num_doc}</td>
                     <td className="py-2.5 px-4 font-mono text-[11px] truncate" title={d.nombre}>{d.nombre}</td>

@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const pageSize = parseInt(searchParams.get('pageSize') || '50');
 
     let query = `
-      SELECT id, COD_DOC, NUM_DOC, NOMBRE 
+      SELECT id, ANO_EJE, SEC_EJEC, COD_DOC, NUM_DOC, NOMBRE 
       FROM [documentos_giros] 
       WHERE ANO_EJE = @ano AND SEC_EJEC = @sec
     `;
@@ -38,6 +38,8 @@ export async function GET(request: Request) {
     const startIndex = (page - 1) * pageSize;
     const paginatedRows = allRows.slice(startIndex, startIndex + pageSize).map(r => ({
       id: Number(r.id),
+      ano_eje: str(r.ANO_EJE),
+      sec_ejec: str(r.SEC_EJEC),
       cod_doc: str(r.COD_DOC),
       num_doc: str(r.NUM_DOC),
       nombre: str(r.NOMBRE)
