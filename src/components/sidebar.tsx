@@ -100,13 +100,13 @@ const navigation: { section?: string; items: NavItem[] }[] = [
             label: 'Expedientes Administrativos',
             icon: FolderOpen,
             children: [
-              { label: 'Expedientes de Gastos',   icon: TrendingDown, href: '/gastos' },
+              { label: 'Expedientes de Gastos',   icon: TrendingDown, href: '/expedientes/gastos' },
               { label: 'Expedientes de Ingresos', icon: TrendingUp,   href: '/expedientes/ingresos' },
             ],
           },
           { label: 'Act. Nombre / Proveedor', icon: PenLine,   href: '/presupuesto/actualizar' },
           { label: 'Proveedores',            icon: Users,       href: '/proveedores' },
-          { label: 'Documentos de Giros',    icon: Banknote,    href: '/giros' },
+          { label: 'Documentos de Giros',    icon: Banknote,    href: '/tablas/documentos-giros' },
         ],
       },
       {
