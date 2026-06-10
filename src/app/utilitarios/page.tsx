@@ -7,6 +7,7 @@ import {
   Users, 
   KeyRound, 
   Calendar, 
+  HardDrive,
   Search, 
   Save, 
   UserPlus, 
@@ -35,7 +36,7 @@ export default function UtilitariosUnifiedPage() {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
-      if (tab === 'usuarios' || tab === 'clave') {
+      if (tab === 'usuarios' || tab === 'clave' || tab === 'siaf') {
         setActiveTab(tab);
       } else {
         setActiveTab('general');
@@ -80,28 +81,38 @@ export default function UtilitariosUnifiedPage() {
       });
   }, []);
 
-  const handleSaveGeneral = async () => {
+  const handleSavePeriodo = async () => {
     setGeneralError('');
     setGeneralSuccess('');
     setGeneralLoading(true);
-
     try {
-      // 1. Save Period (cookie)
+      // Save Period (cookie)
       document.cookie = `siconis_year=${selectedYear}; path=/; max-age=${365 * 24 * 60 * 60}; SameSite=Lax`;
+      setGeneralSuccess('Periodo de ejecución guardado correctamente. Recargando...');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch {
+      setGeneralError('Error al guardar el periodo');
+    } finally {
+      setGeneralLoading(false);
+    }
+  };
 
-      // 2. Save Ruta SIAF (API)
+  const handleSaveRutaSiaf = async () => {
+    setGeneralError('');
+    setGeneralSuccess('');
+    setGeneralLoading(true);
+    try {
+      // Save Ruta SIAF (API)
       const res = await fetch('/api/utilitarios/ruta-siaf', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ruta: rutaSiaf })
       });
       const data = await res.json();
-      
       if (data.success) {
-        setGeneralSuccess('Configuración general guardada correctamente. Recargando periodo...');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        setGeneralSuccess('Ruta DATA SIAF guardada correctamente.');
       } else {
         setGeneralError(data.message || 'Error al guardar la ruta del SIAF');
       }
@@ -372,8 +383,8 @@ export default function UtilitariosUnifiedPage() {
               : "border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/10"
           )}
         >
-          <Settings className="h-4 w-4" />
-          CONFIGURACIÓN GENERAL
+          <Calendar className="h-4 w-4" />
+          SELECCIONAR PERIODO
         </button>
         <button
           onClick={() => changeTab('usuarios')}
@@ -399,19 +410,31 @@ export default function UtilitariosUnifiedPage() {
           <KeyRound className="h-4 w-4" />
           ACTUALIZAR CLAVE
         </button>
+        <button
+          onClick={() => changeTab('siaf')}
+          className={cn(
+            "px-4 py-2.5 text-xs font-black tracking-wide flex items-center gap-2 border-b-2 transition-all rounded-t-lg",
+            activeTab === 'siaf'
+              ? "border-[#ef4444] text-white bg-slate-900/40"
+              : "border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/10"
+          )}
+        >
+          <HardDrive className="h-4 w-4" />
+          RUTA DATA SIAF
+        </button>
       </div>
 
       {/* Tab Contents */}
       <div className="w-full bg-[#070e1b] border border-slate-700 rounded-xl shadow-2xl p-6 overflow-hidden min-h-[420px]">
         
         {/* ======================================= */}
-        {/* TAB: CONFIGURACIÓN GENERAL */}
+        {/* TAB: SELECCIONAR PERIODO */}
         {/* ======================================= */}
         {activeTab === 'general' && (
           <div className="max-w-2xl mx-auto space-y-6 animate-in fade-in duration-300">
             <h2 className="text-sm font-black text-slate-200 uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2 select-none">
-              <Settings className="h-4 w-4 text-[#ef4444]" />
-              Parámetros Generales de Ejecución
+              <Calendar className="h-4 w-4 text-[#ef4444]" />
+              Seleccionar Periodo de Trabajo
             </h2>
 
             {generalError && (
@@ -456,6 +479,47 @@ export default function UtilitariosUnifiedPage() {
                 </div>
               </div>
 
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={handleSavePeriodo}
+                disabled={generalLoading}
+                className="px-6 py-2 bg-[#ef4444] hover:bg-[#d32f2f] disabled:opacity-40 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shadow-red-950/20"
+              >
+                <Save className="h-4 w-4" />
+                {generalLoading ? 'Guardando...' : 'Grabar Periodo'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ======================================= */}
+        {/* TAB: RUTA DATA SIAF */}
+        {/* ======================================= */}
+        {activeTab === 'siaf' && (
+          <div className="max-w-2xl mx-auto space-y-6 animate-in fade-in duration-300">
+            <h2 className="text-sm font-black text-slate-200 uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2 select-none">
+              <HardDrive className="h-4 w-4 text-[#ef4444]" />
+              Configurar Ruta de Datos SIAF
+            </h2>
+
+            {generalError && (
+              <div className="p-3 rounded bg-red-950/45 border border-red-900/60 text-xs font-mono text-red-400 flex items-center gap-2">
+                <ShieldAlert className="h-4 w-4 shrink-0" />
+                <span>{generalError}</span>
+              </div>
+            )}
+
+            {generalSuccess && (
+              <div className="p-3 rounded bg-green-950/45 border border-green-900/60 text-xs font-mono text-green-400 flex items-center gap-2">
+                <Check className="h-4 w-4 shrink-0" />
+                <span>{generalSuccess}</span>
+              </div>
+            )}
+
+            <div className="space-y-5 bg-[#0a1426] p-5 rounded-lg border border-slate-850">
+              
               {/* Ruta DATA SIAF */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ruta DATA SIAF</label>
@@ -481,12 +545,12 @@ export default function UtilitariosUnifiedPage() {
 
             <div className="flex justify-end pt-2">
               <button
-                onClick={handleSaveGeneral}
+                onClick={handleSaveRutaSiaf}
                 disabled={generalLoading}
                 className="px-6 py-2 bg-[#ef4444] hover:bg-[#d32f2f] disabled:opacity-40 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shadow-red-950/20"
               >
                 <Save className="h-4 w-4" />
-                {generalLoading ? 'Guardando...' : 'Grabar Configuración'}
+                {generalLoading ? 'Guardando...' : 'Grabar Ruta DATA'}
               </button>
             </div>
           </div>

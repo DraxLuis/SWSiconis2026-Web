@@ -26,7 +26,6 @@ import {
   Landmark,
   FileSpreadsheet,
   Settings,
-  KeyRound,
   HardDrive,
   HelpCircle,
   Info,
@@ -35,11 +34,9 @@ import {
   ChevronDown,
   ChevronRight,
   ChevronLeft,
-  UserCog,
   Banknote,
   ListChecks,
   PenLine,
-  CalendarDays,
   Table2,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -191,14 +188,14 @@ const navigation: { section?: string; items: NavItem[] }[] = [
         ],
       },
       {
-        label: 'Utilitarios',
+        label: 'Configuración',
         icon: Settings,
-        children: [
-          { label: 'Seleccionar Periodo',   icon: CalendarDays, href: '/utilitarios?tab=general' },
-          { label: 'Usuarios',              icon: UserCog,      href: '/utilitarios?tab=usuarios' },
-          { label: 'Actualizar Clave',      icon: KeyRound,     href: '/utilitarios?tab=clave' },
-          { label: 'Ruta DATA SIAF',        icon: HardDrive,    href: '/utilitarios?tab=general' },
-        ],
+        href: '/utilitarios',
+      },
+      {
+        label: 'Ruta DATA SIAF',
+        icon: HardDrive,
+        href: '/utilitarios?tab=siaf',
       },
       {
         label: 'Ayuda',
@@ -233,6 +230,17 @@ function NavNode({
     if (!href) return false;
     const [pathPart, queryPart] = href.split('?');
     if (pathname !== pathPart) return false;
+    
+    const currentTab = searchParams.get('tab');
+    
+    if (href.includes('tab=siaf')) {
+      return currentTab === 'siaf';
+    }
+    
+    if (pathPart === '/utilitarios') {
+      return currentTab !== 'siaf';
+    }
+    
     if (queryPart) {
       const itemParams = new URLSearchParams(queryPart);
       let match = true;
