@@ -7,7 +7,6 @@ import {
   Users, 
   KeyRound, 
   Calendar, 
-  HardDrive,
   Search, 
   Save, 
   UserPlus, 
@@ -36,7 +35,7 @@ export default function UtilitariosUnifiedPage() {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
-      if (tab === 'usuarios' || tab === 'clave' || tab === 'siaf') {
+      if (tab === 'usuarios' || tab === 'clave') {
         setActiveTab(tab);
       } else {
         setActiveTab('general');
@@ -54,7 +53,6 @@ export default function UtilitariosUnifiedPage() {
   // TAB 1: CONFIGURACIÓN GENERAL (PERIODO & SIAF)
   // ==========================================
   const [selectedYear, setSelectedYear] = useState('2026');
-  const [rutaSiaf, setRutaSiaf] = useState('C:\\SIAF\\DATA');
   const [entidad, setEntidad] = useState('301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA');
   const [generalError, setGeneralError] = useState('');
   const [generalSuccess, setGeneralSuccess] = useState('');
@@ -67,12 +65,11 @@ export default function UtilitariosUnifiedPage() {
       setSelectedYear(matchYear[1]);
     }
 
-    // Fetch current SIAF config
+    // Fetch current config (active entity)
     fetch('/api/utilitarios/ruta-siaf')
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          setRutaSiaf(data.ruta);
           setEntidad(data.entidad);
         }
       })
@@ -99,29 +96,7 @@ export default function UtilitariosUnifiedPage() {
     }
   };
 
-  const handleSaveRutaSiaf = async () => {
-    setGeneralError('');
-    setGeneralSuccess('');
-    setGeneralLoading(true);
-    try {
-      // Save Ruta SIAF (API)
-      const res = await fetch('/api/utilitarios/ruta-siaf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ruta: rutaSiaf })
-      });
-      const data = await res.json();
-      if (data.success) {
-        setGeneralSuccess('Ruta DATA SIAF guardada correctamente.');
-      } else {
-        setGeneralError(data.message || 'Error al guardar la ruta del SIAF');
-      }
-    } catch {
-      setGeneralError('Error de red al guardar la configuración');
-    } finally {
-      setGeneralLoading(false);
-    }
-  };
+
 
   // ==========================================
   // TAB 2: GESTIÓN DE USUARIOS
@@ -410,18 +385,6 @@ export default function UtilitariosUnifiedPage() {
           <KeyRound className="h-4 w-4" />
           ACTUALIZAR CLAVE
         </button>
-        <button
-          onClick={() => changeTab('siaf')}
-          className={cn(
-            "px-4 py-2.5 text-xs font-black tracking-wide flex items-center gap-2 border-b-2 transition-all rounded-t-lg",
-            activeTab === 'siaf'
-              ? "border-[#ef4444] text-white bg-slate-900/40"
-              : "border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/10"
-          )}
-        >
-          <HardDrive className="h-4 w-4" />
-          RUTA DATA SIAF
-        </button>
       </div>
 
       {/* Tab Contents */}
@@ -494,67 +457,7 @@ export default function UtilitariosUnifiedPage() {
           </div>
         )}
 
-        {/* ======================================= */}
-        {/* TAB: RUTA DATA SIAF */}
-        {/* ======================================= */}
-        {activeTab === 'siaf' && (
-          <div className="max-w-2xl mx-auto space-y-6 animate-in fade-in duration-300">
-            <h2 className="text-sm font-black text-slate-200 uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2 select-none">
-              <HardDrive className="h-4 w-4 text-[#ef4444]" />
-              Configurar Ruta de Datos SIAF
-            </h2>
 
-            {generalError && (
-              <div className="p-3 rounded bg-red-950/45 border border-red-900/60 text-xs font-mono text-red-400 flex items-center gap-2">
-                <ShieldAlert className="h-4 w-4 shrink-0" />
-                <span>{generalError}</span>
-              </div>
-            )}
-
-            {generalSuccess && (
-              <div className="p-3 rounded bg-green-950/45 border border-green-900/60 text-xs font-mono text-green-400 flex items-center gap-2">
-                <Check className="h-4 w-4 shrink-0" />
-                <span>{generalSuccess}</span>
-              </div>
-            )}
-
-            <div className="space-y-5 bg-[#0a1426] p-5 rounded-lg border border-slate-850">
-              
-              {/* Ruta DATA SIAF */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ruta DATA SIAF</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={rutaSiaf}
-                    onChange={(e) => setRutaSiaf(e.target.value)}
-                    className="flex-1 bg-[#070e1b] border border-slate-700 text-slate-200 font-mono text-xs px-4 py-2 rounded focus:outline-none focus:border-red-500"
-                    placeholder="C:\SIAF\DATA"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => alert('Para configurar la ruta de red, ingrese la dirección UNC del servidor o unidad mapeada.')}
-                    className="px-4 bg-[#0d1e3d] hover:bg-slate-800 border border-slate-700 text-slate-350 rounded font-black transition-colors font-mono text-xs"
-                  >
-                    ...
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={handleSaveRutaSiaf}
-                disabled={generalLoading}
-                className="px-6 py-2 bg-[#ef4444] hover:bg-[#d32f2f] disabled:opacity-40 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shadow-red-950/20"
-              >
-                <Save className="h-4 w-4" />
-                {generalLoading ? 'Guardando...' : 'Grabar Ruta DATA'}
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* ======================================= */}
         {/* TAB: GESTIÓN DE USUARIOS */}

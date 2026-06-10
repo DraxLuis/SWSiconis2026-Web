@@ -1,20 +1,9 @@
-import path from 'path';
-import fs from 'fs';
 import { cookies } from 'next/headers';
 
 // ============================================================
-// DATA LAYER — reads JSON files exported from DBF
-// Falls back gracefully if SQL Server is not configured
+// DATA LAYER — reads from SQL Server database
+// Cache preloaded on request level to optimize SQL Server query load
 // ============================================================
-
-const DATA_DIR = path.join(process.cwd(), 'datos_exportados');
-
-interface DBFJson {
-  table: string;
-  fields: { name: string; type: string }[];
-  count: number;
-  data: Record<string, unknown>[];
-}
 
 /** Cache to avoid re-reading files on every request */
 const cache: Map<string, Record<string, unknown>[]> = new Map();
@@ -70,33 +59,12 @@ export async function preloadTables(tableNames: string[], forceRefresh = false) 
   }
 }
 
-/** Load a table from the exported JSON file */
+/** Load a table from the cache (which is populated from SQL Server) */
 export function loadTable(tableName: string): Record<string, unknown>[] {
   const key = tableName.toLowerCase();
   if (cache.has(key)) return cache.get(key)!;
 
-  // Try multiple filename variants
-  const variants = [
-    `${key}.json`,
-    `${key.toUpperCase()}.json`,
-  ];
-
-  for (const variant of variants) {
-    const filePath = path.join(DATA_DIR, variant);
-    if (fs.existsSync(filePath)) {
-      try {
-        const raw = fs.readFileSync(filePath, 'utf-8');
-        const parsed: DBFJson | Record<string, unknown>[] = JSON.parse(raw);
-        const rows = Array.isArray(parsed)
-          ? parsed
-          : (parsed as DBFJson).data ?? [];
-        cache.set(key, rows);
-        return rows;
-      } catch {
-        return [];
-      }
-    }
-  }
+  console.error(`[DATABASE ERROR] Table "${tableName}" is missing from SQL Server cache. JSON fallback is disabled.`);
   return [];
 }
 
@@ -153,48 +121,7 @@ let tablesEnsured = false;
 export async function ensureUtilitariosTables() {
   if (tablesEnsured) return;
   if (!process.env.DB_SERVER) {
-    const usersPath = path.join(process.cwd(), 'datos_exportados', 'usuarios.json');
-    const configPath = path.join(process.cwd(), 'datos_exportados', 'configuracion.json');
-
-    if (!fs.existsSync(usersPath)) {
-      const defaultUsers = [
-        {
-          ID: 1,
-          EQUIPO: 'ADMINISTRADOR',
-          USUARIO: 'ADMINISTRADOR',
-          DESCRIPCION: 'ADMINISTRADOR',
-          CLAVE: 'libera16+',
-          ATRIBUTO: 'Control Total',
-          SUSPENDIDO: 0
-        }
-      ];
-      fs.writeFileSync(usersPath, JSON.stringify(defaultUsers, null, 2), 'utf8');
-    } else {
-      try {
-        const raw = fs.readFileSync(usersPath, 'utf8');
-        const parsed: RawUser[] = JSON.parse(raw);
-        let changed = false;
-        parsed.forEach((u: RawUser) => {
-          if ((u.USUARIO || u.usuario || '').toUpperCase() === 'ADMINISTRADOR' && !(u.CLAVE || u.clave)) {
-            if (u.CLAVE !== undefined) u.CLAVE = 'libera16+';
-            else u.clave = 'libera16+';
-            changed = true;
-          }
-        });
-        if (changed) {
-          fs.writeFileSync(usersPath, JSON.stringify(parsed, null, 2), 'utf8');
-        }
-      } catch {}
-    }
-
-    if (!fs.existsSync(configPath)) {
-      const defaultConfig = [
-        { KEY: 'ruta_siaf', VALUE: 'C:\\SIAF\\DATA' },
-        { KEY: 'nombre_entidad', VALUE: '301548 MUNICIPALIDAD PROVINCIAL DE HUANCABAMBA' }
-      ];
-      fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2), 'utf8');
-    }
-    tablesEnsured = true;
+    console.error('SQL Server configuration (DB_SERVER) is missing in environment variables.');
     return;
   }
 
@@ -264,29 +191,6 @@ export interface UsuarioDB {
   suspendido: number;
 }
 
-interface RawUser {
-  ID?: number;
-  id?: number;
-  EQUIPO?: string;
-  equipo?: string;
-  USUARIO?: string;
-  usuario?: string;
-  DESCRIPCION?: string;
-  descripcion?: string;
-  CLAVE?: string;
-  clave?: string;
-  ATRIBUTO?: string;
-  atributo?: string;
-  SUSPENDIDO?: number | boolean;
-  suspendido?: number | boolean;
-}
-
-interface RawConfig {
-  KEY?: string;
-  key?: string;
-  VALUE?: string;
-  value?: string;
-}
 
 export async function getUsuarios(): Promise<UsuarioDB[]> {
   await ensureUtilitariosTables();
@@ -304,22 +208,7 @@ export async function getUsuarios(): Promise<UsuarioDB[]> {
       }));
     }
   }
-  const usersPath = path.join(process.cwd(), 'datos_exportados', 'usuarios.json');
-  try {
-    const raw = fs.readFileSync(usersPath, 'utf8');
-    const parsed: RawUser[] = JSON.parse(raw);
-    return parsed.map((r: RawUser) => ({
-      id: Number(r.ID ?? r.id ?? 0),
-      equipo: String(r.EQUIPO ?? r.equipo ?? 'PC-CLIENTE'),
-      usuario: String(r.USUARIO ?? r.usuario ?? ''),
-      descripcion: String(r.DESCRIPCION ?? r.descripcion ?? ''),
-      clave: String(r.CLAVE ?? r.clave ?? ''),
-      atributo: String(r.ATRIBUTO ?? r.atributo ?? 'Control Total'),
-      suspendido: (r.SUSPENDIDO ?? r.suspendido) ? 1 : 0
-    }));
-  } catch {
-    return [];
-  }
+  return [];
 }
 
 export async function saveUsuario(user: { id?: number; equipo: string; usuario: string; descripcion: string; clave?: string; atributo: string; suspendido: number | boolean }) {
@@ -368,38 +257,7 @@ export async function saveUsuario(user: { id?: number; equipo: string; usuario: 
     }
     return true;
   }
-  
-  const usersPath = path.join(process.cwd(), 'datos_exportados', 'usuarios.json');
-  const list = await getUsuarios();
-  const idx = list.findIndex((u: UsuarioDB) => u.usuario.toUpperCase() === user.usuario.toUpperCase());
-  
-  const normalizedUser = {
-    ID: idx >= 0 ? list[idx].id : (list.length > 0 ? Math.max(...list.map((u: UsuarioDB) => u.id || 0)) + 1 : 1),
-    EQUIPO: user.equipo,
-    USUARIO: user.usuario,
-    DESCRIPCION: user.descripcion,
-    CLAVE: user.clave !== undefined ? user.clave : (idx >= 0 ? list[idx].clave : ''),
-    ATRIBUTO: user.atributo || 'Control Total',
-    SUSPENDIDO: user.suspendido ? 1 : 0
-  };
-
-  const listToSave = list.map((u: UsuarioDB) => ({
-    ID: u.id,
-    EQUIPO: u.equipo,
-    USUARIO: u.usuario,
-    DESCRIPCION: u.descripcion,
-    CLAVE: u.clave,
-    ATRIBUTO: u.atributo,
-    SUSPENDIDO: u.suspendido
-  }));
-
-  if (idx >= 0) {
-    listToSave[idx] = normalizedUser;
-  } else {
-    listToSave.push(normalizedUser);
-  }
-  fs.writeFileSync(usersPath, JSON.stringify(listToSave, null, 2), 'utf8');
-  return true;
+  return false;
 }
 
 export async function deleteUsuario(usuario: string) {
@@ -408,21 +266,7 @@ export async function deleteUsuario(usuario: string) {
     await trySQL('DELETE FROM usuarios WHERE usuario = @usuario', { usuario });
     return true;
   }
-
-  const usersPath = path.join(process.cwd(), 'datos_exportados', 'usuarios.json');
-  const list = await getUsuarios();
-  const filtered = list.filter((u: UsuarioDB) => u.usuario.toUpperCase() !== usuario.toUpperCase());
-  const listToSave = filtered.map((u: UsuarioDB) => ({
-    ID: u.id,
-    EQUIPO: u.equipo,
-    USUARIO: u.usuario,
-    DESCRIPCION: u.descripcion,
-    CLAVE: u.clave,
-    ATRIBUTO: u.atributo,
-    SUSPENDIDO: u.suspendido
-  }));
-  fs.writeFileSync(usersPath, JSON.stringify(listToSave, null, 2), 'utf8');
-  return true;
+  return false;
 }
 
 export async function getConfig(key: string): Promise<string> {
@@ -433,16 +277,7 @@ export async function getConfig(key: string): Promise<string> {
       return String(res[0].value);
     }
   }
-
-  const configPath = path.join(process.cwd(), 'datos_exportados', 'configuracion.json');
-  try {
-    const raw = fs.readFileSync(configPath, 'utf8');
-    const list: RawConfig[] = JSON.parse(raw);
-    const item = list.find((c: RawConfig) => (c.KEY || c.key) === key);
-    return item ? (item.VALUE ?? item.value ?? '') : '';
-  } catch {
-    return '';
-  }
+  return '';
 }
 
 export async function saveConfig(key: string, value: string) {
@@ -456,25 +291,7 @@ export async function saveConfig(key: string, value: string) {
     }
     return true;
   }
-
-  const configPath = path.join(process.cwd(), 'datos_exportados', 'configuracion.json');
-  try {
-    const raw = fs.readFileSync(configPath, 'utf8');
-    const list: RawConfig[] = JSON.parse(raw);
-    const item = list.find((c: RawConfig) => (c.KEY || c.key) === key);
-    if (item) {
-      if (item.KEY !== undefined) item.VALUE = value;
-      else item.value = value;
-    } else {
-      list.push({ KEY: key, VALUE: value });
-    }
-    fs.writeFileSync(configPath, JSON.stringify(list, null, 2), 'utf8');
-    return true;
-  } catch {
-    const list = [{ KEY: key, VALUE: value }];
-    fs.writeFileSync(configPath, JSON.stringify(list, null, 2), 'utf8');
-    return true;
-  }
+  return false;
 }
 
 /** Format number as currency */
