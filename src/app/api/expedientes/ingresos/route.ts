@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     const pageSize = parseInt(searchParams.get('pageSize') || '50');
 
     // Advanced filters from FoxPro toolbar
-    const fase = searchParams.get('fase') || 'I'; // default 'I' for incomes
+    const fase = searchParams.get('fase') || 'R'; // default 'R' for incomes (Recaudado)
     const fteFinanc = searchParams.get('fte_financ') || '';
     const tipOp = searchParams.get('tip_op') || '';
     const metaFilter = searchParams.get('meta') || '';

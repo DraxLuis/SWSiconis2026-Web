@@ -83,7 +83,7 @@ export default function ExpedientesIngresosPage() {
   const [total, setTotal] = useState(0);
 
   // Filters from FoxPro Screen
-  const [fase, setFase] = useState('I'); // I = Ingreso default
+  const [fase, setFase] = useState('R'); // R = Recaudado default
   const [mesDesde, setMesDesde] = useState('01');
   const [mesHasta, setMesHasta] = useState('06');
   const [searchClasificador, setSearchClasificador] = useState('');
@@ -291,7 +291,6 @@ export default function ExpedientesIngresosPage() {
                   onChange={e => setFase(e.target.value)}
                   className="bg-[#070e1b] border border-slate-700 rounded px-3 py-1 text-blue-400 font-mono text-[11px] focus:outline-none focus:border-blue-500 font-bold"
                 >
-                  <option value="I">I - INGRESO</option>
                   <option value="R">R - RECAUDADO</option>
                 </select>
               </div>
