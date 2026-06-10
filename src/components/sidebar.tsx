@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -26,7 +26,6 @@ import {
   Landmark,
   FileSpreadsheet,
   Settings,
-  HardDrive,
   HelpCircle,
   Info,
   BookOpen,
@@ -193,11 +192,6 @@ const navigation: { section?: string; items: NavItem[] }[] = [
         href: '/utilitarios',
       },
       {
-        label: 'Ruta DATA SIAF',
-        icon: HardDrive,
-        href: '/utilitarios?tab=siaf',
-      },
-      {
         label: 'Ayuda',
         icon: HelpCircle,
         children: [
@@ -223,40 +217,13 @@ function NavNode({
   collapsed: boolean;
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const isLeaf = !item.children?.length;
 
-  const checkActive = (href: string | undefined) => {
-    if (!href) return false;
-    const [pathPart, queryPart] = href.split('?');
-    if (pathname !== pathPart) return false;
-    
-    const currentTab = searchParams.get('tab');
-    
-    if (href.includes('tab=siaf')) {
-      return currentTab === 'siaf';
-    }
-    
-    if (pathPart === '/utilitarios') {
-      return currentTab !== 'siaf';
-    }
-    
-    if (queryPart) {
-      const itemParams = new URLSearchParams(queryPart);
-      let match = true;
-      itemParams.forEach((val, key) => {
-        if (searchParams.get(key) !== val) {
-          match = false;
-        }
-      });
-      if (!match) return false;
-    }
-    return true;
-  };
-
-  const isActive = checkActive(item.href);
+  const isActive = !!item.href && pathname === item.href;
   const hasActiveChild = !!item.children?.some(
-    (c) => checkActive(c.href) || c.children?.some((cc) => checkActive(cc.href))
+    (c) =>
+      (c.href && (pathname === c.href || pathname.startsWith(c.href + '/'))) ||
+      c.children?.some((cc) => cc.href && pathname === cc.href)
   );
   const [open, setOpen] = useState(hasActiveChild);
 
