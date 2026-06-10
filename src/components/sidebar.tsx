@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -194,10 +194,10 @@ const navigation: { section?: string; items: NavItem[] }[] = [
         label: 'Utilitarios',
         icon: Settings,
         children: [
-          { label: 'Seleccionar Periodo',   icon: CalendarDays, href: '/utilitarios/periodo' },
-          { label: 'Usuarios',              icon: UserCog,      href: '/utilitarios/usuarios' },
-          { label: 'Actualizar Clave',      icon: KeyRound,     href: '/utilitarios/clave' },
-          { label: 'Ruta DATA SIAF',        icon: HardDrive,    href: '/utilitarios/ruta-siaf' },
+          { label: 'Seleccionar Periodo',   icon: CalendarDays, href: '/utilitarios?tab=general' },
+          { label: 'Usuarios',              icon: UserCog,      href: '/utilitarios?tab=usuarios' },
+          { label: 'Actualizar Clave',      icon: KeyRound,     href: '/utilitarios?tab=clave' },
+          { label: 'Ruta DATA SIAF',        icon: HardDrive,    href: '/utilitarios?tab=general' },
         ],
       },
       {
@@ -226,12 +226,29 @@ function NavNode({
   collapsed: boolean;
 }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isLeaf = !item.children?.length;
-  const isActive = !!item.href && pathname === item.href;
+
+  const checkActive = (href: string | undefined) => {
+    if (!href) return false;
+    const [pathPart, queryPart] = href.split('?');
+    if (pathname !== pathPart) return false;
+    if (queryPart) {
+      const itemParams = new URLSearchParams(queryPart);
+      let match = true;
+      itemParams.forEach((val, key) => {
+        if (searchParams.get(key) !== val) {
+          match = false;
+        }
+      });
+      if (!match) return false;
+    }
+    return true;
+  };
+
+  const isActive = checkActive(item.href);
   const hasActiveChild = !!item.children?.some(
-    (c) =>
-      (c.href && (pathname === c.href || pathname.startsWith(c.href + '/'))) ||
-      c.children?.some((cc) => cc.href && pathname === cc.href)
+    (c) => checkActive(c.href) || c.children?.some((cc) => checkActive(cc.href))
   );
   const [open, setOpen] = useState(hasActiveChild);
 

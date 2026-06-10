@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Sidebar } from '@/components/sidebar';
@@ -25,10 +25,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Topbar />
 
       {/* Sidebar — fixed left, below topbar */}
-      <Sidebar
-        collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed((v) => !v)}
-      />
+      <Suspense fallback={null}>
+        <Sidebar
+          collapsed={sidebarCollapsed}
+          onToggle={() => setSidebarCollapsed((v) => !v)}
+        />
+      </Suspense>
 
       {/* Main content area */}
       <div
